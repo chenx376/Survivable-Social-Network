@@ -11,7 +11,7 @@ Techonology Selection:
 ### - *HTML5, Javascript*
 ### - *Angular.js*:
 
-- ![angular](doc/695px-AngularJS_logo.svg.png | width=100)
+- ![angular](https://octodex.github.com/images/yaktocat.png)
 - AngularJS is a JavaScript framework. AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions. For more info, click [Angular.js](https://en.wikipedia.org/wiki/AngularJS)
 - In our team, we have two people that are familiar with Angular.js. So, we believe that Angular.js is a good choice for our team work.
 
