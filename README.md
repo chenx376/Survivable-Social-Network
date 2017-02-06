@@ -10,7 +10,7 @@ Techonology Selection:
 ----
 ### - *HTML5, Javascript*
 ### - *Angular.js*:
-- ![angrular](https://en.wikipedia.org/wiki/AngularJS#/media/File:AngularJS_logo.svg | width=120)
+- ![angrular](https://en.wikipedia.org/wiki/AngularJS#/media/File:AngularJS_logo.svg)
 - AngularJS is a JavaScript framework. AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions. For more info, click [Angular.js](https://en.wikipedia.org/wiki/AngularJS)
 - In our team, we have two people that are familiar with Angular.js. So, we believe that Angular.js is a good choice for our team work.
 
@@ -23,7 +23,7 @@ Techonology Selection:
 ----
 ### - Node.js
 ### - *Express.js*
-- ![bootstrap](https://en.wikipedia.org/wiki/Express.js#/media/File:Expressjs.png | width=120)
+- ![bootstrap](https://en.wikipedia.org/wiki/Express.js#/media/File:Expressjs.png)
 - Express.js, or simply Express, is a web application framework for Node.js, released as free and open-source software under the MIT License. It is designed for building web applications and APIs. It is the de facto standard server framework for Node.js. For more info, click [Expree.js](https://en.wikipedia.org/wiki/Express.js)
 - Express.js can make our web application development fast and easy. And, from the FSE chat-room, we realiaze that Express.js provide lots of modules that can be used by us to achieve our goal. 
 
@@ -32,7 +32,7 @@ Techonology Selection:
 - Socket.IO simplifies our work to build communication with clients and servers. So, we can save lots of time to finish more functions and beautify our Font-tier.
 
 ### - *MongoDB for databae*
-- ![bootstrap](https://en.wikipedia.org/wiki/MongoDB#/media/File:MongoDB-Logo.svg | width=120)
+- ![bootstrap](https://en.wikipedia.org/wiki/MongoDB#/media/File:MongoDB-Logo.svg)
 - MongoDB (from humongous) is a free and open-source cross-platform document-oriented database program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemas. For more info, click [MongoDB](https://en.wikipedia.org/wiki/MongoDB)
 - At first, we want to choose MySQL, however, we think it is a good opportunity to learn MongoDB. Besides, it can support JavaScript better. So, Why not?
 
