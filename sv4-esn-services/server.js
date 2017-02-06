@@ -3,11 +3,14 @@
  */
 var app = require('express')();
 var config = require('./config');
-var mongo = require('./controllers/connection-controller.js')
+var ConnectionController = require('./controllers/connection-controller.js')
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
 var bodyParser = require('body-parser')
+
+ var conn = new ConnectionController();
 
 /**
  * Start REST API Endpoints
@@ -15,6 +18,9 @@ var bodyParser = require('body-parser')
  */
 var users = require('./routes/usersRoutes.js')
 app.use('/users', users)
+
+var post = require('./routes/postRoutes.js')
+app.use('/post',post)
 
 /**
  * End of REST API Endpoints
