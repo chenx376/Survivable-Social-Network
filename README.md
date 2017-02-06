@@ -10,13 +10,13 @@ Techonology Selection:
 ----
 ### - *HTML5, Javascript*
 ### - *Angular.js*:
-- ![angrular](https://en.wikipedia.org/wiki/AngularJS#/media/File:AngularJS_logo.svg | width=120)
 
+- ![angular](doc/695px-AngularJS_logo.svg.png | width=100)
 - AngularJS is a JavaScript framework. AngularJS extends HTML attributes with Directives, and binds data to HTML with Expressions. For more info, click [Angular.js](https://en.wikipedia.org/wiki/AngularJS)
 - In our team, we have two people that are familiar with Angular.js. So, we believe that Angular.js is a good choice for our team work.
 
 ### -  *Bootstrap*:
-- ![bootstrap](https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework)#/media/File:Boostrap_logo.svg | width=80)
+- ![bootstrap](doc/1024px-Boostrap_logo.svg.png | width=100)
 - Bootstrap is a free and open-source front-end web framework for designing websites and web applications. It contains HTML- and CSS-based design templates for typography, forms, buttons, navigation and other interface components, as well as optional JavaScript extensions. Unlike many web frameworks, it concerns itself with front-end development only. For more info, click [Bootstrap](https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework))
 - With Bootstrap, we can easiler design a beautiful and terse UI without wasting too much time and energy. There are already lots of themes available online.
 
