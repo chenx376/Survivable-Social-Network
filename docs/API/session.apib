@@ -1,0 +1,78 @@
+#Group Session
+
+## Session Login [POST /session/login]
+
++ Parameters
+	+ id (string) ... ID of the user
+	+ username (string) ... username
+	+ password (string) ... password
+
++ Request (application/json)
+	+ Attributes
+		+ id: id (string) - special id
+		+ username: username (string) - each user's id
+		+ password: password (string) - user's password
+
++ Response 200 (application/json)
+	+ Body
+		{
+			"sessionid": "each user's special sessionid",
+			"user": "user",
+			"info": 
+			{
+				"status" : "0/1",
+				"data" : "data",
+				"message": "message" 
+			}
+		}
+
+## Session Register [POST /session/register]
++ Parameters
+	+ id (string) ... ID of the user
+	+ username (string) ... username
+	+ password (string) ... password
+
++ Request (application/json)
+	+ Attributes
+		+ id: id (string) - special id
+		+ username: username (string) - each user's id
+		+ password: password (string) - user's password
+
++ Response 200 (application/json)
+	+ Body
+		{
+			"sessionid": "each user's special sessionid",
+			"user": "user",
+			"info": 
+			{
+				"status" : "0/1",
+				"data" : "data",
+				"message": "message" 
+			}
+		}
+
+## Session AutoLogin [POST /session/autologin]
++ Parameters
+	+ sessionid (string) ... SessionID of the user
+	+ username (string) ...User name
+
++ Request (application/json)
+	+ Attributes
+		+ sessionid: id (string) - sessionID of the user
+		+ username: name (string) - username
+
++ Response 200 (application/json)
+	+ Body
+		{
+			"sessionid": "each user's special sessionid",
+			"user": "user",
+			"info": 
+			{
+				"status" : "0/1",
+				"data" : "data",
+				"message": "message" 
+			}
+		}
+
+
+
