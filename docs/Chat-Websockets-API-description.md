@@ -12,18 +12,22 @@
 - WebSockets events
 
    `connect`
+        
         Parameters: @user_id
         Description: Connection event, to register a client frontend to the websockets server
         
    `disconnect`
+        
         Parameters: @user_id
         Description: Disconnect event, to unregister a cliente frontend to the websockets server
         
     `user-list-changed`
+       
        Parameters: @none
        Description: broadcast event when any other user logs in or out
        
     `messages-broadcast`
+        
         Parameters: @message (object)
         Description: broadcast event when a new public message is available
 
