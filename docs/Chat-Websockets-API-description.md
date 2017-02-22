@@ -22,9 +22,9 @@
         Description: Disconnect event, to unregister a cliente frontend to the websockets server
         
     `user-list-changed`
-       
-       Parameters: @none
-       Description: broadcast event when any other user logs in or out
+        
+        Parameters: @none
+        Description: broadcast event when any other user logs in or out
        
     `messages-broadcast`
         
