@@ -9,11 +9,14 @@ var config = require('./config');
 var ConnectionController = require('./controllers/connection-controller.js')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
+
+var chat = require('./chat.js')(io);
 
 var conn = new ConnectionController();
 
@@ -91,7 +94,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
-app.post('/auth', passport.authenticate(
+app.post('/login', passport.authenticate(
     'local', {
         session: false
     }), serialize, generateToken, respond);

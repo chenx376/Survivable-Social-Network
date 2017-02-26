@@ -7,11 +7,24 @@
   padding-top: 20px;
 }
 
-.login-input {
+.top-messages {
+  width: 100%;
+  height: 70vh;
+}
+
+.footer-messages {
   width: 100%;
 }
 
-#login-button {
+.textarea_full {
   width: 100%;
-  margin-top: 10px;
+  float: left;
+}
+
+login-button {
+  width: 100%;
+}
+
+.footer-messages {
+
 }

@@ -1,1 +1,21 @@
-ggfdgfdgdflkj glkj gdf;lgj
+<div class="top-messages">
+  <md-card>
+    <md-card-header>
+      <md-card-title>Shiba Inu</md-card-title>
+      <md-card-subtitle>Dog Breed</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <p>
+        Content of message
+      </p>
+    </md-card-content>
+  </md-card>
+</div>
+
+<div class="footer-messages">
+  <md-input-container class="textarea_full">
+    <textarea mdInput [(ngModel)]="message" placeholder="Address">Type your private message here...</textarea>
+  </md-input-container>
+
+  <button md-raised-button id="login-button" class="login-button" (click)="sendMessageClicked()">Send</button>
+</div>
