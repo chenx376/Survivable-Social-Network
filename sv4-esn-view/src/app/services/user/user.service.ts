@@ -23,7 +23,8 @@ export class UserService {
     return this.http.post('http://172.29.93.189:3000/login', `username=${username}&password=${password}`, options)
       .map(res => res.json())
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
+        localStorage.setItem('current_jwt', res.token);
       });
   };
 
