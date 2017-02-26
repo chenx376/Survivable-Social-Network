@@ -1,4 +1,4 @@
-var userModel = require('../models/userModel.js');
+var UserDAO = require('../dao/userDao.js');
 
 let userDao = new UserDAO();
 
@@ -8,7 +8,6 @@ let userDao = new UserDAO();
  * @description :: Server-side logic for managing users.
  */
 module.exports = {
-
 
     /**
      * userController.list()
@@ -25,8 +24,8 @@ module.exports = {
      * userController.show()
      */
     show: function (req, res) {
-        var id = req.params.id;
-        userDao.show(id, function(user){
+        let id = req.params.id;
+        userDao.findById(id, function(user){
             res.json(user);
         }, function(error){
             res.status(500).json(error);
@@ -37,8 +36,8 @@ module.exports = {
      * userController.create()
      */
     create: function (req, res) {
-        var user = {
-			name : req.body.name,
+        let user = {
+			username : req.body.username,
 			email : req.body.email,
 			password : req.body.password,
 			created_at : req.body.created_at,
@@ -58,10 +57,19 @@ module.exports = {
      * userController.update()
      */
     update: function (req, res) {
-        let user = {};
-
-
-        userDao.update();
+        let user = {
+            username : req.body.username,
+            email : req.body.email,
+            password : req.body.password,
+            created_at : req.body.created_at,
+            updated_at : req.body.updated_at,
+            role : req.body.role
+        };
+        userDao.update(user, function(user){
+            return res.json(user);
+        }, function(error) {
+            return res.status(500).json(error);
+        });
 
     },
 
@@ -69,15 +77,11 @@ module.exports = {
      * userController.remove()
      */
     remove: function (req, res) {
-        var id = req.params.id;
-        userModel.findByIdAndRemove(id, function (err, user) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when deleting the user.',
-                    error: err
-                });
-            }
-            return res.status(204).json();
+        let id = req.params.id;
+        userDao.remove(id, function(){
+            return res.status(204).json('Deleted');
+        }, function(error){
+            return res.status(500).json(error);
         });
     }
 };
