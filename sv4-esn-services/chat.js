@@ -4,6 +4,10 @@ let UserDAO = require('../dao/userDao.js');
 
 let userDao = new UserDAO();
 
+let MessageDAO = require('../dao/messageDao.js');
+
+let messageDao = new MessageDAO();
+
 //SOCKET.IO event handler
 io.on('connection', function (socket) {
     console.log('Socket.io client Connected.');
@@ -22,6 +26,16 @@ io.on('connection', function (socket) {
         io.emit('user-list-changed');
         console.log('disconnected event');
     });
+    
+    socket.on('public-msg', function (obj) {
+        messageDao.create(obj, function(){
+            io.emit('public-msg-sent', obj);
+            console.log('New public message sent.');
+        },
+        function (error) {
+            console.log('Failed to send public message.')
+        })
+    })
 
     socket.on('logout', function (obj) {
         io.emit('user-list-changed');
