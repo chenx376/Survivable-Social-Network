@@ -1,4 +1,6 @@
-var messageModel = require('../models/messageModel.js');
+let MessageDAO = require('../dao/messageDao.js');
+
+let messageDao = new MessageDAO();
 
 /**
  * messageController.js
@@ -11,14 +13,10 @@ module.exports = {
      * messageController.list()
      */
     list: function (req, res) {
-        messageModel.find(function (err, messages) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting message.',
-                    error: err
-                });
-            }
-            return res.json(messages);
+        messageDao.list(function (messages) {
+            res.json(messages);
+        }, function(error) {
+            res.status(500).json(error);
         });
     },
 
@@ -26,20 +24,11 @@ module.exports = {
      * messageController.show()
      */
     show: function (req, res) {
-        var id = req.params.id;
-        messageModel.findOne({_id: id}, function (err, message) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting message.',
-                    error: err
-                });
-            }
-            if (!message) {
-                return res.status(404).json({
-                    message: 'No such message'
-                });
-            }
-            return res.json(message);
+        let id = req.params.id;
+        messageDao.findById(id, function (message) {
+            res.json(message);
+        }, function (error) {
+            res.status(500).json(error);
         });
     },
 
@@ -47,17 +36,17 @@ module.exports = {
      * messageController.create()
      */
     create: function (req, res) {
-        var message = new messageModel({			sender : req.body.sender,			receivers : req.body.receivers,			message : req.body.message,			sent_at : req.body.sent_at
-        });
+        let message = {
+			sender : req.body.sender,
+			receivers : req.body.receivers,
+			message : req.body.message,
+			sent_at : req.body.sent_at
+        };
 
-        message.save(function (err, message) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when creating message',
-                    error: err
-                });
-            }
-            return res.status(201).json(message);
+        messageDao.create(message, function (message) {
+            res.status(201).json(message);
+        }, function(error) {
+            res.status(500).json(error);
         });
     },
 
@@ -65,31 +54,17 @@ module.exports = {
      * messageController.update()
      */
     update: function (req, res) {
-        var id = req.params.id;
-        messageModel.findOne({_id: id}, function (err, message) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting message',
-                    error: err
-                });
-            }
-            if (!message) {
-                return res.status(404).json({
-                    message: 'No such message'
-                });
-            }
+        let message = {
+            sender : req.body.sender,
+            receivers : req.body.receivers,
+            message : req.body.message,
+            sent_at : req.body.sent_at
+        };
 
-            message.sender = req.body.sender ? req.body.sender : message.sender;			message.receivers = req.body.receivers ? req.body.receivers : message.receivers;			message.message = req.body.message ? req.body.message : message.message;			message.sent_at = req.body.sent_at ? req.body.sent_at : message.sent_at;			
-            message.save(function (err, message) {
-                if (err) {
-                    return res.status(500).json({
-                        message: 'Error when updating message.',
-                        error: err
-                    });
-                }
-
-                return res.json(message);
-            });
+        messageDao.update(message, function (message) {
+            res.json(message);
+        }, function(error) {
+            res.status(500).json(error);
         });
     },
 
@@ -97,15 +72,11 @@ module.exports = {
      * messageController.remove()
      */
     remove: function (req, res) {
-        var id = req.params.id;
-        messageModel.findByIdAndRemove(id, function (err, message) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when deleting the message.',
-                    error: err
-                });
-            }
-            return res.status(204).json();
-        });
+        let id = req.params.id;
+        messageDao.remove(id, function () {
+            res.status(204).json("Deleted");
+        }, function(error) {
+            res.status(500).json(error);
+        })
     }
 };
