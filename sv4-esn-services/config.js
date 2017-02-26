@@ -2,7 +2,7 @@
  * @author Arthur M Sampaio
  */
 module.exports = {
-    "mongo_url": "mongodb://localhost:32768/sv4-esn",
+    "mongo_url": "mongodb://sv4esn:123456@ds151279.mlab.com:51279/heroku_qzhxq659",
     "errors": {
         "userExists": "Username already exists, please choose another one.",
         "missingMessage": "Message data not informed",
