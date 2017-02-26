@@ -5,7 +5,7 @@
 let mongoose = require('mongoose');
 let config = require('../config');
 
-let messageModel = require('../models/Message');
+let messageModel = require('../models/messageModel.js');
 
 module.exports = class MessageDAO{
 
@@ -80,6 +80,7 @@ module.exports = class MessageDAO{
             message.id = userToUpdate.id;
             message.sender = userToUpdate.sender ? userToUpdate.sender : message.sender;
             message.receivers = userToUpdate.receivers ? userToUpdate.receivers : message.receivers;
+            message.broadcast = userToUpdate.broadcast ? userToUpdate.broadcast : message.broadcast;
             message.message = userToUpdate.message ? userToUpdate.message : message.message;
             message.sent_at = userToUpdate.sent_at ? userToUpdate.sent_at : message.sent_at;
 
