@@ -3,13 +3,14 @@
  */
 var app = require('express')();
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var Strategy = require('passport-local').Strategy;
+
 var config = require('./config');
 var ConnectionController = require('./controllers/connection-controller.js')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
-
+const jwt = require('jsonwebtoken');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
@@ -22,7 +23,7 @@ var conn = new ConnectionController();
 // (`username` and `password`) submitted by the user.  The function must verify
 // that the password is correct and then invoke `cb` with a user object, which
 // will be set at `req.user` in route handlers after authentication.
-passport.use(new LocalStrategy(
+passport.use(new Strategy(
     {
         usernameField: 'username',
         passwordField: 'password'
@@ -43,27 +44,39 @@ passport.use(new LocalStrategy(
 
     }));
 
+function serialize(req, res, next) {
 
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  The
-// typical implementation of this is as simple as supplying the user ID when
-// serializing, and querying the user record by ID from the database when
-// deserializing.
-passport.serializeUser(function(user, cb) {
-    cb(null, user.id);
-});
+    userDao.create(req.user, function(user){
 
-passport.deserializeUser(function(id, cb) {
-    userDao.findById(id, function (err, user) {
-        if (err) { return cb(err); }
-        cb(null, user);
+        req.user = {
+            id: user.id
+        };
+
+        next();
+
+    }, function(err){
+
+        return next(err);
+        next();
+
     });
-});
+}
 
-app.use(passport.initialize());
-app.use(passport.session());
+function generateToken(req, res, next) {
+    req.token = jwt.sign({
+        id: req.user.id,
+    }, 'server secret', {
+        expiresIn: 60*60
+    });
+    next();
+}
+
+function respond(req, res) {
+    res.status(200).json({
+        user: req.user,
+        token: req.token
+    });
+}
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -77,19 +90,11 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/login', function(req, res) {
-    passport.authenticate('local', function(err, user) {
-        if (!user)
-            return res.json({status: -1, message: config.errors.loginFailed});
-
-        return res.json({status: 0,
-            data: {
-                user: user
-            }
-        });
-
-    })(req, res);
-});
+app.use(passport.initialize());
+app.post('/auth', passport.authenticate(
+    'local', {
+        session: false
+    }), serialize, generateToken, respond);
 
 /**
  * Start REST API Endpoints
