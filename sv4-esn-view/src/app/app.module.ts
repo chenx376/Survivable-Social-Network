@@ -9,11 +9,13 @@ import 'hammerjs';
 
 import { AppComponent } from './components/root/app.component';
 import { LoginComponent } from './components/login/login.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 import { UserService } from './services/user/user.service';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'chat', component: ChatComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -22,8 +22,6 @@ export class ChatComponent implements OnInit {
 
   }
 
-  formValid = (): boolean => this.usernameValid() && this.passwordValid();
-
   sendMessageClicked = () => {
     this.chatService.broadcastMessage(this.message);
   };
