@@ -98,6 +98,11 @@ app.post('/login', function(req, res) {
 var users = require('./routes/userRoutes.js')
 app.use('/users', users)
 
+
+var messages = require('./routes/messageRoutes.js')
+app.use('/messages', messages)
+
+
 /**
  * End of REST API Endpoints
  */

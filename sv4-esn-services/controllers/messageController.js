@@ -40,7 +40,8 @@ module.exports = {
 			sender : req.body.sender,
 			receivers : req.body.receivers,
 			message : req.body.message,
-			sent_at : req.body.sent_at
+			sent_at : req.body.sent_at,
+            broadcast : req.body.broadcast
         };
 
         messageDao.create(message, function (message) {
@@ -58,7 +59,8 @@ module.exports = {
             sender : req.body.sender,
             receivers : req.body.receivers,
             message : req.body.message,
-            sent_at : req.body.sent_at
+            sent_at : req.body.sent_at,
+            broadcast : req.body.broadcast
         };
 
         messageDao.update(message, function (message) {
