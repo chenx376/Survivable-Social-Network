@@ -1,0 +1,45 @@
+:host {
+
+}
+
+#sidenav-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+#sidenav {
+  width: 40vw;
+}
+
+#sidenav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vh;
+  height: 60px;
+  background-color: #3f51b5;
+}
+
+#app-title {
+  color: #ffffff;
+}
+
+#app-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 40px;
+}
+
+#app-copyright {
+  font-size: 0.6em;
+  color: #90949c;
+}
