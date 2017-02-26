@@ -10,6 +10,7 @@
 .top-messages {
   width: 100%;
   height: 70vh;
+  overflow: scroll;
 }
 
 .footer-messages {

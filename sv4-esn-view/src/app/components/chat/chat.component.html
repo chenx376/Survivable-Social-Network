@@ -1,12 +1,12 @@
 <div class="top-messages">
-  <md-card>
+  <md-card *ngFor="let message of messages">
     <md-card-header>
-      <md-card-title>Shiba Inu</md-card-title>
-      <md-card-subtitle>Dog Breed</md-card-subtitle>
+      <md-card-title>{{message.sender}}</md-card-title>
+      <md-card-subtitle>{{message.sent_at}}</md-card-subtitle>
     </md-card-header>
     <md-card-content>
       <p>
-        Content of message
+        {{message.message}}
       </p>
     </md-card-content>
   </md-card>
@@ -14,8 +14,8 @@
 
 <div class="footer-messages">
   <md-input-container class="textarea_full">
-    <textarea mdInput [(ngModel)]="message" placeholder="Address">Type your private message here...</textarea>
+    <textarea mdInput [(ngModel)]="message" placeholder="Message">Type your private message here...</textarea>
   </md-input-container>
 
-  <button md-raised-button id="login-button" class="login-button" (click)="sendMessageClicked()">Send</button>
+  <button md-raised-button id="login-button" class="login-button" (click)="sendMessage()">Send</button>
 </div>

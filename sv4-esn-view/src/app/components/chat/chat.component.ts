@@ -9,17 +9,6 @@ import { ChatService } from '../../services/chat/chat.service';
 })
 
 
-/*@Component({
-  moduleId: module.id,
-  selector: 'chat',
-  template: `<div *ngFor="let message of messages">
-                     {{message.text}}
-                   </div>
-                   <input [(ngModel)]="message"  /><button (click)="sendMessage()">Send</button>`,
-  providers: [ChatService]
-})
-*/
-
 export class ChatComponent implements OnInit, OnDestroy {
   messages = [];
   connection;
