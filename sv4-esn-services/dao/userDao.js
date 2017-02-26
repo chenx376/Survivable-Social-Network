@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var config = require('../config');
 
-let userModel = require('../models/User')
+let userModel = require('../models/userModel.js')
 
 module.exports = class UserDAO {
 
@@ -12,32 +12,52 @@ module.exports = class UserDAO {
     list(success, error) {
         userModel.find(function (err, users) {
             if (err) {
-                return error({
+                error({
                     message: 'Error when getting user.',
                     error: err
                 });
             }
-            return success(users);
+            success(users);
         });
     };
 
     /**
-     * userController.show()
+     * userController.findById()
      */
-    show(id, success, error) {
+    findById(id, success, error) {
         userModel.findOne({_id: id}, function (err, user) {
             if (err) {
-                return error({
+                error({
                     message: 'Error when getting user.',
                     error: err
                 });
             }
             if (!user) {
-               return error({
+                error({
                     message: 'No such user'
                 });
             }
-            return success(user);
+            success(user);
+        });
+    };
+
+    /**
+     * userDao.findByUsername()
+     */
+    findByUsername(usrname, success, error) {
+        userModel.findOne({username: usrname}, function (err, user) {
+            if (err) {
+                error({
+                    message: 'Error when getting user.',
+                    error: err
+                });
+            }
+            if (!user) {
+                error({
+                    message: 'No such user'
+                });
+            }
+            success(user);
         });
     };
 
@@ -49,14 +69,14 @@ module.exports = class UserDAO {
         let userToCreate = userModel(userObj);
         userToCreate.save(function (err, user) {
             if (err) {
-                return error({
+                error({
                     message: 'Error when creating user',
                     error: err
                 });
             }
-            return success(user);
+            success(user);
         });
-    },
+    };
 
     /**
      * userController.update()
@@ -65,13 +85,13 @@ module.exports = class UserDAO {
 
         userModel.findOne({_id: userToUpdate.id}, function (err, user) {
             if (err) {
-                return error({
+                error({
                     message: 'Error when getting user',
                     error: err
                 });
             }
             if (!user) {
-                return error({
+                error({
                     message: 'No such user'
                 });
             }
@@ -92,10 +112,10 @@ module.exports = class UserDAO {
                     });
                 }
 
-                return success(user);
+                success(user);
             });
         });
-    },
+    };
 
     /**
      * userController.remove()
@@ -104,13 +124,13 @@ module.exports = class UserDAO {
 
         userModel.findByIdAndRemove(id, function (err, user) {
             if (err) {
-                return error({
+                error({
                     message: 'Error when deleting the user.',
                     error: err
                 });
             }
-            return success();
+            success();
         });
-    }
+    };
 
 }

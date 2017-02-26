@@ -8,6 +8,7 @@ module.exports = {
         "missingMessage": "Message data not informed",
         "missingUser": "User data not informed",
         "missingSender": "Message must contain a sender",
-        "missingUserStatus": "To Update user status please provide a status (online / offline)"
+        "missingUserStatus": "To Update user status please provide a status (online / offline)",
+        "loginFailed": "Login failed."
     }
 }
