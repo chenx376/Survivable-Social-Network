@@ -32,15 +32,20 @@ export class ChatService {
 
     this.http.get(this.endpoint + '/users/'+ loggedInUser).map(res => res.json()).subscribe(res => {
 
-      let message = {
-        sender: res,
-        message: content,
-        receivers: null,
-        broadcast: true,
-        sent_at: new Date()
-      };
+      let payload = {
+        jwt: localStorage.getItem('jwt'),
+        data: {
+          message: {
+            sender: res,
+            message: content,
+            receivers: null,
+            broadcast: true,
+            sent_at: new Date()
+          }
+        }
+      }
 
-      this.socket.emit('public-msg', message);
+      this.socket.emit('public-msg', payload);
 
     });
 
