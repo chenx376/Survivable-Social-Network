@@ -22,7 +22,7 @@ let userDao = new UserDAO();
 
 var jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = 'INCLUDE_FSESV4_KEY_RANDOM_HERE';
+jwtOptions.secretOrKey = config.JwtSecretKey;
 
 var chat = require('./chat.js')(io);
 

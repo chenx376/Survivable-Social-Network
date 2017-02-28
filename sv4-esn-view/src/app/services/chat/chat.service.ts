@@ -46,7 +46,7 @@ export class ChatService {
 
   getMessages = () => {
     let observable = new Observable(observer => {
-      this.socket.on('public-msg-broadcast', (data) => {
+      this.socket.on('public-msg-sent', (data) => {
         observer.next(data);
       });
       return () => {
