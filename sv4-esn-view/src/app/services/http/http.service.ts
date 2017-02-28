@@ -38,9 +38,11 @@ export class HttpService {
   post = (path: string, params?: Object): Observable<any> => {
     let requestUri = encodeURI(`${this.baseUri}${path}`);
     let requestOptions = new RequestOptions();
+    requestOptions.headers = new Headers({
+      'Content-Type': 'application/json'
+    });
     if (this.jwt) {
-      let headers: Headers = new Headers({ 'Authorization': `JWT ${this.jwt}` });
-      requestOptions.headers = headers;
+      requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
     }
 
     return this.http.post(requestUri, JSON.stringify(params), requestOptions)

@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import * as io from 'socket.io-client';
 import { UserService } from '../user/user.service';
+import { HttpService } from '../http/http.service';
 
 import { Observable } from "rxjs";
 
 @Injectable()
 export class ChatService {
 
-  private http: Http;
+  private httpService: HttpService;
   private userService: UserService;
 
   private endpoint: string = "http://localhost:3000";
 
   private socket = io(this.endpoint);
 
-  constructor(http: Http, userService: UserService) {
-    this.http = http;
+  constructor(httpService: HttpService, userService: UserService) {
+    this.httpService = httpService;
     this.userService = userService;
   }
 
@@ -32,17 +32,16 @@ export class ChatService {
           sent_at: new Date()
         }
       }
-    }
+    };
 
     this.socket.emit('public-msg', payload);
   };
 
   retrievePersistedMessages = (done) => {
-    this.http.get(this.endpoint + '/messages')
-      .map(res => res.json())
+    this.httpService.get('/messages')
       .subscribe(res => {
         done(res);
-    });
+      });
   };
 
   getMessages = () => {

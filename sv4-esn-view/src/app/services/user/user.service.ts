@@ -23,15 +23,15 @@ export class UserService {
   login = (username: string, password: string): Observable<void> => {
     return this.httpService.post('/login', { username, password })
       .do(json => {
-        this.userId = json.user.id;
+        this.userId = json.id;
         this.httpService.jwt = json.token;
         localStorage.setItem('jwt', json.token);
-        localStorage.setItem('user_id', json.user.id);
+        localStorage.setItem('user_id', json.id);
 
         // emit socket "login"
 
       })
-      .map(res => res.user.id)
+      .map(json => json.id)
       .flatMap(this.getUserInfo);
   };
 
@@ -56,11 +56,5 @@ export class UserService {
 //   create = (user): Observable<void> => {
 //     return this.http.post(this.endpoint + '/users', user).map(res => res.json());
 //   }
-
-
-  // private handleError = (error: any): Observable<any> => {
-  //   console.error('An error occurred', error);
-  //   return Promise.reject(error.message || error);
-  // }
 
 }
