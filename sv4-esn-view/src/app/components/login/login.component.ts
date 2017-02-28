@@ -41,9 +41,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.password)
       .subscribe(() => {
         this.router.navigateByUrl('chat');
-        console.log("success");
       }, error => {
-        console.log("error");
+
+        // check error and prompt user to create (if 404 and message='No such user')
+
       });
   };
 
