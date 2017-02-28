@@ -38,7 +38,12 @@ app.use(function (req, res, next) {
 
 // Middleware, Headers and Server Bootstrap
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+app.use(bodyParser.json({
+    type: function() {
+        return true;
+    }
+}));
 
 
 var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
