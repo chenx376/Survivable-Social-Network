@@ -8,7 +8,6 @@ import { ChatService } from '../../services/chat/chat.service';
   providers: [ChatService]
 })
 
-
 export class ChatComponent implements OnInit, OnDestroy {
   messages = [];
   connection;
@@ -17,7 +16,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(private chatService:ChatService) {
   }
 
-  sendMessage(){
+  sendMessage() {
     this.chatService.broadcastMessage(this.message);
     this.message = '';
   }
@@ -31,7 +30,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.messages = msgs;
     });
 
-    this.connection = this.chatService.getMessages().subscribe(message => {
+    this.connection = this.chatService.getMessages()
+      .subscribe(message => {
       console.log('Event broadcasted and received into Angular2 CHAIN!');
       this.messages.push(message);
     });

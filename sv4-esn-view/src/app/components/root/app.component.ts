@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  title = 'app works!';
+export class AppComponent implements OnInit {
+
+  private router: Router;
+  private userService: UserService;
+
+  constructor(router: Router, userService: UserService) {
+    this.router = router;
+    this.userService = userService;
+  }
+
+  ngOnInit() {
+    if (!this.userService.isUserLoggedIn()) {
+      this.router.navigateByUrl('login');
+    }
+  }
+
 }

@@ -1,31 +1,39 @@
 :host {
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  width: 80%;
-  padding-top: 20px;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 95%;
+  height: calc(100vh - 60px);
 }
 
-.top-messages {
-  width: 100%;
-  height: 70vh;
+.message-list {
+  /*height: calc(100vh - 60px - 110px);*/
   overflow: scroll;
 }
 
-.footer-messages {
-  width: 100%;
+.message {
+  margin: 10px 5px;
 }
 
-.textarea_full {
-  width: 100%;
-  float: left;
+.message-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: 110px;
 }
 
-login-button {
-  width: 100%;
+.message-input {
+  flex-grow: 1;
+  margin-right: 3%;
 }
 
-.footer-messages {
-
+.message-input textarea {
+  resize: none;
 }
+
+.message-send-button {
+  margin-bottom: 20px;
+  background-color: #3f51b5;
+}
+

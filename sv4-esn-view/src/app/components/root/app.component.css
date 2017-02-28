@@ -15,31 +15,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 #app-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  width: 100vh;
+  width: 100vw;
   height: 60px;
   background-color: #3f51b5;
 }
 
-#app-title {
+#header-left-button {
+  width: 10vw;
+  margin-left: 4vw;
+  margin-top: 3px;
+  border: none;
+  background-color: #3f51b5;
   color: #ffffff;
 }
 
-#app-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 40px;
+#header-right-button {
+  width: 10vw;
+  margin-right: 4vw;
+  border: none;
+  background-color: #3f51b5;
+  color: #ffffff;
 }
 
-#app-copyright {
-  font-size: 0.6em;
-  color: #90949c;
+#app-title {
+  flex-grow: 1;
+  text-align: center;
+  color: #ffffff;
 }
