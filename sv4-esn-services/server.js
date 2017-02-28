@@ -71,10 +71,10 @@ app.post("/login", function(req, res) {
     // usually this would be a database call:
     userDao.findByUsername(username,function(user){
         if (!user) {
-            res.status(500).json({ message: 'User does not exist!'});
+            res.status(404).json({ message: 'No such user'});
         }
         if (!user.password === password) {
-            res.status(500).json({ message: 'Incorrect password.' });
+            res.status(404).json({ message: 'Incorrect password' });
         }
 
         var payload = {id: user.id};
@@ -82,7 +82,7 @@ app.post("/login", function(req, res) {
         res.json({id: user.id, token: token});
 
     }, function(error){
-        res.status(500).json(error);
+        res.status(404).json(error);
     });
 
 });
