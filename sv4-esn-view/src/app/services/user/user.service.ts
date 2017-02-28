@@ -40,8 +40,27 @@ export class UserService {
       .do(json => this.user = new User(json));
   };
 
+
   isUserLoggedIn(): boolean {
     return this.userId != undefined;
   }
+
+//   retrieveAll = (): Observable<User> => {
+//      return this.http.get(this.endpoint + '/users/').map(res => res.json());
+//   }
+
+//   update = (user): Observable<void> => {
+//     return this.http.put(this.endpoint + '/users', user).map(res => res.json());
+//   }
+
+//   create = (user): Observable<void> => {
+//     return this.http.post(this.endpoint + '/users', user).map(res => res.json());
+//   }
+
+
+  // private handleError = (error: any): Observable<any> => {
+  //   console.error('An error occurred', error);
+  //   return Promise.reject(error.message || error);
+  // }
 
 }

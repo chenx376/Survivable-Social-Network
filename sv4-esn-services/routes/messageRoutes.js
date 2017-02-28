@@ -2,29 +2,31 @@ var express = require('express');
 var router = express.Router();
 var messageController = require('../controllers/messageController.js');
 
-/*
- * GET
- */
-router.get('/', messageController.list);
+var passport = require('passport');
 
 /*
  * GET
  */
-router.get('/:id', messageController.show);
+router.get('/',passport.authenticate('jwt', { session: false }), messageController.list);
+
+/*
+ * GET
+ */
+router.get('/:id',passport.authenticate('jwt', { session: false }), messageController.show);
 
 /*
  * POST
  */
-router.post('/', messageController.create);
+router.post('/',passport.authenticate('jwt', { session: false }), messageController.create);
 
 /*
  * PUT
  */
-router.put('/:id', messageController.update);
+router.put('/:id',passport.authenticate('jwt', { session: false }), messageController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', messageController.remove);
+router.delete('/:id',passport.authenticate('jwt', { session: false }), messageController.remove);
 
 module.exports = router;

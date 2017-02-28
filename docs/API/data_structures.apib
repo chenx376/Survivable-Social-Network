@@ -7,6 +7,17 @@
 ### User (object)
 + name: Arthur (string)
 + email: example@example.com (string)
++ password: ******(string)
++ created_at: date
++ updated_at: date
 + role: 1 (enum[number])
 	+ 1 - Citizen
 	+ 2 - Administrator
++ status: OK, HELP, EMERGENCY, UNDEFINED(string)
++ online: TRUE, FALSE
+
+### Message (object)
++ sender: ObjectId
++ broadcast: TRUE, FALSE
++ massage: Hello World!
++ sent_at: date

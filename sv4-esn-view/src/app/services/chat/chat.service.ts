@@ -21,15 +21,20 @@ export class ChatService {
   }
 
   broadcastMessage = (content: string) => {
-    let message = {
-      sender: this.userService.user,
-      message: content,
-      receivers: null,
-      broadcast: true,
-      sent_at: new Date()
-    };
+    let payload = {
+      jwt: localStorage.getItem('jwt'),
+      data: {
+        message: {
+          sender: null, //This is populated by Socket.io before saving message
+          message: content,
+          receivers: null,
+          broadcast: true,
+          sent_at: new Date()
+        }
+      }
+    }
 
-    this.socket.emit('public-msg', message);
+    this.socket.emit('public-msg', payload);
   };
 
   retrievePersistedMessages = (done) => {

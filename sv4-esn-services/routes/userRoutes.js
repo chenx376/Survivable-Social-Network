@@ -1,30 +1,32 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+
 var userController = require('../controllers/userController.js');
 
 /*
  * GET
  */
-router.get('/', userController.list);
+router.get('/', passport.authenticate('jwt', { session: false }), userController.list);
 
 /*
  * GET
  */
-router.get('/:id', userController.show);
+router.get('/:id', passport.authenticate('jwt', { session: false }),  userController.show);
 
 /*
  * POST
  */
-router.post('/', userController.create);
+router.post('/', passport.authenticate('jwt', { session: false }),  userController.create);
 
 /*
  * PUT
  */
-router.put('/:id', userController.update);
+router.put('/:id', passport.authenticate('jwt', { session: false }),  userController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', userController.remove);
+router.delete('/:id', passport.authenticate('jwt', { session: false }),  userController.remove);
 
 module.exports = router;
