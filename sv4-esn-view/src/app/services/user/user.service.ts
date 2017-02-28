@@ -43,11 +43,11 @@ export class UserService {
   }
 
   update = (user): Observable<void> => {
-    return this.http.put(this.endpoint + '/users/', user).map(res => res.json());
+    return this.http.put(this.endpoint + '/users', user).map(res => res.json());
   }
 
   create = (user): Observable<void> => {
-    return this.http.post(this.endpoint + '/users/', user).map(res => res.json());
+    return this.http.post(this.endpoint + '/users', user).map(res => res.json());
   }
 
 
