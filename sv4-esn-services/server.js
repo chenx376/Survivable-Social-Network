@@ -79,7 +79,7 @@ app.post("/login", function(req, res) {
 
         var payload = {id: user.id};
         var token = jwt.sign(payload, jwtOptions.secretOrKey);
-        res.json({message: "Success", token: token});
+        res.json({id: user.id, token: token});
 
     }, function(error){
         res.status(500).json(error);
