@@ -3,7 +3,11 @@
  */
 var app = require('express')();
 var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
+var passportJWT = require('passport-jwt');
+
+var ExtractJwt = passportJWT.ExtractJwt;
+var JwtStrategy = passportJWT.Strategy;
+//var JwtVerifier = JwtStrategy.JwtVerifier = require('./verify_jwt');
 
 var config = require('./config');
 var ConnectionController = require('./controllers/connection-controller.js')
@@ -16,70 +20,13 @@ const jwt = require('jsonwebtoken');
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
 
+var jwtOptions = {}
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+jwtOptions.secretOrKey = 'INCLUDE_FSESV4_KEY_RANDOM_HERE';
+
 var chat = require('./chat.js')(io);
 
 var conn = new ConnectionController();
-
-// Configure the local strategy for use by Passport.
-//
-// The local strategy require a `verify` function which receives the credentials
-// (`username` and `password`) submitted by the user.  The function must verify
-// that the password is correct and then invoke `cb` with a user object, which
-// will be set at `req.user` in route handlers after authentication.
-passport.use(new Strategy(
-    {
-        usernameField: 'username',
-        passwordField: 'password'
-    },
-    function(username, password, done) {
-
-        userDao.findByUsername(username,function(user){
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!user.password === password) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        }, function(error){
-            return done(error);
-        });
-
-    }));
-
-function serialize(req, res, next) {
-
-    userDao.create(req.user, function(user){
-
-        req.user = {
-            id: user.id
-        };
-
-        next();
-
-    }, function(err){
-
-        return next(err);
-        next();
-
-    });
-}
-
-function generateToken(req, res, next) {
-    req.token = jwt.sign({
-        id: req.user.id,
-    }, 'server secret', {
-        expiresIn: 60*60
-    });
-    next();
-}
-
-function respond(req, res) {
-    res.status(200).json({
-        user: req.user,
-        token: req.token
-    });
-}
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -93,11 +40,47 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(passport.initialize());
-app.post('/login', passport.authenticate(
-    'local', {
-        session: false
-    }), serialize, generateToken, respond);
+
+var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
+
+    console.log('JWT payload received', jwt_payload);
+
+    userDao.findById(jwt_payload.id,function(user){
+        if (!user) {
+            next(null, false, { message: 'User does not exist!'});
+        }
+        next(null, user);
+    }, function(error){
+        next(null, false, error);
+    });
+
+});
+
+passport.use(strategy);
+
+app.post("/login", function(req, res) {
+    if(req.body.username && req.body.password){
+        var username = req.body.username;
+        var password = req.body.password;
+    }
+    // usually this would be a database call:
+    userDao.findByUsername(username,function(user){
+        if (!user) {
+            res.status(500).json({ message: 'User does not exist!'});
+        }
+        if (!user.password === password) {
+            res.status(500).json({ message: 'Incorrect password.' });
+        }
+
+        var payload = {id: user.id};
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.json({message: "Success", token: token});
+
+    }, function(error){
+        res.status(500).json(error);
+    });
+
+});
 
 /**
  * Start REST API Endpoints

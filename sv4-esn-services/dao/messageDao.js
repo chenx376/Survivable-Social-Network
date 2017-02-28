@@ -13,35 +13,40 @@ module.exports = class MessageDAO{
      * messageController.list()
      */
     list(success, error) {
-        messageModel.find(function (err, messages) {
-            if (err) {
-                error({
-                    message: 'Error when getting message.',
-                    error: err
-                });
-            }
-            success(messages);
-        });
+        messageModel
+            .find({})
+            .populate('sender')
+            .exec( function (err, messages) {
+                if (err) {
+                    error({
+                        message: 'Error when getting message.',
+                        error: err
+                    });
+                }
+                success(messages);
+            });
     };
 
     /**
      * messageController.show()
      */
     findById(id, success, error) {
-        messageModel.findOne({_id: id}, function (err, message) {
-            if (err) {
-                error({
-                    message: 'Error when getting message.',
-                    error: err
-                });
-            }
-            if (!message) {
-                error({
-                    message: 'No such message'
-                });
-            }
-            success(message);
-        });
+        messageModel.findOne({_id: id})
+            .populate('sender')
+            .exec( function (err, message) {
+                if (err) {
+                    error({
+                        message: 'Error when getting message.',
+                        error: err
+                    });
+                }
+                if (!message) {
+                    error({
+                        message: 'No such message'
+                    });
+                }
+                success(message);
+            });
     };
 
     /**

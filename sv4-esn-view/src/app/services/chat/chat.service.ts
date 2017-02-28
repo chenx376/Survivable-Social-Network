@@ -28,26 +28,20 @@ export class ChatService {
   // login = (username: string, password: string): Observable<User> => {
   broadcastMessage = (content: string) => {
 
-    let loggedInUser = localStorage.getItem('current_user_id');
-
-    this.http.get(this.endpoint + '/users/'+ loggedInUser).map(res => res.json()).subscribe(res => {
-
-      let payload = {
-        jwt: localStorage.getItem('jwt'),
-        data: {
-          message: {
-            sender: res,
-            message: content,
-            receivers: null,
-            broadcast: true,
-            sent_at: new Date()
-          }
+    let payload = {
+      jwt: localStorage.getItem('jwt'),
+      data: {
+        message: {
+          sender: null, //This is populated by Socket.io before saving message
+          message: content,
+          receivers: null,
+          broadcast: true,
+          sent_at: new Date()
         }
       }
+    }
 
-      this.socket.emit('public-msg', payload);
-
-    });
+    this.socket.emit('public-msg', payload);
 
   };
 
