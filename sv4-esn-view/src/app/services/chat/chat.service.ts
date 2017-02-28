@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import * as io from 'socket.io-client';
+import { UserService } from '../user/user.service';
+import { HttpService } from '../http/http.service';
 
 import { Observable } from "rxjs";
-
-import { User } from '../../models/user.model'
-
-import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
 
-  private http: Http;
+  private httpService: HttpService;
+  private userService: UserService;
 
-  private token: string;
-  private user: User;
+  private endpoint: string = "http://localhost:3000";
 
-  private socket;
+  private socket = io(this.endpoint);
 
-  private endpoint: string;
-
-  constructor( http: Http) {
-    this.http = http;
-    this.endpoint = "http://localhost:3000";
-
+  constructor(httpService: HttpService, userService: UserService) {
+    this.httpService = httpService;
+    this.userService = userService;
   }
 
-  // login = (username: string, password: string): Observable<User> => {
   broadcastMessage = (content: string) => {
-
     let payload = {
       jwt: localStorage.getItem('jwt'),
       data: {
@@ -39,32 +32,28 @@ export class ChatService {
           sent_at: new Date()
         }
       }
-    }
+    };
 
     this.socket.emit('public-msg', payload);
-
   };
 
   retrievePersistedMessages = (done) => {
-    this.http.get(this.endpoint + '/messages').map(res => res.json()).subscribe(res => {
+    this.httpService.get('/messages')
+      .subscribe(res => {
+        done(res);
+      });
+  };
 
-      done(res);
-
-    });
-  }
-
-  getMessages() {
+  getMessages = () => {
     let observable = new Observable(observer => {
-      this.socket = io(this.endpoint);
       this.socket.on('public-msg-broadcast', (data) => {
         observer.next(data);
       });
       return () => {
         this.socket.disconnect();
       };
-    })
+    });
     return observable;
   }
-
 
 }

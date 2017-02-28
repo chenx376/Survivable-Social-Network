@@ -1,59 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
+import { HttpService } from '../http/http.service';
 
 import { User } from '../../models/user.model'
 
 @Injectable()
 export class UserService {
 
-  private http: Http;
+  private httpService: HttpService;
 
-  private token: string;
-  private user: User;
+  userId: string = localStorage.getItem('user_id');
+  user: User;
 
-  private endpoint: string;
+  constructor(httpService: HttpService) {
+    this.httpService = httpService;
 
-  constructor(http: Http) {
-    this.http = http;
-    this.endpoint = "http://localhost:3000";
+    if (this.isUserLoggedIn()) {
+      this.getUserInfo(this.userId);
+    }
   }
 
-  // login = (username: string, password: string): Observable<User> => {
-  login = (username: string, password: string) => {
-    let headers: Headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.endpoint + '/login', `username=${username}&password=${password}`, options)
-      .map(res => res.json())
-      .subscribe(res => {
-        //console.log(res);
-        localStorage.setItem('current_jwt', res.token);
-        localStorage.setItem('current_user_id', res.user.id)
-      });
+  login = (username: string, password: string): Observable<void> => {
+    return this.httpService.post('/login', { username, password })
+      .do(json => {
+        this.userId = json.id;
+        this.httpService.jwt = json.token;
+        localStorage.setItem('jwt', json.token);
+        localStorage.setItem('user_id', json.id);
+
+        // emit socket "login"
+
+      })
+      .map(json => json.id)
+      .flatMap(this.getUserInfo);
   };
 
-  retrieveById = (user_id: string) => {
-    return this.http.get(this.endpoint + '/users/'+user_id).map(res => res.json()).subscribe(res => {
-      console.log(res);
-    });
+  private getUserInfo = (userId: string): Observable<void> => {
+    return this.httpService.get(`/users/${userId}`)
+      .do(json => this.user = new User(json));
+  };
+
+
+  isUserLoggedIn(): boolean {
+    return this.userId != undefined;
   }
 
-  retrieveAll = (): Observable<User> => {
-     return this.http.get(this.endpoint + '/users/').map(res => res.json());
-  }
+//   retrieveAll = (): Observable<User> => {
+//      return this.http.get(this.endpoint + '/users/').map(res => res.json());
+//   }
 
-  update = (user): Observable<void> => {
-    return this.http.put(this.endpoint + '/users', user).map(res => res.json());
-  }
+//   update = (user): Observable<void> => {
+//     return this.http.put(this.endpoint + '/users', user).map(res => res.json());
+//   }
 
-  create = (user): Observable<void> => {
-    return this.http.post(this.endpoint + '/users', user).map(res => res.json());
-  }
-
-
-  // private handleError = (error: any): Observable<any> => {
-  //   console.error('An error occurred', error);
-  //   return Promise.reject(error.message || error);
-  // }
+//   create = (user): Observable<void> => {
+//     return this.http.post(this.endpoint + '/users', user).map(res => res.json());
+//   }
 
 }

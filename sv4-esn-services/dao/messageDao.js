@@ -18,12 +18,12 @@ module.exports = class MessageDAO{
             .populate('sender')
             .exec( function (err, messages) {
                 if (err) {
-                    error({
+                    return error({
                         message: 'Error when getting message.',
                         error: err
                     });
                 }
-                success(messages);
+                return success(messages);
             });
     };
 
@@ -35,17 +35,17 @@ module.exports = class MessageDAO{
             .populate('sender')
             .exec( function (err, message) {
                 if (err) {
-                    error({
+                    return error({
                         message: 'Error when getting message.',
                         error: err
                     });
                 }
                 if (!message) {
-                    error({
+                    return error({
                         message: 'No such message'
                     });
                 }
-                success(message);
+                return success(message);
             });
     };
 
@@ -56,12 +56,12 @@ module.exports = class MessageDAO{
         let messageToCreate = messageModel(messageObj);
         messageToCreate.save(function (err, message) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when creating message',
                     error: err
                 });
             }
-            success(message);
+            return success(message);
         });
     };
 
@@ -71,13 +71,13 @@ module.exports = class MessageDAO{
     update(userToUpdate, success, error) {
         messageModel.findOne({_id: userToUpdate.id}, function (err, message) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when getting message',
                     error: err
                 });
             }
             if (!message) {
-                error({
+                return error({
                     message: 'No such message'
                 });
             }
@@ -91,12 +91,12 @@ module.exports = class MessageDAO{
 
             message.save(function (err, message) {
                 if (err) {
-                    error({
+                    return error({
                         message: 'Error when updating message.',
                         error: err
                     });
                 }
-                success(message);
+                return success(message);
             });
         });
     };
