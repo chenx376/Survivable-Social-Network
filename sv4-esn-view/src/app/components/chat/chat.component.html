@@ -1,7 +1,7 @@
-<div class="top-messages">
-  <md-card *ngFor="let message of messages">
+<div class="message-list">
+  <md-card class="message" *ngFor="let message of messages">
     <md-card-header>
-      <md-card-title>{{message.sender}}</md-card-title>
+      <md-card-title>{{message.sender.username}}</md-card-title>
       <md-card-subtitle>{{message.sent_at}}</md-card-subtitle>
     </md-card-header>
     <md-card-content>
@@ -12,10 +12,16 @@
   </md-card>
 </div>
 
-<div class="footer-messages">
-  <md-input-container class="textarea_full">
-    <textarea mdInput [(ngModel)]="message" placeholder="Message">Type your private message here...</textarea>
+<div class="message-controls">
+  <md-input-container class="message-input">
+    <textarea mdInput rows="1"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="message">
+      Type your private message here...
+    </textarea>
   </md-input-container>
 
-  <button md-raised-button id="login-button" class="login-button" (click)="sendMessage()">Send</button>
+  <button md-mini-fab class="message-send-button" (click)="sendMessage()">
+    <md-icon>send</md-icon>
+  </button>
 </div>
