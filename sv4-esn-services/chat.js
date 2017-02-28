@@ -5,21 +5,17 @@ let userDao = new UserDAO();
 let MessageDAO = require('./dao/messageDao.js');
 let messageDao = new MessageDAO();
 
-var passport = require('passport');
-var passportJWT = require('passport-jwt');
+var config = require('./config');
 
-var ExtractJwt = passportJWT.ExtractJwt;
-var JwtStrategy = passportJWT.Strategy;
-//var JwtVerifier = JwtStrategy.JwtVerifier = require('./verify_jwt');
-
+const jwt = require('jsonwebtoken');
 
 module.exports = function(io) {
 
     var VerifyJwt = function(token, callback) {
         // Verify the JWT
-        jwt.verify(req.token, jwtOptions.secretOrKey, null, function(err, decoded){
+        jwt.verify(token, config.JwtSecretKey, null, function(err, decoded){
             if(err)
-                throw (err);
+                console.log('JWT Validation Error: ' + err);
             else
                 callback(decoded);
         });

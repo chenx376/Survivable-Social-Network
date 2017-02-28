@@ -3,6 +3,7 @@
  */
 module.exports = {
     "mongo_url": "mongodb://sv4esn:123456@ds151279.mlab.com:51279/heroku_qzhxq659",
+    "JwtSecretKey": "JWT_SV4_ESN_JWT_SECRET_KEY",
     "errors": {
         "userExists": "Username already exists, please choose another one.",
         "missingMessage": "Message data not informed",

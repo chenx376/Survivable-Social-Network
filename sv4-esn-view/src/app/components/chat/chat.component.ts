@@ -41,4 +41,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.connection.unsubscribe();
   }
+
+  getAvatarUrl(username) {
+    return 'avatar_tile_' + username.charAt(0) + '_56.png';
+  }
+
 }
