@@ -47,17 +47,17 @@ module.exports = class UserDAO {
     findByUsername(usrname, success, error) {
         userModel.findOne({username: usrname}, function (err, user) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when getting user.',
                     error: err
                 });
             }
             if (!user) {
-                error({
+                return error({
                     message: 'No such user'
                 });
             }
-            success(user);
+            return success(user);
         });
     };
 
@@ -69,12 +69,12 @@ module.exports = class UserDAO {
         let userToCreate = userModel(userObj);
         userToCreate.save(function (err, user) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when creating user',
                     error: err
                 });
             }
-            success(user);
+            return success(user);
         });
     };
 
@@ -85,13 +85,13 @@ module.exports = class UserDAO {
 
         userModel.findOne({_id: userToUpdate.id}, function (err, user) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when getting user',
                     error: err
                 });
             }
             if (!user) {
-                error({
+                return error({
                     message: 'No such user'
                 });
             }
@@ -106,13 +106,13 @@ module.exports = class UserDAO {
 
             user.save(function (err, user) {
                 if (err) {
-                    error({
+                    return error({
                         message: 'Error when updating user.',
                         error: err
                     });
                 }
 
-                success(user);
+                return success(user);
             });
         });
     };
@@ -124,12 +124,12 @@ module.exports = class UserDAO {
 
         userModel.findByIdAndRemove(id, function (err, user) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when deleting the user.',
                     error: err
                 });
             }
-            success();
+            return success();
         });
     };
 

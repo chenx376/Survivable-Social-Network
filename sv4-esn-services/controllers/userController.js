@@ -16,7 +16,7 @@ module.exports = {
         userDao.list(function(users){
             res.json(users);
         }, function(error){
-            res.status(500).json(error);
+            res.status(404).json(error);
         });
     },
 
@@ -28,7 +28,7 @@ module.exports = {
         userDao.findById(id, function(user){
             res.json(user);
         }, function(error){
-            res.status(500).json(error);
+            res.status(404).json(error);
         });
     },
 
@@ -48,7 +48,7 @@ module.exports = {
         userDao.create(user, function(user){
             res.status(201).json(user);
         }, function(error){
-            res.status(500).json(error);
+            res.status(404).json(error);
         });
 
     },
@@ -68,7 +68,7 @@ module.exports = {
         userDao.update(user, function(user){
             return res.json(user);
         }, function(error) {
-            return res.status(500).json(error);
+            return res.status(404).json(error);
         });
 
     },
@@ -81,7 +81,7 @@ module.exports = {
         userDao.remove(id, function(){
             return res.status(204).json('Deleted');
         }, function(error){
-            return res.status(500).json(error);
+            return res.status(404).json(error);
         });
     }
 };
