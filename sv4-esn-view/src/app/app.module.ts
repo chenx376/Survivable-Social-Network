@@ -9,10 +9,12 @@ import 'hammerjs';
 import { AppComponent } from './components/root/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
+import { DialogService } from './services/dialog/dialog.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,7 +26,11 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    DialogComponent
+  ],
+  entryComponents: [
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     HttpService,
-    UserService
+    UserService,
+    DialogService
   ],
   bootstrap: [AppComponent]
 })
