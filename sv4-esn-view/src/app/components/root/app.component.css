@@ -8,7 +8,35 @@
 }
 
 #sidenav {
-  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60vw;
+}
+
+#sidenav-header {
+  height: 150px;
+  width: 60vw;
+  margin-bottom: 10px;
+  background-image: url("../../../assets/img/sidenav_header_background.jpg");
+  background-size: cover;
+}
+
+.sidenav-item {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  height: 50px;
+  color: #212121;
+}
+
+.sidenav-item.active * {
+  color: #3f51b5;
+}
+
+.sidenav-item-icon {
+  margin-right: 30px;
+  color: #757575;
 }
 
 #sidenav-content {

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.userService.isUserLoggedIn()) {
-      this.router.navigateByUrl('chat');
+      this.router.navigateByUrl('home');
     }
   };
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   loginButtonClicked = () => {
     this.userService.login(this.username, this.password)
       .subscribe(
-        () => this.router.navigateByUrl('chat'),
+        () => this.router.navigateByUrl('home'),
         err => {
           if (err.message === 'No such user') {
             this.dialogService.open('Register',
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
               .flatMap(() => this.userService.createUser(this.username, this.password))
               .flatMap(() => this.userService.login(this.username, this.password))
               .subscribe(
-                () => this.router.navigateByUrl('chat'),
+                () => this.router.navigateByUrl('home'),
                 err => {
                   console.error(err);
                 })

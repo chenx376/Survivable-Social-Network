@@ -2,7 +2,7 @@
   <md-card class="message" *ngFor="let message of messages">
     <md-card-header>
       <div>
-        <img class="avatar" src="assets/img/avatar/{{ getAvatarUrl(message.sender.username) }}" />
+        <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
       </div>
       <div>
         <md-card-title>{{ message.senderId }}</md-card-title>
@@ -20,7 +20,6 @@
     <textarea mdInput rows="1"
               mdTextareaAutosize mdAutosizeMaxRows="3"
               [(ngModel)]="message">
-      Type your private message here...
     </textarea>
   </md-input-container>
 

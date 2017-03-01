@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs";
+import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
 import { Message } from '../../models/message.model';
 
@@ -12,6 +13,7 @@ import { Message } from '../../models/message.model';
 
 export class ChatComponent implements OnInit, OnDestroy {
 
+  private userService: UserService;
   private chatService: ChatService;
 
   private socketConnection: Subscription;
@@ -19,7 +21,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   messages: [Message];
   message: string;
 
-  constructor(chatService: ChatService) {
+  constructor(userService: UserService, chatService: ChatService) {
+    this.userService = userService;
     this.chatService = chatService
   }
 
@@ -39,8 +42,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.broadcastMessage(this.message);
     this.message = '';
   }
-
-  getAvatarUrl = (username: string): string => `avatar_tile_${username.charAt(0).toLowerCase()}_56.png`;
 
   ngOnDestroy() {
     this.socketConnection.unsubscribe();

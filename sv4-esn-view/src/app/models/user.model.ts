@@ -10,6 +10,7 @@ export class User {
   userId: string;
   username: string;
   status: UserStatus = UserStatus.Undefined;
+  online: boolean = false;
 
   constructor(json: any) {
     this.userId = json._id;

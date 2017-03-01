@@ -1,0 +1,68 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.user {
+  display: flex;
+  padding: 10px 0;
+  /*padding-left: 20px;*/
+  padding-top: 15px ;
+  padding-bottom: 15px;
+}
+
+.user+.user {
+  border-top: 1px solid #d9d9d9;
+}
+
+.avatar {
+  width: 12vw;
+  height: 12vw;
+  max-width: 56px;
+  max-height: 56px;
+  border-radius: 50%;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.username {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  padding: 2px 4px;
+}
+
+.user-status.user-status-ok {
+  background-color: #51b53f;
+}
+
+.user-status.user-status-help {
+  background-color: #b5a33f;
+}
+
+.user-status.user-status-emergency {
+  background-color: #b53f51;
+}
+
+.user-status-icon {
+  height: auto;
+  width: auto;
+  font-size: 1em;
+}
+
+.user-status-text {
+  margin-left: 2px;
+  font-size: 0.8em;
+}
+

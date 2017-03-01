@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import * as createHash from 'sha.js';
-
 import { User } from '../../models/user.model'
 
 @Injectable()
@@ -20,6 +19,8 @@ export class UserService {
       this.getUserInfo(this.userId);
     }
   }
+
+  isUserLoggedIn = (): boolean => this.userId != undefined;
 
   login = (username: string, password: string): Observable<void> => {
     let sha256 = createHash('sha256');
@@ -41,6 +42,11 @@ export class UserService {
     return this.httpService.post('/users', { username, password: hashedPassword });
   };
 
+  getUserList = (): Observable<[User]> => {
+    return this.httpService.get('/users/')
+      .map(json => json.map(userJson => new User(userJson)));
+  };
+
   getUserInfo = (userId: string): ReplaySubject<User> => {
     let replaySubject = new ReplaySubject<User>(1);
     this.httpService.get(`/users/${userId}`)
@@ -51,14 +57,6 @@ export class UserService {
     return replaySubject;
   };
 
-  isUserLoggedIn = (): boolean => this.userId != undefined;
-
-//   retrieveAll = (): Observable<User> => {
-//      return this.http.get(this.endpoint + '/users/').map(res => res.json());
-//   }
-
-//   update = (user): Observable<void> => {
-//     return this.http.put(this.endpoint + '/users', user).map(res => res.json());
-//   }
+  getAvatarUrl = (username: string): string => `assets/img/avatar/avatar_tile_${username.charAt(0).toLowerCase()}_56.png`;
 
 }

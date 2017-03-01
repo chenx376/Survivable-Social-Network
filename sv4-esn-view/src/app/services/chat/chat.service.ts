@@ -22,7 +22,6 @@ export class ChatService {
 
   getPublicMessages = (): Observable<[Message]> => {
     return this.httpService.get('/messages')
-      .do(json => console.log(json))
       .map(json => json.map(messageJson => new Message(messageJson)));
   };
 
@@ -31,7 +30,7 @@ export class ChatService {
       jwt: this.httpService.jwt,
       data: {
         message: {
-          sender: this.httpService.jwt,
+          sender: this.userService.userId,
           message: content,
           receivers: null,
           broadcast: true,

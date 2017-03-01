@@ -1,13 +1,40 @@
 <md-sidenav-container id="sidenav-container">
 
   <md-sidenav id="sidenav" #sidenav>
-    Jolly good!
+    <div id="sidenav-header">
+
+    </div>
+    <div class="sidenav-item"
+         routerLink="/home" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">home</md-icon>
+      <span>Home</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/chat" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">forum</md-icon>
+      <span>Public Chat</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/directory" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">contacts</md-icon>
+      <span>User Directory</span>
+    </div>
+    <div class="sidenav-item"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">reply</md-icon>
+      <span>Log Out</span>
+    </div>
   </md-sidenav>
 
   <div id="sidenav-content">
 
     <div id="app-header">
-      <button id="header-left-button" (click)="sidenav.open()">
+      <button id="header-left-button"
+              [class.invisible]="!userService.isUserLoggedIn()"
+              (click)="sidenav.open()">
         <md-icon>menu</md-icon>
       </button>
       <span id="app-title">Emergency Social Network</span>
