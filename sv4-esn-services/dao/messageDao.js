@@ -61,7 +61,7 @@ module.exports = class MessageDAO{
                     error: err
                 });
             }
-            return success(message);
+            return success(message._doc);
         });
     };
 
@@ -88,6 +88,7 @@ module.exports = class MessageDAO{
             message.broadcast = userToUpdate.broadcast ? userToUpdate.broadcast : message.broadcast;
             message.message = userToUpdate.message ? userToUpdate.message : message.message;
             message.sent_at = userToUpdate.sent_at ? userToUpdate.sent_at : message.sent_at;
+
 
             message.save(function (err, message) {
                 if (err) {

@@ -8,7 +8,9 @@ import 'hammerjs';
 
 import { AppComponent } from './components/root/app.component';
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { DirectoryComponent } from './components/directory/directory.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 
 import { HttpService } from './services/http/http.service';
@@ -18,6 +20,8 @@ import { DialogService } from './services/dialog/dialog.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'directory', component: DirectoryComponent },
   { path: 'chat', component: ChatComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -26,8 +30,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    HomeComponent,
     ChatComponent,
-    DialogComponent
+    DirectoryComponent,
+    DialogComponent,
   ],
   entryComponents: [
     DialogComponent

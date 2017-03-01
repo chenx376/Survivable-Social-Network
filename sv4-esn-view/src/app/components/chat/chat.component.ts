@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from "rxjs";
+import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
+import { Message } from '../../models/message.model';
 
 @Component({
   selector: 'app-chat',
@@ -9,11 +12,30 @@ import { ChatService } from '../../services/chat/chat.service';
 })
 
 export class ChatComponent implements OnInit, OnDestroy {
-  messages = [];
-  connection;
-  message;
 
-  constructor(private chatService:ChatService) {
+  private userService: UserService;
+  private chatService: ChatService;
+
+  private socketConnection: Subscription;
+
+  messages: [Message];
+  message: string;
+
+  constructor(userService: UserService, chatService: ChatService) {
+    this.userService = userService;
+    this.chatService = chatService
+  }
+
+  ngOnInit() {
+    this.chatService.getPublicMessages()
+      .subscribe(messages => {
+
+        this.messages = messages;
+        this.socketConnection = this.chatService.receiveMessage()
+          .subscribe(message => {
+            this.messages.push(message);
+          });
+      });
   }
 
   sendMessage() {
@@ -21,29 +43,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.message = '';
   }
 
-  ngOnInit() {
-
-    /**
-     * Retrieve persisted messages
-     */
-    this.chatService.retrievePersistedMessages( msgs => {
-      this.messages = msgs;
-    });
-
-    this.connection = this.chatService.getMessages()
-      .subscribe(message => {
-      console.log('Event broadcasted and received into Angular2 CHAIN!');
-      this.messages.push(message);
-    });
-
-  }
-
   ngOnDestroy() {
-    this.connection.unsubscribe();
-  }
-
-  getAvatarUrl(username) {
-    return 'avatar_tile_' + username.charAt(0) + '_56.png';
+    this.socketConnection.unsubscribe();
   }
 
 }

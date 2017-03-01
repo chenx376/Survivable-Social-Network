@@ -1,6 +1,6 @@
 <h1 md-dialog-title>{{ title }}</h1>
 <md-dialog-content>{{ content }}</md-dialog-content>
 <md-dialog-actions class="mat-dialog-actions">
-  <button md-button class="mat-button" (click)="dialogRef.close(false)">Cancel</button>
-  <button md-button class="mat-button" (click)="dialogRef.close(true)">OK</button>
+  <button md-button (click)="dialogRef.close(false)">Cancel</button>
+  <button md-button (click)="dialogRef.close(true)">OK</button>
 </md-dialog-actions>

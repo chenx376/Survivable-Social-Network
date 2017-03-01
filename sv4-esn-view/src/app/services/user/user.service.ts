@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import * as createHash from 'sha.js';
-
 import { User } from '../../models/user.model'
 
 @Injectable()
@@ -21,6 +20,8 @@ export class UserService {
     }
   }
 
+  isUserLoggedIn = (): boolean => this.userId != undefined;
+
   login = (username: string, password: string): Observable<void> => {
     let sha256 = createHash('sha256');
     let hashedPassword = sha256.update(password, 'utf8').digest('hex');
@@ -35,10 +36,26 @@ export class UserService {
       });
   };
 
+  logout = (): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { id: this.user.userId, online: false })
+      .do(json => {
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('user_id');
+        this.userId = null;
+        this.user = null;
+        this.httpService.jwt = null;
+      });
+  };
+
   createUser = (username: string, password: string): Observable<void> => {
     let sha256 = createHash('sha256');
     let hashedPassword = sha256.update(password, 'utf8').digest('hex');
     return this.httpService.post('/users', { username, password: hashedPassword });
+  };
+
+  getUserList = (): Observable<[User]> => {
+    return this.httpService.get('/users/')
+      .map(json => json.map(userJson => new User(userJson)));
   };
 
   getUserInfo = (userId: string): ReplaySubject<User> => {
@@ -51,18 +68,6 @@ export class UserService {
     return replaySubject;
   };
 
-  isUserLoggedIn = (): boolean => this.userId != undefined;
-
-//   retrieveAll = (): Observable<User> => {
-//      return this.http.get(this.endpoint + '/users/').map(res => res.json());
-//   }
-
-//   update = (user): Observable<void> => {
-//     return this.http.put(this.endpoint + '/users', user).map(res => res.json());
-//   }
-
-//   create = (user): Observable<void> => {
-//     return this.http.post(this.endpoint + '/users', user).map(res => res.json());
-//   }
+  getAvatarUrl = (username: string): string => `assets/img/avatar/avatar_tile_${username.charAt(0).toLowerCase()}_56.png`;
 
 }

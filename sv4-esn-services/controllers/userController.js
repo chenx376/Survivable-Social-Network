@@ -58,12 +58,15 @@ module.exports = {
      */
     update: function (req, res) {
         let user = {
+            id: req.body.id,
             username : req.body.username,
             email : req.body.email,
             password : req.body.password,
             created_at : req.body.created_at,
             updated_at : req.body.updated_at,
-            role : req.body.role
+            role : req.body.role,
+            status: req.body.status,
+            online: req.body.online
         };
         userDao.update(user, function(user){
             return res.json(user);

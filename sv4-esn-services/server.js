@@ -77,9 +77,15 @@ app.post("/login", function(req, res) {
             res.status(404).json({ message: 'Incorrect password' });
         }
 
-        var payload = {id: user.id};
-        var token = jwt.sign(payload, jwtOptions.secretOrKey);
-        res.json({id: user.id, token: token});
+        user.online = true;
+        userDao.update(user, function(user){
+            var payload = {id: user.id};
+            var token = jwt.sign(payload, jwtOptions.secretOrKey);
+            res.json({id: user.id, token: token});
+        }, function(error){
+            res.status(500).json(error);
+        })
+
 
     }, function(error){
         res.status(404).json(error);
