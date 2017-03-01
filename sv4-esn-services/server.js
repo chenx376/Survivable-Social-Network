@@ -71,24 +71,24 @@ app.post("/login", function(req, res) {
     // usually this would be a database call:
     userDao.findByUsername(username,function(user){
         if (!user) {
-            res.status(404).json({ message: 'No such user'});
+            return res.status(404).json({ message: 'No such user'});
         }
-        if (!user.password === password) {
-            res.status(404).json({ message: 'Incorrect password' });
+        if (user.password != password) {
+            return res.status(404).json({ message: 'Incorrect password' });
         }
 
         user.online = true;
         userDao.update(user, function(user){
             var payload = {id: user.id};
             var token = jwt.sign(payload, jwtOptions.secretOrKey);
-            res.json({id: user.id, token: token});
+            return res.json({id: user.id, token: token});
         }, function(error){
-            res.status(500).json(error);
+            return res.status(500).json(error);
         })
 
 
     }, function(error){
-        res.status(404).json(error);
+        return res.status(404).json(error);
     });
 
 });
