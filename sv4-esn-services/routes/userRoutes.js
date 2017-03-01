@@ -17,7 +17,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }),  userContro
 /*
  * POST
  */
-router.post('/', passport.authenticate('jwt', { session: false }),  userController.create);
+router.post('/',  userController.create);
 
 /*
  * PUT
