@@ -25,7 +25,7 @@ export class ChatService {
       jwt: localStorage.getItem('jwt'),
       data: {
         message: {
-          sender: null, //This is populated by Socket.io before saving message
+          sender: localStorage.getItem('user_id'), //This is populated by Socket.io before saving message
           message: content,
           receivers: null,
           broadcast: true,

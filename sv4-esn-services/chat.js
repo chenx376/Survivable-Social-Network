@@ -33,7 +33,7 @@ module.exports = function(io) {
 
                 if(obj.data.message) {
                     //Set user sender! Dont let the user mock this! Get by JWT
-                    obj.data.message.sender = decoded.id;
+                    //obj.data.message.sender = decoded.id;
 
                     messageDao.create(obj.data.message, function () {
                             io.emit('public-msg-sent', obj);
