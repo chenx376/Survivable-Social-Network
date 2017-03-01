@@ -33,27 +33,15 @@ module.exports = function(io) {
 
                 if(obj.data.message) {
                     //Set user sender! Dont let the user mock this! Get by JWT
+                    obj.data.message.sender = decoded.id;
 
-                    userDao.findById(decoded.id, function(user){
-
-                        obj.data.message.sender = user;
-
-                        messageDao.create(obj.data.message, function () {
-                                io.emit('public-msg-sent', obj);
-                                console.log('New public message sent.');
-                            },
-                            function (error) {
-                                console.log('Failed to send public message.')
-                            });
-
-                    }, function(error){
-                        console.log('Error sending message');
-                    });
-
-
-
-
-
+                    messageDao.create(obj.data.message, function () {
+                            io.emit('public-msg-sent', obj);
+                            console.log('New public message sent.');
+                        },
+                        function (error) {
+                            console.log('Failed to send public message.')
+                        })
                 }
 
             });
