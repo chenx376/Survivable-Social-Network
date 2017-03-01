@@ -18,7 +18,23 @@ export class DirectoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserList().subscribe(users => this.users = users);
+    this.userService.getUserList()
+      .map(users => users.sort((user1, user2) => {
+        if (user1.online && !user2.online) {
+          return -1;
+        } else if (!user1.online && user2.online) {
+          return 1;
+        } else {
+          if (user1.username > user2.username) {
+            return 1;
+          } else if (user1.username < user2.username) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      }))
+      .subscribe(users => this.users = users);
   }
 
 }

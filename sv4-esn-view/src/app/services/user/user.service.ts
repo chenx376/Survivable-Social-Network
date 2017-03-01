@@ -36,6 +36,17 @@ export class UserService {
       });
   };
 
+  logout = (): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { id: this.user.userId, online: false })
+      .do(json => {
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('user_id');
+        this.userId = null;
+        this.user = null;
+        this.httpService.jwt = null;
+      });
+  };
+
   createUser = (username: string, password: string): Observable<void> => {
     let sha256 = createHash('sha256');
     let hashedPassword = sha256.update(password, 'utf8').digest('hex');

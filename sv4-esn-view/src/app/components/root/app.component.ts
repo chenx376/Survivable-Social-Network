@@ -24,4 +24,12 @@ export class AppComponent implements OnInit {
     }
   }
 
+  logoutButtonClicked = (sidenav: any) => {
+    sidenav.close();
+    this.userService.logout()
+      .subscribe(json => {
+        this.router.navigateByUrl('login');
+      });
+  }
+
 }

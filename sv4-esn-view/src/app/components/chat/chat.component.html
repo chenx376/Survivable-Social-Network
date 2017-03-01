@@ -1,17 +1,13 @@
 <div class="message-list">
   <md-card class="message" *ngFor="let message of messages">
-    <md-card-header>
-      <div>
-        <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
-      </div>
-      <div>
-        <md-card-title>{{ message.senderId }}</md-card-title>
-        <md-card-subtitle>{{ message.date }}</md-card-subtitle>
-      </div>
-    </md-card-header>
-    <md-card-content>
-      <p>{{ message.content }}</p>
-    </md-card-content>
+    <div>
+      <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
+    </div>
+    <div>
+      <div>{{ message.sender.username }}</div>
+      <div>{{ chatService.formatDate(message.date) }}</div>
+      <div>{{ message.content }}</div>
+    </div>
   </md-card>
 </div>
 

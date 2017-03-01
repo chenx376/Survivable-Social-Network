@@ -103,6 +103,8 @@ module.exports = class UserDAO {
             user.created_at = userToUpdate.created_at ? userToUpdate.created_at : user.created_at;
             user.updated_at = userToUpdate.updated_at ? userToUpdate.updated_at : user.updated_at;
             user.role = userToUpdate.role ? userToUpdate.role : user.role;
+            user.status = userToUpdate.status ? userToUpdate.status: user.status;
+            user.online = userToUpdate.online ? userToUpdate.online : user.online;
 
             user.save(function (err, user) {
                 if (err) {

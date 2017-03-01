@@ -8,7 +8,7 @@ import 'hammerjs';
 
 import { AppComponent } from './components/root/app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { DialogComponent } from './components/dialog/dialog.component';

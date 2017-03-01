@@ -13,8 +13,19 @@ export class User {
   online: boolean = false;
 
   constructor(json: any) {
-    this.userId = json._id;
+    this.userId = (json._id)?json._id:null;
     this.username = json.username;
+    this.status = json.status;
+    this.online = json.online;
+  }
+
+  userStatusString = (): string => {
+    switch (this.status) {
+      case UserStatus.Undefined: return 'Undefined';
+      case UserStatus.OK: return 'OK';
+      case UserStatus.Help: return 'Help';
+      case UserStatus.Emergency: return 'Emergency';
+    }
   }
 
 }
