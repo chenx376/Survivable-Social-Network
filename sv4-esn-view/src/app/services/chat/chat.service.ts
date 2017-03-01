@@ -31,7 +31,7 @@ export class ChatService {
       jwt: this.httpService.jwt,
       data: {
         message: {
-          sender: null,
+          sender: this.httpService.jwt,
           message: content,
           receivers: null,
           broadcast: true,
