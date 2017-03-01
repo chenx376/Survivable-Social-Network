@@ -21,7 +21,9 @@ export class ChatService {
   }
 
   getPublicMessages = (): Observable<[Message]> => {
-    return this.httpService.get('/messages');
+    return this.httpService.get('/messages')
+      .do(json => console.log(json))
+      .map(json => json.map(messageJson => new Message(messageJson)));
   };
 
   broadcastMessage = (content: string) => {

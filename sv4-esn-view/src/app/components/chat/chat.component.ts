@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private socketConnection: Subscription;
 
   messages: [Message];
-  message;
+  message: string;
 
   constructor(chatService: ChatService) {
     this.chatService = chatService
@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.chatService.getPublicMessages()
       .subscribe(messages => {
+
         this.messages = messages;
         this.socketConnection = this.chatService.receiveMessage()
           .subscribe(message => {
