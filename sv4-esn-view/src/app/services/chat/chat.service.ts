@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
 import * as io from 'socket.io-client';
-import { HttpService } from '../http/http.service';
 import { UserService } from '../user/user.service';
-import { Message } from '../../models/message.model';
+import { HttpService } from '../http/http.service';
+
+import { Observable } from "rxjs";
 
 @Injectable()
 export class ChatService {
@@ -20,18 +20,12 @@ export class ChatService {
     this.userService = userService;
   }
 
-  getPublicMessages = (): Observable<[Message]> => {
-    return this.httpService.get('/messages')
-      .do(json => console.log(json))
-      .map(json => json.map(messageJson => new Message(messageJson)));
-  };
-
   broadcastMessage = (content: string) => {
     let payload = {
-      jwt: this.httpService.jwt,
+      jwt: localStorage.getItem('jwt'),
       data: {
         message: {
-          sender: null,
+          sender: localStorage.getItem('user_id'), //This is populated by Socket.io before saving message
           message: content,
           receivers: null,
           broadcast: true,
@@ -43,15 +37,23 @@ export class ChatService {
     this.socket.emit('public-msg', payload);
   };
 
-  receiveMessage = (): Observable<Message> => {
-    return new Observable(observer => {
-      this.socket.on('public-msg-sent', json => {
-        observer.next(new Message(json));
+  retrievePersistedMessages = (done) => {
+    this.httpService.get('/messages')
+      .subscribe(res => {
+        done(res);
+      });
+  };
+
+  getMessages = () => {
+    let observable = new Observable(observer => {
+      this.socket.on('public-msg-sent', (data) => {
+        observer.next(data);
       });
       return () => {
         this.socket.disconnect();
       };
     });
-  };
+    return observable;
+  }
 
 }
