@@ -14,8 +14,6 @@ export class User {
   constructor(json: any) {
     this.userId = json._id;
     this.username = json.username;
-
-    console.log(this);
   }
 
 }

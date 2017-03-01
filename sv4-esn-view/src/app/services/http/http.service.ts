@@ -50,6 +50,41 @@ export class HttpService {
       .catch(this.handleError);
   };
 
+  put = (path: string, params?: Object): Observable<any> => {
+    let requestUri = encodeURI(`${this.baseUri}${path}`);
+    let requestOptions = new RequestOptions();
+    requestOptions.headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    if (this.jwt) {
+      requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
+    }
+
+    return this.http.put(requestUri, JSON.stringify(params), requestOptions)
+      .map(res => res.json())
+      .catch(this.handleError);
+  };
+
+  delete = (path: string, params?: Object): Observable<any> => {
+    let requestUri = `${this.baseUri}${path}`;
+    let requestOptions = new RequestOptions();
+    if (params) {
+      let urlSearchParams = new URLSearchParams();
+      Object.keys(params).forEach(key => {
+        urlSearchParams.set(key, params[key]);
+      });
+      requestOptions.search = urlSearchParams;
+    }
+    if (this.jwt) {
+      let headers: Headers = new Headers({ 'Authorization': `JWT ${this.jwt}` });
+      requestOptions.headers = headers;
+    }
+
+    return this.http.delete(requestUri, requestOptions)
+      .map(res => res.json())
+      .catch(this.handleError)
+  };
+
   private handleError = (error: Response) => {
     return Observable.throw(error.json());
   }
