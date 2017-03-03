@@ -22,7 +22,11 @@ export class AppComponent implements OnInit {
     if (!this.userService.isUserLoggedIn()) {
       this.router.navigateByUrl('login');
     } else {
-      this.router.navigateByUrl('home');
+      if (this.router.url === '/') {
+        console.log(this.router.url);
+        console.log(this.router.routerState);
+        this.router.navigateByUrl('home');
+      }
     }
   }
 

@@ -3,10 +3,10 @@
     <div>
       <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
     </div>
-    <div>
-      <div>{{ message.sender.username }}</div>
-      <div>{{ chatService.formatDate(message.date) }}</div>
-      <div>{{ message.content }}</div>
+    <div class="message-content">
+      <div style="font-size: 0.8em;">{{ message.sender.username }} | status: {{ message.sender.userStatusString() }}</div>
+      <div style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>
+      <div style="margin-top: 5px">{{ message.content }}</div>
     </div>
   </md-card>
 </div>
