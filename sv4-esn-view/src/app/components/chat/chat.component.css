@@ -16,6 +16,10 @@
   margin: 10px 5px;
 }
 
+.message-content {
+  margin-left: 20px;
+}
+
 .avatar {
   width: 12vw;
   height: 12vw;
