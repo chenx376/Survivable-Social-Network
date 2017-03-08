@@ -74,7 +74,7 @@ app.post("/login", function(req, res) {
             return res.status(404).json({ message: 'No such user'});
         }
         if (user.password != password) {
-            
+
             return res.status(404).json({ message: 'Incorrect password' });
         }
 
