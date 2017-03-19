@@ -6,6 +6,9 @@ var server = require('gulp-express');
 var mocha = require('gulp-mocha');
 
 gulp.task('serve', function () {
+    // Load production config
+    process.env.NODE_ENV = "production";
+
     // Start the server at the beginning of the task
     server.run(['server.js']);
 
@@ -14,6 +17,10 @@ gulp.task('serve', function () {
 });
 
 gulp.task('test', () =>
+    // Load production config
+    process.env.NODE_ENV = "testing";
+
+    // Run the tests in tests folder
     gulp.src(['tests/**/*.js'], {read: false})
     // `gulp-mocha` needs filepaths so you can't have any plugins before it
     .pipe(
