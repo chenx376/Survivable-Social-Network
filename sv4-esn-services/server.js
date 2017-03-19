@@ -149,13 +149,15 @@ app.post("/login", function(req, res) {
  * Start REST API Endpoints
  * After we call the mongoose-gen we just have to require the created route here.
  */
-var users = require('./routes/userRoutes.js')
-app.use('/users', users)
+var users = require('./routes/userRoutes.js');
+app.use('/users', users);
 
 
-var messages = require('./routes/messageRoutes.js')
-app.use('/messages', messages)
+var messages = require('./routes/messageRoutes.js');
+app.use('/messages', messages);
 
+var announces = require('./routes/announceRoutes.js');
+app.use('/announces', announces);
 
 /**
  * End of REST API Endpoints
