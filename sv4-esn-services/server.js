@@ -7,7 +7,6 @@ var passportJWT = require('passport-jwt');
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
-//var JwtVerifier = JwtStrategy.JwtVerifier = require('./verify_jwt');
 
 var config = require('./config');
 var ConnectionController = require('./controllers/connection-controller.js')
@@ -27,6 +26,8 @@ jwtOptions.secretOrKey = config.JwtSecretKey;
 var chat = require('./chat.js')(io);
 
 var conn = new ConnectionController();
+
+var env = process.env.NODE_ENV || 'dev';
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -125,7 +126,7 @@ app.post("/login", function(req, res) {
             return res.status(404).json({ message: 'No such user'});
         }
         if (user.password != password) {
-            
+
             return res.status(404).json({ message: 'Incorrect password' });
         }
         user.online = true;
@@ -164,6 +165,7 @@ app.get('/', function (req, res) {
         res.json({"sv4-esn-status": "RUNNING"});
 });
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
+var port = (env === 'dev')?3000:80;
+http.listen( port, function () {
+    console.log('ENV['+env+'] Server started: ' + port);
 });
