@@ -83,6 +83,7 @@ module.exports = class AnnounceDao {
             announce.username = announceToUpdate.username ? announceToUpdate.username : announce.username;
             announce.created_at = announceToUpdate.created_at ? announceToUpdate.created_at : announce.created_at;
             announce.updated_at = announceToUpdate.updated_at ? announceToUpdate.updated_at : announce.updated_at;
+            announce.location = announceToUpdate.location ? announceToUpdate.location : announce.location;
 
             announce.save(function (err, announce) {
                 if (err) {

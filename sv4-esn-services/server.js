@@ -4,7 +4,6 @@
 var app = require('express')();
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
-var sha256 = require('js-sha256');  //password to sha-256
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
@@ -111,7 +110,7 @@ app.post("/login", function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
         if (username.length < 3){
-            return res.status(404).json({ message : 'Username less than three character'});
+            return res.status(404).json({ message:'Username less than three character'});
         }
         if (reserve_name.indexOf(username) > -1){
             return res.status(404).json({ message:'Username is in the list of reserve name'});
@@ -119,7 +118,6 @@ app.post("/login", function(req, res) {
         if (password.length <4){
             return res.status(404).json({ message:'Password less than three character'});
         }
-        password = sha256(password);
     }
 
     // usually this would be a database call:
@@ -131,7 +129,6 @@ app.post("/login", function(req, res) {
 
             return res.status(404).json({ message: 'Incorrect password' });
         }
-
         user.online = true;
         userDao.update(user, function(user){
             var payload = {id: user.id};
@@ -152,13 +149,15 @@ app.post("/login", function(req, res) {
  * Start REST API Endpoints
  * After we call the mongoose-gen we just have to require the created route here.
  */
-var users = require('./routes/userRoutes.js')
-app.use('/users', users)
+var users = require('./routes/userRoutes.js');
+app.use('/users', users);
 
 
-var messages = require('./routes/messageRoutes.js')
-app.use('/messages', messages)
+var messages = require('./routes/messageRoutes.js');
+app.use('/messages', messages);
 
+var announces = require('./routes/announceRoutes.js');
+app.use('/announces', announces);
 
 /**
  * End of REST API Endpoints

@@ -1,4 +1,5 @@
 var UserDAO = require('../dao/userDao.js');
+var createHash = require('sha.js')  //password to sha-256
 
 let userDao = new UserDAO();
 
@@ -36,10 +37,13 @@ module.exports = {
      * userController.create()
      */
     create: function (req, res) {
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
+        console.log(shapassword);
         let user = {
 			username : req.body.username,
 			email : req.body.email,
-			password : req.body.password,
+			password : shapassword,
 			created_at : req.body.created_at,
 			updated_at : req.body.updated_at,
 			role : req.body.role
@@ -57,11 +61,14 @@ module.exports = {
      * userController.update()
      */
     update: function (req, res) {
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
+        console.log(shapassword);
         let user = {
             id: req.body.id,
             username : req.body.username,
             email : req.body.email,
-            password : req.body.password,
+            password : shapassword,
             created_at : req.body.created_at,
             updated_at : req.body.updated_at,
             role : req.body.role,

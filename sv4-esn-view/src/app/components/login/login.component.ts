@@ -59,9 +59,7 @@ export class LoginComponent implements OnInit {
               .flatMap(() => this.userService.login(this.username, this.password))
               .subscribe(
                 () => this.router.navigateByUrl('home'),
-                err => {
-                  console.error(err);
-                })
+                err => console.error(err))
           } else {
             this.dialogService.open('Error', err.message, this.viewContainerRef);
           }
