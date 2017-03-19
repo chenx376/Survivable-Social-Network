@@ -49,7 +49,7 @@ Techonology Selection:
 
 ### - *Gulp for build automation*
 - gulp.js is an open-source JavaScript toolkit by Fractal Innovations[2] and the open source community at git, used as a streaming build system in front-end web development.For more info, click [Gupl](https://en.wikipedia.org/wiki/Gulp.js)
-- By using Gulp, our task runners would be more consistent, effictive, efficient and repeatable. Besides, Grunt also allows us to customize our tasks by using predefined plugins.
+- By using Gulp, our task runners would be more consistent, effictive, efficient and repeatable. Besides, Gulp also allows us to customize our tasks by using predefined plugins.
 
 ### - *Mocha, Selenium for testing*
 - Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun. Mocha tests run serially, allowing for flexible and accurate reporting, while mapping uncaught exceptions to the correct test cases. Hosted on GitHub. For more info, click [Mocha](https://mochajs.org/)

@@ -6,7 +6,7 @@ var server = require('gulp-express');
 var mocha = require('gulp-mocha');
 
 gulp.task('serve', function () {
-    // Load production config
+    // Set environment to production
     process.env.NODE_ENV = "production";
 
     // Start the server at the beginning of the task
@@ -17,7 +17,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('test', function () {
-    // Load production config
+    // Set environment to testing
     process.env.NODE_ENV = "testing";
 
     // Run the tests in tests folder
