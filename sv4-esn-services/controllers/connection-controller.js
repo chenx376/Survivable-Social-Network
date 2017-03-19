@@ -2,7 +2,7 @@
  * @author Arthur M Sampaio
  */
 var mongoose = require('mongoose');
-var config = require('../config');
+var config = require('config');
 
 module.exports = class ConnectionController {
 
