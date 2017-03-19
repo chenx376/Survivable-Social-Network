@@ -16,7 +16,7 @@ gulp.task('serve', function () {
     gulp.watch(['server.js', '**/*.js'], [server.run]);
 });
 
-gulp.task('test', () =>
+gulp.task('test', function () {
     // Load production config
     process.env.NODE_ENV = "testing";
 
@@ -31,4 +31,4 @@ gulp.task('test', () =>
             ui: 'tdd'
         })
     )
-);
+});
