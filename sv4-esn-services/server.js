@@ -5,6 +5,8 @@ var app = require('express')();
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
 
+var createHash = require('sha.js')  //password to sha-256
+
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 
@@ -118,6 +120,8 @@ app.post("/login", function(req, res) {
         if (password.length <4){
             return res.status(404).json({ message:'Password less than three character'});
         }
+        var sha256 = createHash('sha256');
+        password = sha256.update(password, 'utf8').digest('hex');
     }
 
     // usually this would be a database call:
@@ -126,7 +130,6 @@ app.post("/login", function(req, res) {
             return res.status(404).json({ message: 'No such user'});
         }
         if (user.password != password) {
-
             return res.status(404).json({ message: 'Incorrect password' });
         }
         user.online = true;
