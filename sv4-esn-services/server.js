@@ -8,7 +8,6 @@ var sha256 = require('js-sha256');  //password to sha-256
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
-//var JwtVerifier = JwtStrategy.JwtVerifier = require('./verify_jwt');
 
 var config = require('./config');
 var ConnectionController = require('./controllers/connection-controller.js')
@@ -28,6 +27,8 @@ jwtOptions.secretOrKey = config.JwtSecretKey;
 var chat = require('./chat.js')(io);
 
 var conn = new ConnectionController();
+
+var env = process.env.NODE_ENV || 'dev';
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -167,6 +168,7 @@ app.get('/', function (req, res) {
         res.json({"sv4-esn-status": "RUNNING"});
 });
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
+var port = (env === 'dev')?3000:80;
+http.listen( port, function () {
+    console.log('ENV['+env+'] Server started: ' + port);
 });

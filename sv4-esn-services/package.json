@@ -1,4 +1,10 @@
 {
+  "name": "sv4-esn-services",
+  "description": "Backend Services",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "expect": "^1.20.2",
