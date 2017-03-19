@@ -23,7 +23,7 @@ module.exports = class ConnectionController {
 
     connect() {
         if (!this.connected) {
-            mongoose.connect(config.mongo_url);
+            mongoose.connect(config.get('mongo_url'));
             this.db.on('error', this.errorHandler);
             this.db.once('open', this.openHandler);
         }
