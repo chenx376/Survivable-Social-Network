@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
-import * as createHash from 'sha.js';
 import { User } from '../../models/user.model'
 
 @Injectable()
@@ -23,9 +22,7 @@ export class UserService {
   isUserLoggedIn = (): boolean => this.userId != undefined;
 
   login = (username: string, password: string): Observable<void> => {
-    let sha256 = createHash('sha256');
-    let hashedPassword = sha256.update(password, 'utf8').digest('hex');
-    return this.httpService.post('/login', { username, password: hashedPassword })
+    return this.httpService.post('/login', { username, password })
       .do(json => {
         this.userId = json.id;
         this.httpService.jwt = json.token;
@@ -48,9 +45,7 @@ export class UserService {
   };
 
   createUser = (username: string, password: string): Observable<void> => {
-    let sha256 = createHash('sha256');
-    let hashedPassword = sha256.update(password, 'utf8').digest('hex');
-    return this.httpService.post('/users', { username, password: hashedPassword });
+    return this.httpService.post('/users', { username, password });
   };
 
   getUserList = (): Observable<[User]> => {
