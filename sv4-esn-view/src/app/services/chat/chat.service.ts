@@ -11,7 +11,7 @@ export class ChatService {
   private httpService: HttpService;
   private userService: UserService;
 
-  private endpoint: string = "http://localhost:3000";
+  private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   private socket = io(this.endpoint);
 
