@@ -4,7 +4,6 @@
 var app = require('express')();
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
-var sha256 = require('js-sha256');  //password to sha-256
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
@@ -110,7 +109,7 @@ app.post("/login", function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
         if (username.length < 3){
-            return res.status(404).json({ message : 'Username less than three character'});
+            return res.status(404).json({ message:'Username less than three character'});
         }
         if (reserve_name.indexOf(username) > -1){
             return res.status(404).json({ message:'Username is in the list of reserve name'});
@@ -118,7 +117,6 @@ app.post("/login", function(req, res) {
         if (password.length <4){
             return res.status(404).json({ message:'Password less than three character'});
         }
-        password = sha256(password);
     }
 
     // usually this would be a database call:
@@ -130,7 +128,6 @@ app.post("/login", function(req, res) {
             
             return res.status(404).json({ message: 'Incorrect password' });
         }
-
         user.online = true;
         userDao.update(user, function(user){
             var payload = {id: user.id};
