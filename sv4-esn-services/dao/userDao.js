@@ -34,7 +34,7 @@ module.exports = class UserDAO {
             }
             if (!user) {
                 error({
-                    message: 'No such user'
+                    message: 'No such user.'
                 });
             }
             success(user);
