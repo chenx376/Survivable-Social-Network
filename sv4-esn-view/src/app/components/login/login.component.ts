@@ -62,6 +62,8 @@ export class LoginComponent implements OnInit {
                 err => {
                   console.error(err);
                 })
+          } else {
+            this.dialogService.open('Error', err.message, this.viewContainerRef);
           }
         });
   };

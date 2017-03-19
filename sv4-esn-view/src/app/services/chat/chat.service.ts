@@ -60,7 +60,7 @@ export class ChatService {
     let month = ('0' + date.getMonth()).slice(-2);
     let day = ('0' + date.getDay()).slice(-2);
 
-    return `${hour}:${minute}:${second} ${month}/${day} ${date.getFullYear()}`;
+    return `${hour}:${minute}:${second} ${month}/${day}/${date.getFullYear()}`;
   }
 
 }
