@@ -165,7 +165,7 @@ app.get('/', function (req, res) {
         res.json({"sv4-esn-status": "RUNNING"});
 });
 
-var port = (env === 'dev')?3000:80;
+var port = process.env.PORT || 3000;
 http.listen( port, function () {
     console.log('ENV['+env+'] Server started: ' + port);
 });
