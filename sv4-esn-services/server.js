@@ -170,5 +170,5 @@ app.get('/', function (req, res) {
 
 var port = process.env.PORT || 3000;
 http.listen( port, function () {
-    console.log('ENV['+env+'] Server started: ' + port);
+    console.log('ENV[' + process.env.NODE_ENV + '] Server started: ' + port);
 });
