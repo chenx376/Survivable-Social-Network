@@ -20,7 +20,7 @@ test:
 
 deployment:
   prod:
-    branch: master
+    branch: production
     commands:
-      - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku master
-      - git subtree push --prefix sv4-esn-view sv4-esn-view-heroku master
+      - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku production
+      - git subtree push --prefix sv4-esn-view sv4-esn-view-heroku production
