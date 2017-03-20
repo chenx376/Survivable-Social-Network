@@ -9,7 +9,7 @@ dependencies:
   pre:
     - npm install -g  gulp
     - npm install -g mocha
-    - npm install install:
+    - npm install:
         pwd: sv4-esn-services/
 test:
   override:
