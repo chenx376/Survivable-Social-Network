@@ -1,7 +1,13 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  padding: 0 5vw;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
 }
 
 .user {
@@ -29,7 +35,7 @@
 
 .user-header {
   display: flex;
-  height: 24px;
+  height: 20px;
 }
 
 .username {
@@ -38,6 +44,7 @@
 
 .status-icon {
   margin-left: 5px;
+  width: 20px;
   font-size: 1.2em;
 }
 
@@ -55,6 +62,7 @@
 
 .online-icon {
   margin-left: 5px;
+  width: 20px;
   font-size: 1.2em;
   color: #51b53f;
 }

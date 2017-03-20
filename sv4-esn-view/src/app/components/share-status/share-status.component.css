@@ -1,7 +1,13 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  padding: 0 5vw;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
 }
 
 .status {
@@ -53,4 +59,8 @@
 
 .information-input textarea {
   resize: none;
+}
+
+#share-status-button {
+  margin-bottom: 15px;
 }
