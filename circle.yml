@@ -19,5 +19,5 @@ test:
   override:
     - gulp build:
       pwd: sv4-esn-services
-    - gulp test
+    - gulp test:
       pwd: sv4-esn-services
