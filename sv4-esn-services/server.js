@@ -74,7 +74,7 @@ app.post("/login", function(req, res) {
 
     loginService.doLogin(username, password, /*success*/function(id) {
 
-        var token = jwt.sign(id, jwtOptions.secretOrKey);
+        var token = jwt.sign({id: id}, jwtOptions.secretOrKey);
         return res.json({id: id, token: token});
 
     }, /*error*/ function(code, error){
