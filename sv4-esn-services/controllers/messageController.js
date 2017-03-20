@@ -1,5 +1,5 @@
 let MessageDAO = require('../dao/messageDao.js');
-
+let userModel = require('../models/userModel.js');
 let messageDao = new MessageDAO();
 
 /**
@@ -36,19 +36,40 @@ module.exports = {
      * messageController.create()
      */
     create: function (req, res) {
-        let message = {
-			sender : req.body.sender,
-			receivers : req.body.receivers,
-			message : req.body.message,
-			sent_at : req.body.sent_at,
-            broadcast : req.body.broadcast
-        };
 
-        messageDao.create(message, function (message) {
-            res.status(201).json(message);
-        }, function(error) {
-            res.status(404).json(error);
+        var user_id = req.body.sender;
+
+        userModel.findOne({_id: user_id}, function (err, user) {
+            if (err) {
+                return error({
+                    message: 'Error when getting user',
+                    error: err
+                });
+            }
+            if (!user) {
+                return error({
+                    message: 'No such user'
+                });
+            }
+
+            let message = {
+                sender : req.body.sender,
+                receivers : req.body.receivers,
+                message : req.body.message,
+                sent_at : req.body.sent_at,
+                broadcast : req.body.broadcast,
+                user_status: user.status,
+                user_status_information: user.status_information
+            };
+
+            messageDao.create(message, function (message) {
+                res.status(201).json(message);
+            }, function(error) {
+                res.status(404).json(error);
+            });
+
         });
+
     },
 
     /**
