@@ -19,6 +19,7 @@
     "passport-json": "^1.2.0",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
+    "reserved-usernames": "^1.0.3",
     "sha.js": "^2.4.8",
     "socket.io": "^1.7.2"
   }
