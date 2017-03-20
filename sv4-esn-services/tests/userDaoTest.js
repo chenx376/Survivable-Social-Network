@@ -5,6 +5,12 @@ var ConnectionController = require('../controllers/connection-controller.js');
 var conn;
 var userDao;
 
+var ConnectionController = require('../controllers/connection-controller.js');
+var conn = new ConnectionController();
+
+let UserDAO = require('./dao/userDao.js');
+let userDao;
+
 suite('UserDAO Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
@@ -39,7 +45,6 @@ suite('UserDAO Tests', function(){
         }, function(error){
             done();
         });
-
     });
 
     test('Listing users', function(done){
@@ -52,10 +57,12 @@ suite('UserDAO Tests', function(){
         done();
     });
 
-    test('Updating a user', function(done){
+    test('Listing users', function(done){
+
 
         done();
     });
+
 
     test('Removing a user', function(done){
 
