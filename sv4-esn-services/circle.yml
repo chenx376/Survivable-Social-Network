@@ -1,4 +1,7 @@
 machine:
+  environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
+    NODE_ENV: test
   node:
     version: 7.5.0
 
@@ -7,9 +10,12 @@ dependencies:
     - npm install -g gulp
     - npm install -g mocha
   override:
-    - npm install
+    - npm install:
+      pwd: sv4-esn-service
 
 test:
   override:
-    - gulp build
+    - gulp build:
+      pwd: sv4-esn-services
     - gulp test
+      pwd: sv4-esn-services
