@@ -2,7 +2,6 @@ machine:
   environment:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     NODE_ENV: test
-    MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
   node:
     version: 7.5.0
 
@@ -20,4 +19,6 @@ test:
     - gulp build:
       pwd: sv4-esn-services
     - gulp test:
+      pwd: sv4-esn-services
+    - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
       pwd: sv4-esn-services
