@@ -1,4 +1,4 @@
-var expect = require('expect');
+var expect = require('expect.js');
 var announceDao = require('../dao/messageDao.js');
 
 suite('AnnounceDAO Tests', function(){

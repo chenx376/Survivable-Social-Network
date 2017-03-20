@@ -5,12 +5,6 @@ var ConnectionController = require('../controllers/connection-controller.js');
 var conn;
 var userDao;
 
-var ConnectionController = require('../controllers/connection-controller.js');
-var conn = new ConnectionController();
-
-let UserDAO = require('./dao/userDao.js');
-let userDao;
-
 suite('UserDAO Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
@@ -43,22 +37,47 @@ suite('UserDAO Tests', function(){
             expect(user.location).to.eql('Shanghai');
             done();
         }, function(error){
+            expect(error).to.be(undefined);
             done();
         });
     });
 
     test('Listing users', function(done){
+        userDao.list(function(users){
+            expect(users).to.be.an('array');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
 
         done();
     });
 
-    test('Finding user by ID', function(done){
+    // test('Finding a user by ID', function(done){
+    //
+    //     done();
+    // });
 
+    test('Finding a user by Username', function(done){
+        let username = 'yanli';
+        userDao.findByUsername(username, function(user){
+            expect(user.username).to.eql('yanli');
+            expect(user.email).to.eql('yanli@gmail.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('1489962761679');
+            expect(user.updated_at).to.eql('1489962761679');
+            expect(user.role).to.eql('CITIZEN');
+            expect(user.location).to.eql('Shanghai');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
         done();
     });
 
-    test('Listing users', function(done){
-
+    test('Updating a user', function(done){
 
         done();
     });
