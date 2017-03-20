@@ -46,7 +46,8 @@ module.exports = {
 			password : shapassword,
 			created_at : req.body.created_at,
 			updated_at : req.body.updated_at,
-			role : req.body.role
+			role : req.body.role,
+            location : req.body.location
         };
 
         userDao.create(user, function(user){
@@ -73,7 +74,8 @@ module.exports = {
             updated_at : req.body.updated_at,
             role : req.body.role,
             status: req.body.status,
-            online: req.body.online
+            online: req.body.online,
+            location : req.body.location
         };
         userDao.update(user, function(user){
             return res.json(user);

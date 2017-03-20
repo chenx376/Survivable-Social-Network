@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var announceSchema = new Schema({
-    'content' : String,
-    'username' : String,
+    'content' : {type: String, default: null},
+    'username' : {type: String, default: null},
     'created_at' : {
         type: Date,
         default : Date.now
@@ -15,7 +15,7 @@ var announceSchema = new Schema({
         type: Date,
         default : Date.now
     },
-    'location' : String
+    'location' : {type: String, default: null}
 })
 
 module.exports = mongoose.model('announce', announceSchema);

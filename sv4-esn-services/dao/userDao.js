@@ -104,7 +104,8 @@ module.exports = class UserDAO {
             user.updated_at = userToUpdate.updated_at ? userToUpdate.updated_at : user.updated_at;
             user.role = userToUpdate.role ? userToUpdate.role : user.role;
             user.status = userToUpdate.status ? userToUpdate.status: user.status;
-            user.online = userToUpdate.online?true:false;
+            user.online = userToUpdate.online? true: false;
+            user.location = userToUpdate.location? userToUpdate.location: user.location;
 
             user.save(function (err, user) {
                 if (err) {
