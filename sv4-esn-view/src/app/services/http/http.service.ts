@@ -38,9 +38,7 @@ export class HttpService {
   post = (path: string, params?: Object): Observable<any> => {
     let requestUri = encodeURI(`${this.baseUri}${path}`);
     let requestOptions = new RequestOptions();
-    requestOptions.headers = new Headers({
-      'Content-Type': 'application/json'
-    });
+    requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
     if (this.jwt) {
       requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
     }
@@ -53,9 +51,7 @@ export class HttpService {
   put = (path: string, params?: Object): Observable<any> => {
     let requestUri = encodeURI(`${this.baseUri}${path}`);
     let requestOptions = new RequestOptions();
-    requestOptions.headers = new Headers({
-      'Content-Type': 'application/json'
-    });
+    requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
     if (this.jwt) {
       requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
     }

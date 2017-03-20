@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import { User, UserStatus } from './user.model';
 
 export class Message {
 
@@ -8,6 +8,8 @@ export class Message {
   content: string;
   date: Date;
   broadcast: boolean;
+  userStatus: UserStatus;
+  userStatusInformation: string;
 
   constructor(json: any) {
     this.messageId = json._id;
@@ -16,6 +18,8 @@ export class Message {
     this.content = json.message;
     this.date = new Date(json.sent_at);
     this.broadcast = json.broadcast;
+    this.userStatus = json.user_status;
+    this.userStatusInformation = json.user_status_information;
   }
 
 }

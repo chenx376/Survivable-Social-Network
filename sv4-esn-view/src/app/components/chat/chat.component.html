@@ -1,13 +1,39 @@
 <div class="message-list">
   <md-card class="message" *ngFor="let message of messages">
-    <div>
-      <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
+
+    <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
+    <div class="user-info">
+      <div class="user-header">
+        <div class="username">{{ message.sender.username }}</div>
+        <div [ngSwitch]="message.sender.status">
+          <template [ngSwitchCase]="1">
+            <md-icon class="status-icon status-ok">check_circle</md-icon>
+          </template>
+          <template [ngSwitchCase]="2">
+            <md-icon class="status-icon status-help">error</md-icon>
+          </template>
+          <template [ngSwitchCase]="3">
+            <md-icon class="status-icon status-emergency">add_circle</md-icon>
+          </template>
+        </div>
+        <md-icon class="online-icon"
+                 *ngIf="message.sender.online">language</md-icon>
+      </div>
+      <div class="status-information"
+           *ngIf="message.sender.statusInformation != null && message.sender.statusInformation.length != 0">
+        {{ message.sender.statusInformation }}
+      </div>
+      <div class="message-date" style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>
     </div>
-    <div class="message-content">
-      <div style="font-size: 0.8em;">{{ message.sender.username }} | status: {{ message.sender.userStatusString() }}</div>
-      <div style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>
-      <div style="margin-top: 5px">{{ message.content }}</div>
-    </div>
+
+    <!--<div>-->
+      <!--<img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />-->
+    <!--</div>-->
+    <!--<div class="message-content">-->
+      <!--<div style="font-size: 0.8em;">{{ message.sender.username }} | status: {{ message.sender.userStatusString() }}</div>-->
+      <!--<div style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>-->
+      <!--<div style="margin-top: 5px">{{ message.content }}</div>-->
+    <!--</div>-->
   </md-card>
 </div>
 

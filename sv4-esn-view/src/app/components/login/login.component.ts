@@ -51,9 +51,10 @@ export class LoginComponent implements OnInit {
         () => this.router.navigateByUrl('home'),
         err => {
           if (err.message === 'No such user') {
-            this.dialogService.open('Register',
+            this.dialogService.openDialogue(this.viewContainerRef,
+              'Register',
               `User ${this.username} does not exist. Do you want to register as a new user?`,
-              this.viewContainerRef)
+              )
               .filter(result => result == true)
               .flatMap(() => this.userService.createUser(this.username, this.password))
               .flatMap(() => this.userService.login(this.username, this.password))
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
                 () => this.router.navigateByUrl('home'),
                 err => console.error(err))
           } else {
-            this.dialogService.open('Error', err.message, this.viewContainerRef);
+            this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message);
           }
         });
   };
