@@ -1,7 +1,9 @@
 var expect = require('expect.js');
+var createHash = require('sha.js');
+var sha256 = createHash('sha256');
 
 var ConnectionController = require('../controllers/connection-controller.js');
-var conn = new ConnectionController();
+var conn;
 
 let UserDAO = require('../dao/userDao.js');
 let userDao;
@@ -10,13 +12,13 @@ let userDao;
 let LoginService = require('../services/loginService.js');
 let loginService = new LoginService();
 
-suite('UserDAO Tests', function(){
+suite('LoginService Tests', function(){
 
-    setup('Setup DB and Create User', function(done){
+    suiteSetup('Setup DB and Create User', function(done){
 
+        conn = new ConnectionController();
         userDao = new UserDAO();
 
-        var sha256 = createHash('sha256');
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
         let user = {
@@ -39,13 +41,12 @@ suite('UserDAO Tests', function(){
 
     test('Login Successful', function(done){
 
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
-
-        loginService.doLogin('loginuser', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('loginuser', '123456', /*success*/ function(obj) {
             expect(obj.id).not.to.be(null);
             expect(obj.token).not.to.be(null);
             done();
         }, function(code, error){
+            console.log('ERROR: ' + code+ ' message: ' + error.message);
             expect(code).to.be(null);
             expect(error).to.be(null);
             done();
@@ -56,9 +57,7 @@ suite('UserDAO Tests', function(){
 
     test('Username less than three characters', function(done){
 
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
-
-        loginService.doLogin('ab', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('ab', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();
@@ -71,9 +70,7 @@ suite('UserDAO Tests', function(){
 
     test('Username is in the list of reserved names', function(done){
 
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
-
-        loginService.doLogin('mysql', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('mysql', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();
@@ -86,9 +83,7 @@ suite('UserDAO Tests', function(){
 
     test('Password less than three character', function(done){
 
-        var shapassword = sha256.update('12', 'utf8').digest('hex');
-
-        loginService.doLogin('loginuser', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('loginuser', '12', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();
@@ -101,9 +96,7 @@ suite('UserDAO Tests', function(){
 
     test('No such user', function(done){
 
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
-
-        loginService.doLogin('nosuchuser', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('nosuchuser', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();
@@ -116,9 +109,7 @@ suite('UserDAO Tests', function(){
 
     test('Incorrect password', function(done){
 
-        var shapassword = sha256.update('AAAAAA', 'utf8').digest('hex');
-
-        loginService.doLogin('loginuser', shapassword, /*success*/ function(obj) {
+        loginService.doLogin('loginuser', 'aaaaaa', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();

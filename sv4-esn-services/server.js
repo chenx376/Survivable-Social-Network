@@ -17,6 +17,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+var reserve_name = require('reserved-usernames');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
@@ -66,15 +67,16 @@ var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 
 passport.use(strategy);
 
-var reserve_name = require('reserved-usernames');
-
 app.post("/login", function(req, res) {
 
     var username = req.body.username;
     var password = req.body.password;
 
-    loginService.doLogin(username, password, /*success*/function(obj) {
-        return res.json(obj);
+    loginService.doLogin(username, password, /*success*/function(id) {
+
+        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+        return res.json({id: id, token: token});
+
     }, /*error*/ function(code, error){
         return res.status(code).json(error);
     });
