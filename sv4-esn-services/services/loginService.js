@@ -8,7 +8,7 @@ module.exports = class LoginService {
         if(username && password) {
             if (username.length < 3){
                 //return res.status(404).json({ message:'Username less than three character'});
-                return error(404, { message:'Username less than three character'} );
+                return error(404, { message:'Username less than three characters'} );
             }
             if (reserve_name.indexOf(username) > -1){
                 //return res.status(404).json({ message:'Username is in the list of reserve name'});

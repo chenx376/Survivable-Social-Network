@@ -77,8 +77,7 @@ app.post("/login", function(req, res) {
         return res.json(obj);
     }, /*error*/ function(code, error){
         return res.status(code).json(error);
-    })
-
+    });
 
 });
 
