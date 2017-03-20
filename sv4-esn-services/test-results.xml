@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.315" tests="6" failures="0">
+  <testsuite name="Root Suite" timestamp="2017-03-20T22:10:38" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="LoginService Tests" timestamp="2017-03-20T22:10:38" tests="6" file="/Users/xiaochen/Desktop/course work/FSE/s17-ESN-SV4/sv4-esn-services/tests/loginServiceTest.js" failures="0" time="0.315">
+    <testcase name="LoginService Tests Login Successful" time="0.166" classname="Login Successful">
+    </testcase>
+    <testcase name="LoginService Tests Username less than three characters" time="0" classname="Username less than three characters">
+    </testcase>
+    <testcase name="LoginService Tests Username is in the list of reserved names" time="0" classname="Username is in the list of reserved names">
+    </testcase>
+    <testcase name="LoginService Tests Password less than three character" time="0" classname="Password less than three character">
+    </testcase>
+    <testcase name="LoginService Tests No such user" time="0.075" classname="No such user">
+    </testcase>
+    <testcase name="LoginService Tests Incorrect password" time="0.074" classname="Incorrect password">
+    </testcase>
+  </testsuite>
+</testsuites>
