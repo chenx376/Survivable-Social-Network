@@ -17,3 +17,10 @@ test:
         pwd: sv4-esn-services
     - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
         pwd: sv4-esn-services
+
+deployment:
+  prod:
+    branch: master
+    commands:
+      - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku master
+      - git subtree push --prefix sv4-esn-view sv4-esn-view-heroku master
