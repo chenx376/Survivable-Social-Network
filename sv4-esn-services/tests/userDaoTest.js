@@ -4,6 +4,7 @@ var createHash = require('sha.js');
 var ConnectionController = require('../controllers/connection-controller.js');
 var conn;
 var userDao;
+var tmp_id;
 
 suite('UserDAO Tests', function(){
 
@@ -28,6 +29,7 @@ suite('UserDAO Tests', function(){
         };
 
         userDao.create(user, function(user){
+            tmp_id = user.id;
             expect(user.username).to.eql('yanli');
             expect(user.email).to.eql('yanli@gmail.com');
             expect(user.password).to.eql(shapassword);
