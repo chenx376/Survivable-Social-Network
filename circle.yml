@@ -11,6 +11,8 @@ dependencies:
     - npm install -g mocha
     - npm install:
         pwd: sv4-esn-services/
+    - git add remote sv4-esn-services-heroku https://git.heroku.com/sv4-esn-services.git
+    - git add remote sv4-esn-view-heroku https://git.heroku.com/sv4-esn-view.git
 test:
   override:
     - gulp test:
