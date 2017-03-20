@@ -9,11 +9,9 @@ dependencies:
   pre:
     - npm install -g gulp
     - npm install -g mocha
-    - npm install -g mocha-junit-reporter
   override:
     - npm install:
-      pwd: sv4-esn-service
-
+      pwd: sv4-esn-services
 test:
   override:
     - gulp build:
