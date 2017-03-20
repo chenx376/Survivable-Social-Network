@@ -25,7 +25,7 @@ test:
 deployment:
   prod:
     branch: production
-      commands:
+    commands:
       - |
         cat >~/.netrc <<EOF
         machine api.heroku.com
@@ -34,7 +34,7 @@ deployment:
         machine git.heroku.com
           login $HEROKU_EMAIL
           password $HEROKU_TOKEN
-        EOF
+      EOF
       - chmod 600 ~/.netrc # Heroku cli complains about permissions without this
       - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
       - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku production
