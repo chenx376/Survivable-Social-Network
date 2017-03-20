@@ -3,7 +3,7 @@
  */
 
 let mongoose = require('mongoose');
-let config = require('../config');
+let config = require('config');
 
 let messageModel = require('../models/messageModel.js');
 
