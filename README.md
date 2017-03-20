@@ -3,7 +3,7 @@ FSE Team 4 SV
 This repo contains the source code for the Emergency Social Network developed during the Foundations of Software Engineering class at Carnegie Mellon University in the Spring 2017.
 
 Current Build Status:
-[![CircleCI](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4.svg?style=svg)](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4?token=c08813c1eb41bfb4447818b02b60bce92099acfd)
+[![CircleCI](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4.svg?style=svg&token=c08813c1eb41bfb4447818b02b60bce92099acfd)](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4)
 
 Techonology Selection:
 ====
