@@ -25,7 +25,7 @@ gulp.task('test', function () {
     // `gulp-mocha` needs filepaths so you can't have any plugins before it
     .pipe(
         mocha({
-            reporter: 'spec',
+            reporter: 'xunit',
             quiet: false,
             clearRequireCache: false,
             ui: 'tdd'
