@@ -74,6 +74,7 @@ module.exports = {
             updated_at : req.body.updated_at,
             role : req.body.role,
             status: req.body.status,
+            status_information: req.body.status_information,
             online: req.body.online,
             location : req.body.location
         };
