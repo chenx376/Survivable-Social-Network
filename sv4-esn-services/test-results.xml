@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.009" tests="21" failures="2">
+  <testsuite name="Root Suite" timestamp="2017-03-20T07:53:16" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="AnnounceDAO Tests" timestamp="2017-03-20T07:53:16" tests="5" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/announceDaoTest.js" failures="0" time="0.001">
+    <testcase name="AnnounceDAO Tests Listing announcements" time="0.001" classname="Listing announcements">
+    </testcase>
+    <testcase name="AnnounceDAO Tests Finding announcement by ID" time="0" classname="Finding announcement by ID">
+    </testcase>
+    <testcase name="AnnounceDAO Tests Creating an announcement" time="0" classname="Creating an announcement">
+    </testcase>
+    <testcase name="AnnounceDAO Tests Updating an announcement" time="0" classname="Updating an announcement">
+    </testcase>
+    <testcase name="AnnounceDAO Tests Removing an announcement" time="0" classname="Removing an announcement">
+    </testcase>
+  </testsuite>
+  <testsuite name="UserDAO Tests" timestamp="2017-03-20T07:53:16" tests="6" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/loginServiceTest.js" failures="1" time="0">
+    <testcase name="UserDAO Tests &quot;before each&quot; hook: Setup DB and Create User for &quot;Login Successful&quot;" time="0" classname="&quot;before each&quot; hook: Setup DB and Create User for &quot;Login Successful&quot;">
+      <failure><![CDATA[ReferenceError: createHash is not defined
+    at Context.<anonymous> (tests/loginServiceTest.js:19:22)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="MessageDAO Tests" timestamp="2017-03-20T07:53:16" tests="5" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/messageDaoTest.js" failures="0" time="0">
+    <testcase name="MessageDAO Tests Listing messages" time="0" classname="Listing messages">
+    </testcase>
+    <testcase name="MessageDAO Tests Finding message by ID" time="0" classname="Finding message by ID">
+    </testcase>
+    <testcase name="MessageDAO Tests Creating a message" time="0" classname="Creating a message">
+    </testcase>
+    <testcase name="MessageDAO Tests Updating a message" time="0" classname="Updating a message">
+    </testcase>
+    <testcase name="MessageDAO Tests Removing a message" time="0" classname="Removing a message">
+    </testcase>
+  </testsuite>
+  <testsuite name="UserDAO Tests" timestamp="2017-03-20T07:53:16" tests="5" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/userDaoTest.js" failures="1" time="2.008">
+    <testcase name="UserDAO Tests Creating a user" time="2.003" classname="Creating a user">
+      <failure><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves.]]></failure>
+    </testcase>
+    <testcase name="UserDAO Tests Listing users" time="0.004" classname="Listing users">
+    </testcase>
+    <testcase name="UserDAO Tests Finding a user by Username" time="0.001" classname="Finding a user by Username">
+    </testcase>
+    <testcase name="UserDAO Tests Updating a user" time="0" classname="Updating a user">
+    </testcase>
+    <testcase name="UserDAO Tests Removing a user" time="0" classname="Removing a user">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -3,11 +3,11 @@ var expect = require('expect.js');
 var ConnectionController = require('../controllers/connection-controller.js');
 var conn = new ConnectionController();
 
-let UserDAO = require('./dao/userDao.js');
+let UserDAO = require('../dao/userDao.js');
 let userDao;
 
 
-let LoginService = require('./services/loginService.js');
+let LoginService = require('../services/loginService.js');
 let loginService = new LoginService();
 
 suite('UserDAO Tests', function(){
