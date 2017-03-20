@@ -49,7 +49,6 @@ module.exports = {
 			role : req.body.role,
             location : req.body.location
         };
-
         userDao.create(user, function(user){
             res.status(201).json(user);
         }, function(error){
@@ -63,13 +62,16 @@ module.exports = {
      */
     update: function (req, res) {
         var sha256 = createHash('sha256');
-        var shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
+        var shapassword = null;
+        if(req.body.password) {
+            shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
+        }
 
         let user = {
             id: req.params.id,
             username : req.body.username,
             email : req.body.email,
-            password : shapassword,
+            password : (!shapassword)?req.body.password:shapassword,
             created_at : req.body.created_at,
             updated_at : req.body.updated_at,
             role : req.body.role,
