@@ -2,6 +2,7 @@ machine:
   environment:
     PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     NODE_ENV: test
+    MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
   node:
     version: 7.5.0
 
@@ -9,6 +10,7 @@ dependencies:
   pre:
     - npm install -g gulp
     - npm install -g mocha
+    - npm install -g mocha-junit-reporter
   override:
     - npm install:
       pwd: sv4-esn-service
