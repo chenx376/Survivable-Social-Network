@@ -7,19 +7,10 @@ module.exports = function(grunt) {
           local: {
             options: {
               reporter: 'spec',
+                // reporter: 'mocha-junit-reporter',
               //captureFile: 'results.txt', // Optionally capture the reporter output to a file
               quiet: false, // Optionally suppress output to standard out (defaults to false)
               clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
-              ui: 'tdd'
-            },
-            src: ['tests/**/*.js']
-          },
-          shippable: {
-            options: {
-              reporter: 'mocha-junit-reporter',
-              reporterOptions: {
-                mochaFile: 'shippable/testresults/result.xml'
-              },
               ui: 'tdd'
             },
             src: ['tests/**/*.js']
@@ -46,9 +37,6 @@ module.exports = function(grunt) {
 
     //Test
     grunt.registerTask('test', ['mochaTest:local']);
-
-    // Shippable
-    grunt.registerTask('shippable', ['mochaTest:shippable', 'mocha_istanbul']);
 
     //Coverage
     grunt.registerTask('coverage', ['mocha_istanbul']);
