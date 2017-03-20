@@ -120,6 +120,11 @@ suite('LoginService Tests', function(){
 
     });
 
+    suiteTeardown('Teardown DB Connection', function(done){
+        conn.disconnect();
+        done();
+    });
+
 
 
 })
