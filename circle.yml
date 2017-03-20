@@ -11,7 +11,6 @@ dependencies:
     - npm install -g mocha
     - npm install:
         pwd: sv4-esn-services/
-    - heroku create --ssh-git
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
     - git remote add sv4-esn-services-heroku git@heroku.com:sv4-esn-services.git
     - git remote add sv4-esn-view-heroku git@heroku.com:sv4-esn-view.git
