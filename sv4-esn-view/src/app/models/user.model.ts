@@ -1,4 +1,4 @@
-enum UserStatus {
+export enum UserStatus {
   Undefined = 0,
   OK = 1,
   Help = 2,

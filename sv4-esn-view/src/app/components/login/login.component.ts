@@ -35,16 +35,6 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  isFormValid = (): boolean => this.isUsernameValid() && this.isPasswordValid();
-
-  private isUsernameValid = (): boolean => {
-    return this.username != undefined;
-  };
-
-  private isPasswordValid = (): boolean => {
-    return this.password != undefined;
-  };
-
   loginButtonClicked = () => {
     this.userService.login(this.username, this.password)
       .subscribe(

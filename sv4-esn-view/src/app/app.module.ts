@@ -11,19 +11,21 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
+import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
-import { AlertComponent } from './components/alert/alert.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'chat', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
-  { path: 'chat', component: ChatComponent }
+  { path: 'share_status', component: ShareStatusComponent}
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -34,8 +36,9 @@ const appRoutes: Routes = [
     HomeComponent,
     ChatComponent,
     DirectoryComponent,
+    ShareStatusComponent,
     DialogComponent,
-    AlertComponent,
+    AlertComponent
   ],
   entryComponents: [
     DialogComponent,
