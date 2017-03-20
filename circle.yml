@@ -10,12 +10,12 @@ dependencies:
     - npm install -g  gulp
     - npm install -g mocha
     - npm install install:
-      pwd: sv4-esn-services/
+        pwd: sv4-esn-services/
 test:
   override:
     - gulp build:
-      pwd: sv4-esn-services
+        pwd: sv4-esn-services
     - gulp test:
-      pwd: sv4-esn-services
+        pwd: sv4-esn-services
     - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
-      pwd: sv4-esn-services
+        pwd: sv4-esn-services
