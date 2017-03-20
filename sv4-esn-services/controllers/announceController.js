@@ -43,7 +43,7 @@ module.exports = {
             username : req.body.username,
             created_at : req.body.created_at,
             updated_at : req.body.updated_at,
-            location : req.location
+            location : req.body.location
         };
 
         announceDao.create(announce, function (announce) {
@@ -63,7 +63,7 @@ module.exports = {
             username : req.body.username,
             created_at : req.body.created_at,
             updated_at : req.body.updated_at,
-            location : req.location
+            location : req.body.location
         };
         announceDao.create(announce, function (announce) {
             res.status(201).json(announce);
