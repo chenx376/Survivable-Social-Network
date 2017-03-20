@@ -39,7 +39,7 @@ module.exports = {
     create: function (req, res) {
         var sha256 = createHash('sha256');
         var shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
-        console.log(shapassword);
+
         let user = {
 			username : req.body.username,
 			email : req.body.email,
@@ -64,9 +64,9 @@ module.exports = {
     update: function (req, res) {
         var sha256 = createHash('sha256');
         var shapassword = sha256.update(req.body.password, 'utf8').digest('hex');
-        console.log(shapassword);
+
         let user = {
-            id: req.body.id,
+            id: req.params.id,
             username : req.body.username,
             email : req.body.email,
             password : shapassword,
