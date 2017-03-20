@@ -4,8 +4,6 @@ var announceDao = require('../dao/messageDao.js');
 suite('AnnounceDAO Tests', function(){
 
     setup('Setup DB Connection', function(done){
-        var ConnectionController = require('../controllers/connection-controller.js');
-        var conn = new ConnectionController();
 
         done();
     });
