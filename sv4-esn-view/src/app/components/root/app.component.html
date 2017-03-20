@@ -23,6 +23,12 @@
       <span>User Directory</span>
     </div>
     <div class="sidenav-item"
+         routerLink="/share_status" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">create</md-icon>
+      <span>Share Status</span>
+    </div>
+    <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">
       <md-icon class="sidenav-item-icon">reply</md-icon>
       <span>Log Out</span>
