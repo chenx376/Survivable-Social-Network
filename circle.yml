@@ -7,11 +7,8 @@ machine:
 
 dependencies:
   pre:
-    - npm install -g gulp
+    - npm install -g  gulp
     - npm install -g mocha
-  override:
-    - npm install:
-      pwd: sv4-esn-services
 test:
   override:
     - gulp build:
