@@ -1,8 +1,7 @@
-<div class="message-list">
+<div class="message-list" #messageList>
   <md-card class="message" *ngFor="let message of messages">
-
     <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
-    <div class="user-info">
+    <div class="message-body">
       <div class="user-header">
         <div class="username">{{ message.sender.username }}</div>
         <div [ngSwitch]="message.sender.status">
@@ -23,17 +22,9 @@
            *ngIf="message.sender.statusInformation != null && message.sender.statusInformation.length != 0">
         {{ message.sender.statusInformation }}
       </div>
-      <div class="message-date" style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>
+      <div class="message-date">{{ chatService.formatDate(message.date) }}</div>
+      <div class="message-content">{{ message.content }}</div>
     </div>
-
-    <!--<div>-->
-      <!--<img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />-->
-    <!--</div>-->
-    <!--<div class="message-content">-->
-      <!--<div style="font-size: 0.8em;">{{ message.sender.username }} | status: {{ message.sender.userStatusString() }}</div>-->
-      <!--<div style="font-size: 0.8em;">{{ chatService.formatDate(message.date) }}</div>-->
-      <!--<div style="margin-top: 5px">{{ message.content }}</div>-->
-    <!--</div>-->
   </md-card>
 </div>
 
