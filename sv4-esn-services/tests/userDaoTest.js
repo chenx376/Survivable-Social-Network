@@ -52,8 +52,6 @@ suite('UserDAO Tests', function(){
             expect(error).to.be(undefined);
             done();
         });
-
-        done();
     });
 
     // test('Finding a user by ID', function(done){
@@ -62,6 +60,9 @@ suite('UserDAO Tests', function(){
     // });
 
     test('Finding a user by Username', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
         let username = 'yanli';
         userDao.findByUsername(username, function(user){
             expect(user.username).to.eql('yanli');
@@ -76,7 +77,6 @@ suite('UserDAO Tests', function(){
             expect(error).to.be(undefined);
             done();
         });
-        done();
     });
 
     test('Finding a user by ID', function(done){
