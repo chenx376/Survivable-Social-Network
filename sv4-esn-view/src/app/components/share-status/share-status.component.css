@@ -1,0 +1,56 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.status {
+  display: flex;
+  margin-top: 15px;
+  padding: 10px 10px;
+  border: 2px solid #fff;
+}
+
+.status.selected {
+  border-color: #3f51b5;
+}
+
+.status-icon {
+  margin-top: 2px !important;
+}
+
+.status-ok .status-icon {
+  color: #51b53f;
+}
+
+.status-help .status-icon {
+  color: #b5a33f;
+}
+
+.status-emergency .status-icon {
+  color: #b53f51;
+}
+
+.status-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.status-title {
+  font-weight: bold;
+}
+
+.status-desc {
+  margin-top: 5px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.information-input {
+  margin-top: 15px;
+}
+
+.information-input textarea {
+  resize: none;
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
-import { User } from '../../models/user.model'
+import { User, UserStatus } from '../../models/user.model'
 
 @Injectable()
 export class UserService {
@@ -34,7 +34,7 @@ export class UserService {
   };
 
   logout = (): Observable<void> => {
-    return this.httpService.put(`/users/${this.userId}`, { id: this.user.userId, online: false })
+    return this.httpService.put(`/users/${this.userId}`, { online: false })
       .do(json => {
         localStorage.removeItem('jwt');
         localStorage.removeItem('user_id');
@@ -64,5 +64,9 @@ export class UserService {
   };
 
   getAvatarUrl = (username: string): string => `assets/img/avatar/avatar_tile_${username.charAt(0).toLowerCase()}_56.png`;
+
+  shareStatus = (status: UserStatus, information: string): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { status, status_information: information });
+  }
 
 }

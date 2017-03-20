@@ -17,6 +17,7 @@ import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
+import { AlertComponent } from './components/alert/alert.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,9 +35,11 @@ const appRoutes: Routes = [
     ChatComponent,
     DirectoryComponent,
     DialogComponent,
+    AlertComponent,
   ],
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ export class DialogComponent {
 
   title: string;
   content: string;
+  cancelButtonTitle: string;
+  confirmButtonTitle: string;
 
   dialogRef: MdDialogRef<DialogComponent>;
 
