@@ -1,21 +1,17 @@
 var expect = require('expect');
 var userDao = require('../dao/userDao.js');
 
+var ConnectionController = require('../controllers/connection-controller.js');
+var conn = new ConnectionController();
+
+let UserDAO = require('./dao/userDao.js');
+let userDao;
+
 suite('UserDAO Tests', function(){
 
-    setup('Setup DB Connection', function(done){
-        var ConnectionController = require('../controllers/connection-controller.js');
-        var conn = new ConnectionController();
+    setup('Setup DB', function(done){
 
-        done();
-    });
-
-    test('Listing users', function(done){
-
-        done();
-    });
-
-    test('Finding user by ID', function(done){
+        userDao = new UserDAO();
 
         done();
     });
@@ -29,6 +25,18 @@ suite('UserDAO Tests', function(){
 
         done();
     });
+
+    test('Finding user by ID', function(done){
+
+        done();
+    });
+
+    test('Listing users', function(done){
+
+
+        done();
+    });
+
 
     test('Removing a user', function(done){
 
