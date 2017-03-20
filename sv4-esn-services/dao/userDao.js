@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var config = require('config');
 
-let userModel = require('../models/userModel.js')
+let userModel = require('../models/userModel.js');
 
 module.exports = class UserDAO {
 
@@ -44,8 +44,8 @@ module.exports = class UserDAO {
     /**
      * userDao.findByUsername()
      */
-    findByUsername(usrname, success, error) {
-        userModel.findOne({username: usrname}, function (err, user) {
+    findByUsername(username, success, error) {
+        userModel.findOne({username: username}, function (err, user) {
             if (err) {
                 return error({
                     message: 'Error when getting user.',
