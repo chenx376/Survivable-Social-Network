@@ -11,10 +11,7 @@ dependencies:
     - npm install -g mocha
     - npm install:
         pwd: sv4-esn-services/
-    - heroku create --ssh-git
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
-    - git remote add sv4-esn-services-heroku git@heroku.com:sv4-esn-services.git
-    - git remote add sv4-esn-view-heroku git@heroku.com:sv4-esn-view.git
 test:
   override:
     - gulp test:
@@ -25,17 +22,17 @@ test:
 deployment:
   prod:
     branch: production
-      commands:
-      - |
-        cat >~/.netrc <<EOF
-        machine api.heroku.com
-          login $HEROKU_EMAIL
-          password $HEROKU_TOKEN
-        machine git.heroku.com
-          login $HEROKU_EMAIL
-          password $HEROKU_TOKEN
-        EOF
-      - chmod 600 ~/.netrc # Heroku cli complains about permissions without this
-      - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
-      - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku production
-      - git subtree push --prefix sv4-esn-view sv4-esn-view-heroku production
+    commands:
+          - |
+            cat >~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_TOKEN
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_TOKEN
+            EOF
+          - chmod 600 ~/.netrc
+          - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+          - git subtree push --prefix sv4-esn-services sv4-esn-services-heroku production
+          - git subtree push --prefix sv4-esn-view sv4-esn-view-heroku production
