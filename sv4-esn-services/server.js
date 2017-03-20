@@ -10,7 +10,7 @@ var createHash = require('sha.js')  //password to sha-256
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 
-var config = require('./config');
+var config = require('config');
 var ConnectionController = require('./controllers/connection-controller.js')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -23,13 +23,11 @@ let userDao = new UserDAO();
 
 var jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = config.JwtSecretKey;
+jwtOptions.secretOrKey = config.get('JwtSecretKey');
 
 var chat = require('./chat.js')(io);
 
 var conn = new ConnectionController();
-
-var env = process.env.NODE_ENV || 'dev';
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');

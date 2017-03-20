@@ -1,6 +1,6 @@
 //chat-dao.js
 var mongoose = require('mongoose');
-var config = require('../config');
+var config = require('config');
 
 let userModel = require('../models/userModel.js')
 

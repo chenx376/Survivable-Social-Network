@@ -1,7 +1,7 @@
 var expect = require('expect');
-var userDao = require('../dao/userDao.js');
+var announceDao = require('../dao/messageDao.js');
 
-suite('UserDAO Tests', function(){
+suite('AnnounceDAO Tests', function(){
 
     setup('Setup DB Connection', function(done){
         var ConnectionController = require('../controllers/connection-controller.js');
@@ -10,27 +10,27 @@ suite('UserDAO Tests', function(){
         done();
     });
 
-    test('Listing users', function(done){
+    test('Listing announcements', function(done){
 
         done();
     });
 
-    test('Finding user by ID', function(done){
+    test('Finding announcement by ID', function(done){
 
         done();
     });
 
-    test('Creating a user', function(done){
+    test('Creating an announcement', function(done){
 
         done();
     });
 
-    test('Updating a user', function(done){
+    test('Updating an announcement', function(done){
 
         done();
     });
 
-    test('Removing a user', function(done){
+    test('Removing an announcement', function(done){
 
         done();
     });

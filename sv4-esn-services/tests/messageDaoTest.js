@@ -3,6 +3,13 @@ var messageDao = require('../dao/messageDao.js');
 
 suite('MessageDAO Tests', function(){
 
+    setup('Setup DB Connection', function(done){
+        var ConnectionController = require('../controllers/connection-controller.js');
+        var conn = new ConnectionController();
+
+        done();
+    });
+
     test('Listing messages', function(done){
 
         done();

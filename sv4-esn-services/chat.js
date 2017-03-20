@@ -5,7 +5,7 @@ let userDao = new UserDAO();
 let MessageDAO = require('./dao/messageDao.js');
 let messageDao = new MessageDAO();
 
-var config = require('./config');
+var config = require('config');
 
 const jwt = require('jsonwebtoken');
 
@@ -13,7 +13,7 @@ module.exports = function(io) {
 
     var VerifyJwt = function(token, callback) {
         // Verify the JWT
-        jwt.verify(token, config.JwtSecretKey, null, function(err, decoded){
+        jwt.verify(token, config.get('JwtSecretKey'), null, function(err, decoded){
             if(err)
                 console.log('JWT Validation Error: ' + err);
             else
