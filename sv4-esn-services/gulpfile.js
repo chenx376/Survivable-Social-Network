@@ -28,7 +28,8 @@ gulp.task('test', function () {
             reporter: 'mocha-junit-reporter',
             quiet: false,
             clearRequireCache: false,
-            ui: 'tdd'
+            ui: 'tdd',
+	    timeout: 30000
         })
     )
 });
