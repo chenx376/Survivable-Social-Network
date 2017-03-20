@@ -1,5 +1,5 @@
 var expect = require('expect.js');
-var UserDao = require('../dao/userDao.js');
+var UserDAO = require('../dao/userDao.js');
 var createHash = require('sha.js');
 var ConnectionController = require('../controllers/connection-controller.js');
 var conn;
@@ -9,7 +9,7 @@ suite('UserDAO Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
         conn = new ConnectionController();
-        userDao = new UserDao();
+        userDao = new UserDAO();
         done();
     });
 
@@ -85,6 +85,11 @@ suite('UserDAO Tests', function(){
 
     test('Removing a user', function(done){
 
+        done();
+    });
+
+    suiteTeardown('Teardown DB Connection', function(done){
+        conn.disconnect();
         done();
     });
 

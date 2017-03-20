@@ -12,8 +12,8 @@ module.exports = class ConnectionController {
         this.connect();
     }
 
-    errorHandler() {
-        console.log('MongoDB Error Connecting to database');
+    errorHandler(error) {
+        console.log('MongoDB Error Connecting to database: '  + error );
     }
 
     openHandler() {
@@ -24,8 +24,21 @@ module.exports = class ConnectionController {
     connect() {
         if (!this.connected) {
             mongoose.connect(config.get('mongo_url'));
+            //mongoose.createConnection(config.get('mongo_url'));
+            //- in my app.js file.
+            //try {
+            //    mongoose.connect(config.get('mongo_url')); //- starting a db connection
+            //}catch(err) {
+            //    mongoose.createConnection(config.get('mongo_url')); //- starting another db connection
+            //}
+
+
             this.db.on('error', this.errorHandler);
             this.db.once('open', this.openHandler);
         }
+    }
+
+    disconnect() {
+        mongoose.disconnect();
     }
 }
