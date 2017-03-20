@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.002" tests="10" failures="0">
+  <testsuite name="Root Suite" timestamp="2017-03-20T01:44:17" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="MessageDAO Tests" timestamp="2017-03-20T01:44:17" tests="5" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/messageDaoTest.js" failures="0" time="0.002">
+    <testcase name="MessageDAO Tests Listing messages" time="0.001" classname="Listing messages">
+    </testcase>
+    <testcase name="MessageDAO Tests Finding message by ID" time="0.001" classname="Finding message by ID">
+    </testcase>
+    <testcase name="MessageDAO Tests Creating a message" time="0" classname="Creating a message">
+    </testcase>
+    <testcase name="MessageDAO Tests Updating a message" time="0" classname="Updating a message">
+    </testcase>
+    <testcase name="MessageDAO Tests Removing a message" time="0" classname="Removing a message">
+    </testcase>
+  </testsuite>
+  <testsuite name="UserDAO Tests" timestamp="2017-03-20T01:44:17" tests="5" file="/Users/macbookpro/development/cmu/fse/s17-ESN-SV4/sv4-esn-services/tests/userDaoTest.js" failures="0" time="0">
+    <testcase name="UserDAO Tests Listing users" time="0" classname="Listing users">
+    </testcase>
+    <testcase name="UserDAO Tests Finding user by ID" time="0" classname="Finding user by ID">
+    </testcase>
+    <testcase name="UserDAO Tests Creating a user" time="0" classname="Creating a user">
+    </testcase>
+    <testcase name="UserDAO Tests Updating a user" time="0" classname="Updating a user">
+    </testcase>
+    <testcase name="UserDAO Tests Removing a user" time="0" classname="Removing a user">
+    </testcase>
+  </testsuite>
+</testsuites>
