@@ -31,8 +31,8 @@ gulp.task('pre-test', function () {
 gulp.task('test', ['pre-test'], function () {
     return gulp.src(['tests/*.js'])
         .pipe(mocha({
-            reporter: 'mocha-junit-reporter',
-            //reporter: 'spec',
+            // reporter: 'mocha-junit-reporter',
+            reporter: 'spec',
             quiet: false,
             clearRequireCache: false,
             ui: 'tdd',
