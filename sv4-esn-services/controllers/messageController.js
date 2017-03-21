@@ -101,5 +101,22 @@ module.exports = {
         }, function(error) {
             res.status(404).json(error);
         })
+    },
+
+
+    /**
+     * messageController.privateMessages()
+     */
+    privateMessages: function(req, res) {
+
+        let uid1 = req.params.uid1;
+        let uid2 = req.params.uid2;
+
+        messageDao.privateMessages(uid1, uid2, /*succcess*/ function(messages){
+            res.json(messages);
+        } , /*error*/ function(error) {
+            res.json(404).json(error);
+        })
+
     }
 };

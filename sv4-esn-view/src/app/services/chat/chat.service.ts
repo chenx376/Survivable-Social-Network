@@ -33,7 +33,7 @@ export class ChatService {
         message: {
           sender: this.userService.userId,
           message: content,
-          receivers: null,
+          receiver: null,
           broadcast: true,
           sent_at: new Date()
         }
@@ -53,6 +53,63 @@ export class ChatService {
       };
     });
   };
+
+
+  sendPrivateMessage = (content: string, to: string) => {
+    let payload = {
+      jwt: this.httpService.jwt,
+      data: {
+        message: {
+          sender: this.userService.userId,
+          message: content,
+          receiver: to,
+          broadcast: false,
+          sent_at: new Date()
+        }
+      }
+    };
+
+    this.socket.emit('private-msg', payload);
+
+  };
+
+  subscribeMe = (myself: string) => {
+    let payload = {
+      jwt: this.httpService.jwt,
+      data: {
+        myself: myself
+      }
+    };
+
+    this.socket.emit('subscribe', payload);
+  };
+
+  receivePrivateMessage = (): Observable<Message> => {
+
+    /**
+     * Important NOTICE!
+     * This event will only be received if the
+     * method subscribeMe( MYSELF_ID ) has been called first.
+     *
+     * The backend websockets system will orchestrate the notification
+     * for specific "CHANNEL_IDS" which in this case is the RECEIVER_ID
+     *
+     * For our purpose here in the FSE ESN we should call first
+     * subscribeMe( loggedUser id )
+     *
+     * and then expect to receive messages using the private-msg-sent event...
+     *
+     */
+    return new Observable(observer => {
+      this.socket.on('private-msg-sent', json => {
+        observer.next(new Message(json));
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  };
+
 
   formatDate = (date: Date):string => {
     let hour = ('0' + date.getHours()).slice(-2);

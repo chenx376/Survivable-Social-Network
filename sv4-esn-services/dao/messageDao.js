@@ -7,6 +7,8 @@ let config = require('config');
 
 let messageModel = require('../models/messageModel.js');
 
+var ObjectId = require('mongoose').Types.ObjectId;
+
 module.exports = class MessageDAO{
 
     /**
@@ -116,4 +118,46 @@ module.exports = class MessageDAO{
             success();
         });
     };
+
+
+    /**
+     * messageController.privateMessages
+     */
+    privateMessages(uid1, uid2, success, error) {
+
+        /**
+         * Find all messages where
+         * uid1 is sender AND uid2 is receiver
+         *                OR
+         * uid2 is sender AND uid1 is receiver
+         * */
+
+        let messages = [];
+        messageModel.find({broadcast: false, sender: new ObjectId(uid1), receiver: new ObjectId(uid2) }, /*success*/ function(err, data1){
+
+
+            if(data1) {
+                data1.forEach(function (item, index){
+                    messages.push(item);
+                });
+            }
+
+            messageModel.find({broadcast: false, sender: new ObjectId(uid2), receiver: new ObjectId(uid1) }, /*success*/ function(err, data2){
+
+                if(data2) {
+                    data2.forEach(function (item, index){
+                        messages.push(item);
+                    });
+                }
+
+                if(messages && messages.length > 0)
+                    success(messages);
+                else
+                    error({message: 'Could not find messages for this combination of users'});
+            });
+
+        });
+
+    };
+
 };
