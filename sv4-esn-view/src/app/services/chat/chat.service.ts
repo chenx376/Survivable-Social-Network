@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router'
 import { Observable } from "rxjs";
 import * as io from 'socket.io-client';
 import { HttpService } from '../http/http.service';
@@ -8,6 +9,7 @@ import { Message } from '../../models/message.model';
 @Injectable()
 export class ChatService {
 
+  private router: Router;
   private httpService: HttpService;
   private userService: UserService;
 
@@ -16,13 +18,21 @@ export class ChatService {
 
   private socket = io(this.endpoint);
 
-  constructor(httpService: HttpService, userService: UserService) {
+  constructor(router: Router,
+              httpService: HttpService,
+              userService: UserService) {
+    this.router = router;
     this.httpService = httpService;
     this.userService = userService;
   }
 
   getPublicMessages = (): Observable<[Message]> => {
     return this.httpService.get('/messages')
+      .map(json => json.map(messageJson => new Message(messageJson)));
+  };
+
+  getPrivateMessages = (targetUserId: string): Observable<[Message]> => {
+    return this.httpService.get(`/messages/${this.userService.userId}/${targetUserId}`)
       .map(json => json.map(messageJson => new Message(messageJson)));
   };
 
@@ -39,7 +49,6 @@ export class ChatService {
         }
       }
     };
-
     this.socket.emit('public-msg', payload);
   };
 
