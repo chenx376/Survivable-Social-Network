@@ -4,12 +4,14 @@ let announceDao;
 var ConnectionController = require('../controllers/connection-controller.js');
 var conn;
 var tmp_id;
+var tmp_time_stamp;
 
 suite('AnnounceDAO Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
         conn = new ConnectionController();
         announceDao = new AnnounceDao();
+        tmp_time_stamp = new Date();
         done();
     });
 
@@ -18,8 +20,8 @@ suite('AnnounceDAO Tests', function(){
         let announce  = {
             content : 'announcement test',
             username : 'yanli',
-            created_at : '1489962761679',
-            updated_at : '1489962761679',
+            created_at : tmp_time_stamp,
+            updated_at : tmp_time_stamp,
             location : 'Mountain View'
         };
 
@@ -59,8 +61,8 @@ suite('AnnounceDAO Tests', function(){
             id : tmp_id,
             content : 'announcement test new',
             username : 'yanli',
-            created_at : '1489962761679',
-            updated_at : '1489962761679',
+            created_at : tmp_time_stamp,
+            updated_at : tmp_time_stamp,
             location : 'Mountain View'
         };
 

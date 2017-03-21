@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             coverage: {
                 src: 'tests', // a folder works nicely
                 options: {
-                    mochaOptions: ['--ui', 'tdd', '--timeout', '30000'] // any extra options for mocha
+                    mochaOptions: {reporter: 'mocha-junit-reporter', ui: 'tdd', timeout: 30000} // any extra options for mocha
                 }
             }
         }
