@@ -15,7 +15,7 @@ dependencies:
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
 test:
   override:
-    - grunt test:
+    - grunt coverage:
         pwd: sv4-esn-services
     - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
         pwd: sv4-esn-services
