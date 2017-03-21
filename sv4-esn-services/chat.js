@@ -51,6 +51,45 @@ module.exports = function(io) {
 
             });
 
+        });
+
+        socket.on('private-msg', function (obj) {
+
+            VerifyJwt(obj.jwt, function(decoded){
+
+                if(obj.data.message) {
+                    //Set user sender! Dont let the user mock this! Get by JWT
+                    //obj.data.message.sender = decoded.id;
+
+                    messageDao.create(obj.data.message, function (createdMessage) {
+                            messageDao.findById(createdMessage._id, function(message) {
+                                io.sockets.in(obj.data.receiver).emit('private-msg-sent', 'what is going on, party people?');
+                                console.log('New private message sent.');
+                            }, function(error) {
+                                console.log('Error finding message just saved in the database this is crazy!');
+                            })
+
+                        },
+                        function (error) {
+                            console.log('Failed to send public message.')
+                        })
+                }
+
+            });
+
+        });
+
+
+        socket.on('subscribe', function (obj) {
+
+            VerifyJwt(obj.jwt, function(decoded){
+
+                if(obj.data.myself /*the room id is user's id (receiver of the message) */) {
+                    socket.join(obj.data.myself);
+                }
+
+            });
+
 
         });
 
