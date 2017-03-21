@@ -21,9 +21,11 @@ import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'chat', component: ChatComponent },
+  { path: 'chat', redirectTo: 'chat/public', pathMatch: 'full' },
+  { path: 'chat/public', component: ChatComponent },
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent}

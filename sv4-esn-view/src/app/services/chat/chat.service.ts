@@ -26,6 +26,14 @@ export class ChatService {
     this.userService = userService;
   }
 
+  subscribeMe = () => {
+    let payload = {
+      jwt: this.httpService.jwt,
+      data: { myself: this.userService.userId }
+    };
+    this.socket.emit('subscribe', payload);
+  };
+
   getPublicMessages = (): Observable<[Message]> => {
     return this.httpService.get('/messages')
       .map(json => json.map(messageJson => new Message(messageJson)));
@@ -36,7 +44,7 @@ export class ChatService {
       .map(json => json.map(messageJson => new Message(messageJson)));
   };
 
-  broadcastMessage = (content: string) => {
+  sendPublicMessage = (content: string) => {
     let payload = {
       jwt: this.httpService.jwt,
       data: {
@@ -52,7 +60,7 @@ export class ChatService {
     this.socket.emit('public-msg', payload);
   };
 
-  receiveMessage = (): Observable<Message> => {
+  receivePublicMessage = (): Observable<Message> => {
     return new Observable(observer => {
       this.socket.on('public-msg-sent', json => {
         observer.next(new Message(json));
@@ -63,34 +71,20 @@ export class ChatService {
     });
   };
 
-
-  sendPrivateMessage = (content: string, to: string) => {
+  sendPrivateMessage = (content: string, targetUserId: string) => {
     let payload = {
       jwt: this.httpService.jwt,
       data: {
         message: {
           sender: this.userService.userId,
           message: content,
-          receiver: to,
+          receiver: targetUserId,
           broadcast: false,
           sent_at: new Date()
         }
       }
     };
-
     this.socket.emit('private-msg', payload);
-
-  };
-
-  subscribeMe = (myself: string) => {
-    let payload = {
-      jwt: this.httpService.jwt,
-      data: {
-        myself: myself
-      }
-    };
-
-    this.socket.emit('subscribe', payload);
   };
 
   receivePrivateMessage = (): Observable<Message> => {
@@ -118,7 +112,6 @@ export class ChatService {
       };
     });
   };
-
 
   formatDate = (date: Date):string => {
     let hour = ('0' + date.getHours()).slice(-2);
