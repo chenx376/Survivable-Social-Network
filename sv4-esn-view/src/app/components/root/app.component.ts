@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { UserService } from '../../services/user/user.service';
+import { ChatService } from '../../services/chat/chat.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +12,25 @@ import { UserService } from '../../services/user/user.service';
 export class AppComponent implements OnInit {
 
   private router: Router;
+  private route: ActivatedRoute;
   private userService: UserService;
+  private chatService: ChatService;
 
-  constructor(router: Router, userService: UserService) {
+  constructor(router: Router,
+              route: ActivatedRoute,
+              userService: UserService,
+              chatService: ChatService) {
     this.router = router;
+    this.route = route;
     this.userService = userService;
+    this.chatService = chatService;
   }
 
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {
       this.router.navigateByUrl('login');
     } else {
-      // if (this.router.url === '/') {
-      //   console.log(this.router.url);
-      //   console.log(this.router.routerState);
-      //   this.router.navigateByUrl('home');
-      // }
+      this.chatService.subscribeMe();
     }
   }
 

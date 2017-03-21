@@ -133,8 +133,9 @@ module.exports = class MessageDAO{
          * */
 
         let messages = [];
-        messageModel.find({broadcast: false, sender: new ObjectId(uid1), receiver: new ObjectId(uid2) }, /*success*/ function(err, data1){
-
+        messageModel.find({broadcast: false, sender: new ObjectId(uid1), receiver: new ObjectId(uid2) })
+            .populate('sender')
+            .exec(/*success*/ function(err, data1){
 
             if(data1) {
                 data1.forEach(function (item, index){
@@ -142,7 +143,9 @@ module.exports = class MessageDAO{
                 });
             }
 
-            messageModel.find({broadcast: false, sender: new ObjectId(uid2), receiver: new ObjectId(uid1) }, /*success*/ function(err, data2){
+            messageModel.find({broadcast: false, sender: new ObjectId(uid2), receiver: new ObjectId(uid1) })
+                .populate('sender')
+                .exec(/*success*/ function(err, data2){
 
                 if(data2) {
                     data2.forEach(function (item, index){
@@ -150,10 +153,10 @@ module.exports = class MessageDAO{
                     });
                 }
 
-                if(messages && messages.length > 0)
+                // if(messages && messages.length > 0)
                     success(messages);
-                else
-                    error({message: 'Could not find messages for this combination of users'});
+                // else
+                //     error({message: 'Could not find messages for this combination of users'});
             });
 
         });

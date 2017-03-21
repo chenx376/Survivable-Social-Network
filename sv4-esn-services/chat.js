@@ -65,9 +65,20 @@ module.exports = function(io) {
 
                     messageDao.create(obj.data.message, function (createdMessage) {
                             messageDao.findById(createdMessage._id, function(message) {
+
+//                                 io.sockets.in(obj.data.message.sender).emit('private-msg-sent', message);
+//                                 io.sockets.in(obj.data.message.receiver).emit('private-msg-sent', message);
+
+//                                 socket.broadcast.to(obj.data.message.sender).emit('private-msg-sent', message);
+//                                 socket.broadcast.to(obj.data.message.receiver).emit('private-msg-sent', message);
+
+//                                 io.to(obj.data.message.sender).emit('private-msg-sent', message);
+//                                 io.to(obj.data.message.receiver).emit('private-msg-sent', message);
+
                                 //io.sockets.in(obj.data.receiver).emit('private-msg-sent', 'what is going on, party people?');
                                 io.sockets.socket(socket_map[obj.data.message.sender]).emit('msg_user_found', check_key(id));
                                 io.sockets.socket(socket_map[obj.data.message.receiver]).emit('msg_user_found', check_key(id));
+
                                 console.log('New private message sent.');
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');
