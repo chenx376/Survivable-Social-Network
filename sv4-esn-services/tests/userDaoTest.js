@@ -79,6 +79,21 @@ suite('UserDAO Tests', function(){
         });
     });
 
+    test('Finding a user by Invalid Username', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        //let username = 'yanli';
+        let username = null;
+        userDao.findByUsername(username, function(user){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('No such user'); //ERROR
+            done();
+        });
+    });
+
+
     test('Finding a user by ID', function(done){
         var sha256 = createHash('sha256');
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
@@ -94,7 +109,7 @@ suite('UserDAO Tests', function(){
             expect(user.location).to.eql('Shanghai');
             done();
         }, function(error){
-            expect(error).to.be(undefined);
+            expect(error).to.eql('No such user');
             done();
         });
     });

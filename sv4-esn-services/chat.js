@@ -9,6 +9,8 @@ var config = require('config');
 
 const jwt = require('jsonwebtoken');
 
+let socket_map = {};
+
 module.exports = function(io) {
 
     var VerifyJwt = function(token, callback) {
@@ -55,7 +57,7 @@ module.exports = function(io) {
 
         socket.on('private-msg', function (obj) {
 
-            VerifyJwt(obj.jwt, function(decoded){
+            VerifyJwt(obj.jwt, function(decoded) {
 
                 if(obj.data.message) {
                     //Set user sender! Dont let the user mock this! Get by JWT
@@ -63,7 +65,9 @@ module.exports = function(io) {
 
                     messageDao.create(obj.data.message, function (createdMessage) {
                             messageDao.findById(createdMessage._id, function(message) {
-                                io.sockets.in(obj.data.receiver).emit('private-msg-sent', 'what is going on, party people?');
+                                //io.sockets.in(obj.data.receiver).emit('private-msg-sent', 'what is going on, party people?');
+                                io.sockets.socket(socket_map[obj.data.message.sender]).emit('msg_user_found', check_key(id));
+                                io.sockets.socket(socket_map[obj.data.message.receiver]).emit('msg_user_found', check_key(id));
                                 console.log('New private message sent.');
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');
@@ -85,6 +89,9 @@ module.exports = function(io) {
             VerifyJwt(obj.jwt, function(decoded){
 
                 if(obj.data.myself /*the room id is user's id (receiver of the message) */) {
+
+                    socket_map[obj.data.myself] = socket.id;
+
                     socket.join(obj.data.myself);
                 }
 
