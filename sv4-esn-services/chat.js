@@ -66,6 +66,7 @@ module.exports = function(io) {
                     messageDao.create(obj.data.message, function (createdMessage) {
                             messageDao.findById(createdMessage._id, function(message) {
 
+
 //                                 io.sockets.in(obj.data.message.sender).emit('private-msg-sent', message);
 //                                 io.sockets.in(obj.data.message.receiver).emit('private-msg-sent', message);
 
@@ -76,10 +77,19 @@ module.exports = function(io) {
 //                                 io.to(obj.data.message.receiver).emit('private-msg-sent', message);
 
                                 //io.sockets.in(obj.data.receiver).emit('private-msg-sent', 'what is going on, party people?');
-                                io.sockets.socket(socket_map[obj.data.message.sender]).emit('msg_user_found', check_key(id));
-                                io.sockets.socket(socket_map[obj.data.message.receiver]).emit('msg_user_found', check_key(id));
+                                //socket.broadcast.to(socket_map[obj.data.message.sender]).emit('private-msg-sent', message);
+                                //socket.broadcast.to(socket_map[obj.data.message.receiver]).emit('private-msg-sent', message);
 
-                                console.log('New private message sent.');
+                                //socket.to(obj.data.message.sender).emit('private-msg-sent', message);
+                                //socket.to(obj.data.message.receiver).emit('private-msg-sent', message);
+
+                                socket.to(obj.data.message.sender).emit('private-msg-sent', message);
+                                socket.to(obj.data.message.receiver).emit('private-msg-sent', message);
+
+                                //io.emit()
+
+//                                console.log('Socket.id = ['+socket.id+']');
+                                console.log('New private message sent. Sender['+obj.data.message.sender+']');// Socket['+socket_map[obj.data.message.sender]+']');
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');
                             })
@@ -94,15 +104,16 @@ module.exports = function(io) {
 
         });
 
-
         socket.on('subscribe', function (obj) {
 
             VerifyJwt(obj.jwt, function(decoded){
 
                 if(obj.data.myself /*the room id is user's id (receiver of the message) */) {
 
-                    socket_map[obj.data.myself] = socket.id;
+                    //socket_map[obj.data.myself] = socket.id;
+                    console.log('New private message sent. Sender['+obj.data.myself+'] Socket['+socket_map[obj.data.myself]+']');
 
+                    //socket.join(obj.data.myself);
                     socket.join(obj.data.myself);
                 }
 
