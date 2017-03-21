@@ -24,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent}
   // { path: '**', component: PageNotFoundComponent }
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
   providers: [
     HttpService,
     UserService,
+    ChatService,
     DialogService
   ],
   bootstrap: [AppComponent]

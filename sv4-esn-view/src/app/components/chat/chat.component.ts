@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router'
 import { Subscription } from "rxjs";
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
@@ -13,6 +14,7 @@ import { Message } from '../../models/message.model';
 
 export class ChatComponent implements OnInit, OnDestroy {
 
+  private route: ActivatedRoute;
   private userService: UserService;
   private chatService: ChatService;
 
@@ -23,13 +25,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   messages: [Message];
   message: string;
 
-  constructor(userService: UserService,
+  constructor(route: ActivatedRoute,
+              userService: UserService,
               chatService: ChatService) {
+    this.route = route;
     this.userService = userService;
     this.chatService = chatService;
   }
 
   ngOnInit() {
+    this.route.params
+      .subscribe((params: Params) => console.log(params['userId']));
+
     this.chatService.getPublicMessages()
       .subscribe(messages => {
         this.messages = messages;
