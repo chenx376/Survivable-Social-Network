@@ -119,7 +119,10 @@ module.exports = function(io) {
 
             });
 
+        });
 
+        socket.on('unsubscribe', function(obj){
+            delete socket_map[obj.data.myself];
         });
 
         socket.on('logout', function (obj) {
