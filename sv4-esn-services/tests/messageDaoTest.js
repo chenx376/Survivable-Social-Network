@@ -124,11 +124,45 @@ suite('MessageDAO Tests', function(){
         });
     });
 
-    test('Updating a message', function(done){
+    test('Finding message by Invalid ID', function(done){
+
+        let id = 'invalid id';
+        messageDao.findById(id, function(message){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('Error when getting message.');
+            done();
+        });
+    });
+
+    test('Updating a message without change', function(done){
 
         let message = {
             id : created_id,
-            message : 'New Message'
+        };
+
+        messageDao.update(message, function(user){
+            expect(user.message).to.eql('Test message');
+            done();
+        }, function(error) {
+            expect(error.message).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Updating a message', function(done){
+
+        new_time_stamp = new Date();
+
+        let message = {
+            id : created_id,
+            message : 'New Message',
+            sender : receiver,
+            receivers : sender,
+            sent_at : new_time_stamp,
+            broadcast : true,
+            user_status : 1,
+            user_status_information : 'new info'
         };
 
         messageDao.update(message, function(user){
@@ -136,6 +170,29 @@ suite('MessageDAO Tests', function(){
             done();
         }, function(error) {
             expect(error.message).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Updating an Invalid message', function(done){
+
+        new_time_stamp = new Date();
+
+        let message = {
+            id : 'invalid id',
+            message : 'New Message',
+            sender : receiver,
+            receivers : sender,
+            sent_at : new_time_stamp,
+            broadcast : true,
+            user_status : 1,
+            user_status_information : 'new info'
+        };
+
+        messageDao.update(message, function(user){
+            done();
+        }, function(error) {
+            expect(error.message).to.eql('Error when getting message');
             done();
         });
     });

@@ -102,7 +102,6 @@ suite('UserDAO Tests', function(){
         });
     });
 
-
     test('Finding a user by ID', function(done){
         var sha256 = createHash('sha256');
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
@@ -122,6 +121,45 @@ suite('UserDAO Tests', function(){
             done();
         }, function(error){
             expect(error).to.eql('No such user');
+            done();
+        });
+    });
+
+    test('Finding a user by Invalid ID', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        let id = 'Invalid id';
+        userDao.findById(id, function(user){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('Error when getting user.');
+            done();
+        });
+    });
+
+    test('Updating a user without change', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        let u = {
+            id : tmp_id
+        };
+
+        userDao.update(u, function(user){
+            expect(user.username).to.eql('yanli');
+            expect(user.email).to.eql('yanli@gmail.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('1489962761679');
+            expect(user.updated_at).to.eql('1489962761679');
+            expect(user.role).to.eql('CITIZEN');
+            expect(user.location).to.eql('Mountain View');
+            expect(user.status).to.eql(0);
+            expect(user.status_information).to.eql('status_info');
+            expect(user.online).to.eql(false);
+            done();
+        }, function(error) {
+            expect(error).to.be(undefined);
             done();
         });
     });
@@ -162,6 +200,31 @@ suite('UserDAO Tests', function(){
         });
     });
 
+    test('Updating a user with invalid id', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('new123456', 'utf8').digest('hex');
+
+        let u = {
+            id : 'invalid id',
+            username : 'new yanli',
+            email : 'new@email.com',
+            password : shapassword,
+            created_at : 'new 1489962761679',
+            updated_at : 'new 1489962761679',
+            role : 'new CITIZEN',
+            status : 1,
+            status_information: 'new status_info',
+            online: true,
+            location : 'new Mountain View'
+        };
+
+        userDao.update(u, function(user){
+            done();
+        }, function(error) {
+            expect(error.message).to.be('Error when getting user');
+            done();
+        });
+    });
 
     test('Removing a user', function(done){
         let id = tmp_id;

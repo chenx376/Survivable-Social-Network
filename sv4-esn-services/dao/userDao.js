@@ -90,11 +90,6 @@ module.exports = class UserDAO {
                     error: err
                 });
             }
-            if (!user) {
-                return error({
-                    message: 'No such user'
-                });
-            }
 
             user.id = userToUpdate.id;
             user.username = userToUpdate.username ? userToUpdate.username : user.username;
