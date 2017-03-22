@@ -80,11 +80,11 @@ module.exports = function(io) {
                                 //socket.broadcast.to(socket_map[obj.data.message.sender]).emit('private-msg-sent', message);
                                 //socket.broadcast.to(socket_map[obj.data.message.receiver]).emit('private-msg-sent', message);
 
+                                io.to(socket_map[obj.data.message.sender]).emit('private-msg-sent', message);
+                                io.to(socket_map[obj.data.message.receiver]).emit('private-msg-sent', message);
+
                                 //socket.to(obj.data.message.sender).emit('private-msg-sent', message);
                                 //socket.to(obj.data.message.receiver).emit('private-msg-sent', message);
-
-                                socket.to(obj.data.message.sender).emit('private-msg-sent', message);
-                                socket.to(obj.data.message.receiver).emit('private-msg-sent', message);
 
                                 //io.emit()
 
@@ -110,16 +110,19 @@ module.exports = function(io) {
 
                 if(obj.data.myself /*the room id is user's id (receiver of the message) */) {
 
-                    //socket_map[obj.data.myself] = socket.id;
+                    socket_map[obj.data.myself] = socket.id;
                     console.log('New private message sent. Sender['+obj.data.myself+'] Socket['+socket_map[obj.data.myself]+']');
 
                     //socket.join(obj.data.myself);
-                    socket.join(obj.data.myself);
+//                    socket.join(obj.data.myself);
                 }
 
             });
 
+        });
 
+        socket.on('unsubscribe', function(obj){
+            delete socket_map[obj.data.myself];
         });
 
         socket.on('logout', function (obj) {
