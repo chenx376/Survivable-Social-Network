@@ -16,7 +16,8 @@ module.exports = class MessageDAO{
      */
     list(success, error) {
         messageModel
-            .find({})
+            .find({broadcast: true})
+            .sort({sent_at: 1})
             .populate('sender')
             .exec( function (err, messages) {
                 if (err) {
@@ -135,6 +136,7 @@ module.exports = class MessageDAO{
         let messages = [];
         messageModel.find({broadcast: false, sender: new ObjectId(uid1), receiver: new ObjectId(uid2) })
             .populate('sender')
+            .sort({sent_at: 1})
             .exec(/*success*/ function(err, data1){
 
             if(data1) {
@@ -145,6 +147,7 @@ module.exports = class MessageDAO{
 
             messageModel.find({broadcast: false, sender: new ObjectId(uid2), receiver: new ObjectId(uid1) })
                 .populate('sender')
+                .sort({sent_at: 1})
                 .exec(/*success*/ function(err, data2){
 
                 if(data2) {
