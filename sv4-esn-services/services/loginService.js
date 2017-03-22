@@ -13,6 +13,9 @@ module.exports = class LoginService {
      */
     doLogin(username, password, successCallback, errorCallback) {
 
+
+        console.log('doLogin: ' + username);
+
         if(username && password) {
             if (username.length < 3){
                 //return res.status(404).json({ message:'Username less than three character'});
@@ -30,34 +33,20 @@ module.exports = class LoginService {
             password = sha256.update(password, 'utf8').digest('hex');
         }
 
-        // usually this would be a database call:
         userDao.findByUsername(username,function(user){
 
-            if (!user) {
-                //return res.status(404).json({ message: 'No such user'});
-                return errorCallback(404, { message: 'No such user'} );
-            }
             if (user.password != password) {
-                //return res.status(404).json({ message: 'Incorrect password' });
                 return errorCallback(404, { message: 'Incorrect password' } );
             }
             user.online = true;
             userDao.update(user, function(user){
-                //return res.json({id: user.id, token: token});
                 return successCallback(user.id);
-            }, function(error){
-                //return res.status(500).json(error);
-                return errorCallback(500, error );
             })
 
         }, function(error){
-            //return res.status(404).json(error);
             return errorCallback(404, error);
         });
 
     };
-
-
-
 
 }

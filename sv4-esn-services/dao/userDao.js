@@ -44,8 +44,8 @@ module.exports = class UserDAO {
     /**
      * userDao.findByUsername()
      */
-    findByUsername(username, success, error) {
-        userModel.findOne({username: username}, function (err, user) {
+    findByUsername(uName, success, error) {
+        userModel.findOne({username: uName}, function (err, user) {
             if (err) {
                 return error({
                     message: 'Error when getting user.',

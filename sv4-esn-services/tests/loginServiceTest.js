@@ -98,7 +98,7 @@ suite('LoginService Tests', function(){
 
     test('No such user', function(done){
 
-        loginService.doLogin('nosuchuser', '123456', /*success*/ function(obj) {
+        loginService.doLogin('thisuserisnotsupposedtoexist', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
             expect(obj.token).to.be(null);
             done();
