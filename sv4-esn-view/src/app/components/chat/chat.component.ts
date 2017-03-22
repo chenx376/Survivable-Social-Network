@@ -65,6 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
           }, 0);
           this.socketConnection = this.chatService.receivePrivateMessage()
+            .filter(message => message.sender.userId === this.userService.userId || this.router.url === `/chat/${message.sender.userId}`)
             .subscribe(message => {
               this.messages.push(message);
               setTimeout(() => {

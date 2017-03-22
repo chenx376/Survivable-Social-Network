@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
           if (err.message === 'No such user') {
             this.dialogService.openDialogue(this.viewContainerRef,
               'Register',
-              `User ${this.username} does not exist. Do you want to register as a new user?`,
-              )
+              `User ${this.username} does not exist. Do you want to register as a new user?`)
               .filter(result => result === true)
               .flatMap(() => this.userService.createUser(this.username, this.password))
               .flatMap(() => this.userService.login(this.username, this.password))
