@@ -19,7 +19,7 @@ suite('UserDAO Tests', function(){
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
         let user = {
-			username : 'yanli',
+			username : 'invalid',
 			email : 'yanli@gmail.com',
 			password : shapassword,
 			created_at : '1489962761679',
