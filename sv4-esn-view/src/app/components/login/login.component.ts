@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
               'Register',
               `User ${this.username} does not exist. Do you want to register as a new user?`,
               )
-              .filter(result => result == true)
+              .filter(result => result === true)
               .flatMap(() => this.userService.createUser(this.username, this.password))
               .flatMap(() => this.userService.login(this.username, this.password))
               .subscribe(

@@ -18,11 +18,11 @@
                *ngIf="user.online">language</md-icon>
     </div>
     <div class="empty-status-information"
-         *ngIf="user.statusInformation == null || user.statusInformation.length == 0">
+         *ngIf="user.statusInformation === null || user.statusInformation.length === 0">
       No status information
     </div>
     <div class="status-information"
-         *ngIf="user.statusInformation != null && user.statusInformation.length != 0">
+         *ngIf="user.statusInformation !== null && user.statusInformation.length !== 0">
       {{ user.statusInformation }}
     </div>
   </div>
