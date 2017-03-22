@@ -1,14 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { UserService } from './chat.service';
+import { ChatService } from './chat.service';
 
 describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UserService]
+      providers: [ChatService]
     });
   });
 
-  it('should ...', inject([UserService], (service: UserService) => {
+  it('should ...', inject([ChatService], (service: ChatService) => {
     expect(service).toBeTruthy();
   }));
 });
