@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'
 import { Observable } from "rxjs";
 import * as io from 'socket.io-client';
 import { HttpService } from '../http/http.service';
@@ -9,22 +8,13 @@ import { Message } from '../../models/message.model';
 @Injectable()
 export class ChatService {
 
-  private router: Router;
-  private httpService: HttpService;
-  private userService: UserService;
-
   //private endpoint = "https://sv4-esn-services.herokuapp.com";
-  private endpoint = "http://172.29.93.124:3000";
+  private endpoint = "http://localhost:3000";
 
   private socket = io(this.endpoint);
 
-  constructor(router: Router,
-              httpService: HttpService,
-              userService: UserService) {
-    this.router = router;
-    this.httpService = httpService;
-    this.userService = userService;
-  }
+  constructor(private httpService: HttpService,
+              private userService: UserService) { }
 
   subscribeMe = () => {
     let payload = {

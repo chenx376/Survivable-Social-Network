@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router } from '@angular/router'
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
 
@@ -8,23 +8,11 @@ import { ChatService } from '../../services/chat/chat.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnInit {
 
-  private router: Router;
-  private route: ActivatedRoute;
-  private userService: UserService;
-  private chatService: ChatService;
-
-  constructor(router: Router,
-              route: ActivatedRoute,
-              userService: UserService,
-              chatService: ChatService) {
-    this.router = router;
-    this.route = route;
-    this.userService = userService;
-    this.chatService = chatService;
-  }
+  constructor(private router: Router,
+              private userService: UserService,
+              private chatService: ChatService) { }
 
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {

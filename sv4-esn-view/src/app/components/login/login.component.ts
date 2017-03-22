@@ -8,26 +8,15 @@ import { DialogService } from '../../services/dialog/dialog.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnInit {
-
-  private router: Router;
-  private userService: UserService;
-  private dialogService: DialogService;
-  private viewContainerRef: ViewContainerRef;
 
   username: string;
   password: string;
 
-  constructor(router: Router,
-              userService: UserService,
-              dialogService: DialogService,
-              viewContainerRef: ViewContainerRef) {
-    this.router = router;
-    this.userService = userService;
-    this.dialogService = dialogService;
-    this.viewContainerRef = viewContainerRef;
-  }
+  constructor(private router: Router,
+              private userService: UserService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     if (this.userService.isUserLoggedIn()) {

@@ -29,6 +29,12 @@
       <span>Share Status</span>
     </div>
     <div class="sidenav-item"
+         routerLink="/announcements" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">sms_failed</md-icon>
+      <span>Announcements</span>
+    </div>
+    <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">
       <md-icon class="sidenav-item-icon">reply</md-icon>
       <span>Log Out</span>
