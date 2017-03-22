@@ -9,11 +9,15 @@ dependencies:
   pre:
     - npm install -g mocha
     - npm install -g grunt
+    - npm install -g mongodb
     - npm install:
         pwd: sv4-esn-services/
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
 test:
   override:
+    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.announces.drop()"
+    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.messages.drop()"
+    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.users.drop()"
     - grunt coverage:
         pwd: sv4-esn-services
     - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
