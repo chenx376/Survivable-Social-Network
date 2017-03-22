@@ -33,7 +33,7 @@ suite('MessageDAO Tests', function(){
             created_at : '1489962761679',
             updated_at : '1489962761679',
             role : 'CITIZEN',
-            location : 'Shanghai'
+            location : 'Mountain View'
         };
 
         tmp_sent_at = new Date();
@@ -49,7 +49,7 @@ suite('MessageDAO Tests', function(){
                 created_at : '1489962761679',
                 updated_at : '1489962761679',
                 role : 'CITIZEN',
-                location : 'Shanghai'
+                location : 'Mountain View'
             };
 
             userDao.create(user2, function(created2){
@@ -145,6 +145,18 @@ suite('MessageDAO Tests', function(){
         messageDao.remove(id, function(){
             messageDao.findById(id, function(data){
                 expect(data).to.be(null);
+                done();
+            }, function(error){
+                done();
+            });
+        }, function(error){
+            done();
+        });
+    });
+
+    test('Removing the users that was created', function(done){
+        userDao.remove(sender, function(){
+            userDao.remove(receiver, function(){
                 done();
             }, function(error){
                 done();

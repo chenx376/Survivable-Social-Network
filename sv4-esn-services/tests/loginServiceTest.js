@@ -8,7 +8,6 @@ var conn;
 let UserDAO = require('../dao/userDao.js');
 let userDao;
 
-
 let LoginService = require('../services/loginService.js');
 let loginService = new LoginService();
 
@@ -30,7 +29,7 @@ suite('LoginService Tests', function(){
             created_at : '1489962761679',
             updated_at : '1489962761679',
             role : 'CITIZEN',
-            location : 'Shanghai'
+            location : 'Mountain View'
         };
 
         userDao.create(user, function(user){
@@ -123,13 +122,17 @@ suite('LoginService Tests', function(){
 
     });
 
-    suiteTeardown('Teardown DB Connection', function(done){
-        userDao.remove(tmp_user_id, function(user){
+    test('Removing the user that was created', function(done){
+        userDao.remove(tmp_user_id, function(){
             done();
         }, function(error){
             done();
         });
+    });
+
+    suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();
+        done();
     });
 
 
