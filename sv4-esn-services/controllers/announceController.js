@@ -43,7 +43,6 @@ module.exports = {
             content : req.body.content,
             announcer: req.body.announcer,
             created_at : req.body.created_at,
-            updated_at : req.body.updated_at,
             location : req.body.location
         };
 
@@ -62,7 +61,6 @@ module.exports = {
             content : req.body.content,
             announcer: req.body.announcer,
             created_at : req.body.created_at,
-            updated_at : req.body.updated_at,
             location : req.body.location
         };
         announceDao.create(announce, function (announce) {
