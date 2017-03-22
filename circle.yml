@@ -22,7 +22,7 @@ test:
         pwd: sv4-esn-services
     - if [[ -e test-results.xml ]]; then cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml; fi:
         pwd: sv4-esn-services
-    - cp -rf coverage $CIRCLE_TEST_REPORTS
+    - cp -rf coverage $CIRCLE_TEST_REPORTS/coverage:
         pwd: sv4-esn-services
 deployment:
   prod:
