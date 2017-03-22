@@ -13,10 +13,6 @@ var announceSchema = new Schema({
         type: Date,
         default : Date.now
     },
-    'updated_at' : {
-        type: Date,
-        default : Date.now
-    },
     'location' : {type: String, default: null}
 })
 

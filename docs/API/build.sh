@@ -5,7 +5,9 @@ cat \
   header.apib \
   session.apib \
   user.apib \
+  sharestatus.apib \
   message.apib \
+  announcement.apib \
   data_structures.apib \
 > result.apib
 
