@@ -59,7 +59,7 @@ module.exports = class MessageDAO{
         let messageToCreate = messageModel(messageObj);
 
         messageToCreate.sent_at = new Date();
-        
+
         messageToCreate.save(function (err, message) {
             if (err) {
                 return error({
@@ -94,6 +94,7 @@ module.exports = class MessageDAO{
             message.broadcast = userToUpdate.broadcast ? userToUpdate.broadcast : message.broadcast;
             message.message = userToUpdate.message ? userToUpdate.message : message.message;
             message.sent_at = userToUpdate.sent_at ? userToUpdate.sent_at : message.sent_at;
+            message.user_status_information = userToUpdate.user_status_information ? userToUpdate.user_status_information : message.user_status_information;
 
 
             message.save(function (err, message) {

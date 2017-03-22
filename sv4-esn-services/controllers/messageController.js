@@ -58,7 +58,7 @@ module.exports = {
                 message : req.body.message,
                 sent_at : req.body.sent_at,
                 broadcast : req.body.broadcast,
-                user_status: user.status,
+                user_status: (user.status)?user.status:0,
                 user_status_information: user.status_information
             };
 
