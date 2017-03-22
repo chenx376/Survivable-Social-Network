@@ -18,6 +18,11 @@ export class AppComponent implements OnInit {
     if (!this.userService.isUserLoggedIn()) {
       this.router.navigateByUrl('login');
     }
+
+    this.chatService.receivePrivateMessage()
+      .subscribe(() => {
+        console.log('received message');
+      })
   }
 
   logoutButtonClicked = (sidenav: any) => {
