@@ -2,20 +2,28 @@
  * @author Arthur M Sampaio
  */
 var app = require('express')();
+
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
 var createHash = require('sha.js')
+
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
+
 var config = require('config');
+
 var ConnectionController = require('./controllers/connection-controller.js')
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+var reserve_name = require('reserved-usernames');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
+
+let LoginService = require('./services/loginService.js');
+let loginService = new LoginService();
 
 var jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
@@ -59,45 +67,18 @@ var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 
 passport.use(strategy);
 
-var reserve_name = require('reserved-usernames');
-
 app.post("/login", function(req, res) {
-    if(req.body.username && req.body.password){
-        var username = req.body.username;
-        var password = req.body.password;
-        if (username.length < 3){
-            return res.status(404).json({ message:'Username less than three character'});
-        }
-        if (reserve_name.indexOf(username) > -1){
-            return res.status(404).json({ message:'Username is in the list of reserve name'});
-        }
-        if (password.length <4){
-            return res.status(404).json({ message:'Password less than three character'});
-        }
-        var sha256 = createHash('sha256');
-        password = sha256.update(password, 'utf8').digest('hex');
-    }
 
-    // usually this would be a database call:
-    userDao.findByUsername(username,function(user){
-        if (!user) {
-            return res.status(404).json({ message: 'No such user'});
-        }
-        if (user.password != password) {
-            return res.status(404).json({ message: 'Incorrect password' });
-        }
-        user.online = true;
-        userDao.update(user, function(user){
-            var payload = {id: user.id};
-            var token = jwt.sign(payload, jwtOptions.secretOrKey);
-            return res.json({id: user.id, token: token});
-        }, function(error){
-            return res.status(500).json(error);
-        })
+    var username = req.body.username;
+    var password = req.body.password;
 
+    loginService.doLogin(username, password, /*success*/function(id) {
 
-    }, function(error){
-        return res.status(404).json(error);
+        var token = jwt.sign({id: id}, jwtOptions.secretOrKey);
+        return res.json({id: id, token: token});
+
+    }, /*error*/ function(code, error){
+        return res.status(code).json(error);
     });
 
 });

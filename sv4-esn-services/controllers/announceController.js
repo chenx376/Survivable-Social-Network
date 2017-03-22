@@ -17,6 +17,7 @@ module.exports = {
      */
     list: function (req,res) {
         announceDao.list(function (announces) {
+            announces = announces.slice(announces.length-3,announces.length);
             res.json(announces);
         }, function (error) {
             res.status(404).json(error);
@@ -40,9 +41,8 @@ module.exports = {
     create: function (req,res) {
         let announce  = {
             content : req.body.content,
-            username : req.body.username,
+            announcer: req.body.announcer,
             created_at : req.body.created_at,
-            updated_at : req.body.updated_at,
             location : req.body.location
         };
 
@@ -58,11 +58,9 @@ module.exports = {
      */
     update: function (req,res) {
         let announce  = {
-            id : req.body.id,
             content : req.body.content,
-            username : req.body.username,
+            announcer: req.body.announcer,
             created_at : req.body.created_at,
-            updated_at : req.body.updated_at,
             location : req.body.location
         };
         announceDao.create(announce, function (announce) {

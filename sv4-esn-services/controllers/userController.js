@@ -49,6 +49,7 @@ module.exports = {
 			role : req.body.role,
             location : req.body.location
         };
+
         userDao.create(user, function(user){
             res.status(201).json(user);
         }, function(error){
@@ -80,6 +81,7 @@ module.exports = {
             online: req.body.online,
             location : req.body.location
         };
+
         userDao.update(user, function(user){
             return res.json(user);
         }, function(error) {

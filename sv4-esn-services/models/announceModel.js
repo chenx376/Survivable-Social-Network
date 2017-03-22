@@ -6,12 +6,10 @@ var Schema = mongoose.Schema;
 
 var announceSchema = new Schema({
     'content' : {type: String, default: null},
-    'username' : {type: String, default: null},
+    'announcer' : {
+        type: Schema.Types.ObjectId,
+        ref: 'user'},
     'created_at' : {
-        type: Date,
-        default : Date.now
-    },
-    'updated_at' : {
         type: Date,
         default : Date.now
     },

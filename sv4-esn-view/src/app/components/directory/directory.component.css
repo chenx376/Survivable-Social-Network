@@ -1,15 +1,18 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 90vw;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
 }
 
 .user {
   display: flex;
   padding: 10px 0;
-  /*padding-left: 20px;*/
-  padding-top: 15px ;
-  padding-bottom: 15px;
 }
 
 .user+.user {
@@ -17,10 +20,9 @@
 }
 
 .avatar {
-  width: 12vw;
-  height: 12vw;
-  max-width: 56px;
-  max-height: 56px;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
   border-radius: 50%;
 }
 
@@ -31,28 +33,56 @@
   margin-left: 15px;
 }
 
+.user-header {
+  display: flex;
+  height: 20px;
+}
+
 .username {
-  font-size: 1.2em;
   font-weight: bold;
 }
+
+.status-icon {
+  margin-left: 5px;
+  width: 20px;
+  font-size: 1.2em;
+}
+
+.status-ok {
+  color: #51b53f;
+}
+
+.status-help {
+  color: #b5a33f;
+}
+
+.status-emergency {
+  color: #b53f51;
+}
+
+.online-icon {
+  margin-left: 5px;
+  width: 20px;
+  font-size: 1.2em;
+  color: #51b53f;
+}
+
+.empty-status-information {
+  font-style: italic;
+  color: #666;
+}
+
+.status-information {
+
+}
+
+/*////*/
 
 .user-status {
   display: flex;
   align-items: center;
   margin-top: 5px;
   padding: 2px 4px;
-}
-
-.user-status.user-status-ok {
-  background-color: #51b53f;
-}
-
-.user-status.user-status-help {
-  background-color: #b5a33f;
-}
-
-.user-status.user-status-emergency {
-  background-color: #b53f51;
 }
 
 .user-status-icon {

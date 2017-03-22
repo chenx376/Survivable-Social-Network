@@ -11,7 +11,7 @@
       <span>Home</span>
     </div>
     <div class="sidenav-item"
-         routerLink="/chat" routerLinkActive="active"
+         routerLink="/chat/public" routerLinkActive="active"
          (click)="sidenav.close()">
       <md-icon class="sidenav-item-icon">forum</md-icon>
       <span>Public Chat</span>
@@ -21,6 +21,18 @@
          (click)="sidenav.close()">
       <md-icon class="sidenav-item-icon">contacts</md-icon>
       <span>User Directory</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/share_status" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">create</md-icon>
+      <span>Share Status</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/announcements" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">sms_failed</md-icon>
+      <span>Announcements</span>
     </div>
     <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">

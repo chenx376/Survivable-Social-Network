@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
-import { User } from '../../models/user.model'
+import { User, UserStatus } from '../../models/user.model'
 
 @Injectable()
 export class UserService {
 
-  private httpService: HttpService;
-
   userId: string = localStorage.getItem('user_id');
   user: User;
 
-  constructor(httpService: HttpService) {
-    this.httpService = httpService;
+  isUserLoggedInSubject = new BehaviorSubject<boolean>(false);
+  userInfoSubject = new ReplaySubject<User>(1);
 
+  constructor(private httpService: HttpService) {
     if (this.isUserLoggedIn()) {
+      this.isUserLoggedInSubject.next(true);
       this.getUserInfo(this.userId);
     }
   }
 
-  isUserLoggedIn = (): boolean => this.userId != undefined;
+  isUserLoggedIn = (): boolean => this.userId != null;
 
   login = (username: string, password: string): Observable<void> => {
     return this.httpService.post('/login', { username, password })
@@ -29,18 +29,21 @@ export class UserService {
         localStorage.setItem('jwt', json.token);
         localStorage.setItem('user_id', json.id);
 
+        this.isUserLoggedInSubject.next(true);
         this.getUserInfo(this.userId);
       });
   };
 
   logout = (): Observable<void> => {
-    return this.httpService.put(`/users/${this.userId}`, { id: this.user.userId, online: false })
-      .do(json => {
+    return this.httpService.put(`/users/${this.userId}`, { online: false })
+      .do(() => {
         localStorage.removeItem('jwt');
         localStorage.removeItem('user_id');
         this.userId = null;
         this.user = null;
         this.httpService.jwt = null;
+
+        this.isUserLoggedInSubject.next(false);
       });
   };
 
@@ -53,16 +56,18 @@ export class UserService {
       .map(json => json.map(userJson => new User(userJson)));
   };
 
-  getUserInfo = (userId: string): ReplaySubject<User> => {
-    let replaySubject = new ReplaySubject<User>(1);
+  getUserInfo = (userId: string) => {
     this.httpService.get(`/users/${userId}`)
       .subscribe(json => {
         this.user = new User(json);
-        replaySubject.next(this.user);
+        this.userInfoSubject.next(this.user);
       });
-    return replaySubject;
   };
 
   getAvatarUrl = (username: string): string => `assets/img/avatar/avatar_tile_${username.charAt(0).toLowerCase()}_56.png`;
+
+  shareStatus = (status: UserStatus, information: string): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { status, status_information: information });
+  }
 
 }

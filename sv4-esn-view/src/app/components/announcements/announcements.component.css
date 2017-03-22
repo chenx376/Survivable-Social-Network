@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5vw;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
+}

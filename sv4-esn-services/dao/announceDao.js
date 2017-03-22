@@ -12,35 +12,42 @@ module.exports = class AnnounceDao {
      * annouceController.list()
      */
     list(success, error){
-        announceModel.find(function (err,announce) {
-            if(err) {
-                error({
-                    message: 'Error when getting announce.',
-                    error: err
-                });
-            }
-            success(announce);
-        });
-    }
+        announceModel
+            .find({})
+            .populate('announcer')
+            .exec(function (err, announces) {
+                if (err){
+                    return error({
+                        message: 'Error when getting announcements.',
+                        error: err
+                    });
+                }
+                return success(announces)
+            });
+    };
+
 
     /**
      * announceController.findById()
      */
     findById(id, success, error) {
-        announceModel.findOne({_id: id}, function (err, announce) {
-            if (err) {
-                error({
-                    message: 'Error when getting announce.',
-                    error: err
-                });
-            }
-            if (!announce) {
-                error({
-                    message: 'No such announce.'
-                });
-            }
-            success(announce);
-        });
+        announceModel
+            .findOne({_id:id})
+            .populate('announcer')
+            .exec(function (err, announce) {
+                if (err){
+                    return error({
+                        message: 'Error when getting announcements.',
+                        error: err
+                    });
+                }
+                if (!announce){
+                    return error({
+                        message: 'No such announce'
+                    });
+                }
+                return success(announce)
+            });
     };
 
     /**
@@ -79,10 +86,9 @@ module.exports = class AnnounceDao {
             }
 
             announce.id = announceToUpdate.id;
+            announce.announcer = announceToUpdate.announcer ? announceToUpdate.announcer : announce.announcer;
             announce.content = announceToUpdate.content ? announceToUpdate.content : announce.content;
-            announce.username = announceToUpdate.username ? announceToUpdate.username : announce.username;
             announce.created_at = announceToUpdate.created_at ? announceToUpdate.created_at : announce.created_at;
-            announce.updated_at = announceToUpdate.updated_at ? announceToUpdate.updated_at : announce.updated_at;
             announce.location = announceToUpdate.location ? announceToUpdate.location : announce.location;
 
             announce.save(function (err, announce) {

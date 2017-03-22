@@ -1,33 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { UserService } from '../../services/user/user.service';
+import { ChatService } from '../../services/chat/chat.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnInit {
 
-  private router: Router;
-  private userService: UserService;
-
-  constructor(router: Router, userService: UserService) {
-    this.router = router;
-    this.userService = userService;
-  }
+  constructor(private router: Router,
+              private userService: UserService,
+              private chatService: ChatService) { }
 
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {
       this.router.navigateByUrl('login');
-    } else {
-      if (this.router.url === '/') {
-        console.log(this.router.url);
-        console.log(this.router.routerState);
-        this.router.navigateByUrl('home');
-      }
     }
+
+    this.chatService.receivePrivateMessage()
+      .subscribe(() => {
+        console.log('received message');
+      })
   }
 
   logoutButtonClicked = (sidenav: any) => {

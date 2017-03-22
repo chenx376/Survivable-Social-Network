@@ -9,13 +9,9 @@ import { User } from '../../models/user.model';
 })
 export class DirectoryComponent implements OnInit {
 
-  private userService: UserService;
-
   users: [User];
 
-  constructor(userService: UserService) {
-    this.userService = userService;
-  }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUserList()

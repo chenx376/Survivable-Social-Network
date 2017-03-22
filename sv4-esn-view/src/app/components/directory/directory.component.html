@@ -1,21 +1,29 @@
-<div class="user" *ngFor="let user of users">
+<div class="user" *ngFor="let user of users" routerLink="/chat/{{ user.userId }}">
   <img class="avatar" src="{{ userService.getAvatarUrl(user.username) }}" />
   <div class="user-info">
-    <span class="username">{{ user.username }}</span>
-    <span>status: {{ user.userStatusString() }}</span>
-    <span>{{ user.online ? 'online' : 'offline' }}</span>
-
-    <!--<span class="user-status user-status-ok">-->
-      <!--<md-icon class="user-status-icon">check_circle</md-icon>-->
-      <!--<span class="user-status-text">OK</span>-->
-    <!--</span>-->
-    <!--<span class="user-status user-status-help">-->
-      <!--<md-icon class="user-status-icon">error</md-icon>-->
-      <!--<span class="user-status-text">Help</span>-->
-    <!--</span>-->
-    <!--<span class="user-status user-status-emergency">-->
-      <!--<md-icon class="user-status-icon">add_circle</md-icon>-->
-      <!--<span class="user-status-text">Emergency</span>-->
-    <!--</span>-->
+    <div class="user-header">
+      <div class="username">{{ user.username }}</div>
+      <div [ngSwitch]="user.status">
+        <template [ngSwitchCase]="1">
+          <md-icon class="status-icon status-ok">check_circle</md-icon>
+        </template>
+        <template [ngSwitchCase]="2">
+          <md-icon class="status-icon status-help">error</md-icon>
+        </template>
+        <template [ngSwitchCase]="3">
+          <md-icon class="status-icon status-emergency">add_circle</md-icon>
+        </template>
+      </div>
+      <md-icon class="online-icon"
+               *ngIf="user.online">language</md-icon>
+    </div>
+    <div class="empty-status-information"
+         *ngIf="user.statusInformation === null || user.statusInformation.length === 0">
+      No status information
+    </div>
+    <div class="status-information"
+         *ngIf="user.statusInformation !== null && user.statusInformation.length !== 0">
+      {{ user.statusInformation }}
+    </div>
   </div>
 </div>

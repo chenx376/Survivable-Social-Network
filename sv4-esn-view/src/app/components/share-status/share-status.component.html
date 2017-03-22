@@ -1,0 +1,39 @@
+<md-card class="status status-ok"
+         [class.selected] = "selectedStatus === 1"
+         (click)="statusOkSelected()">
+  <md-icon class="status-icon">check_circle</md-icon>
+  <div class="status-info">
+    <div class="status-title">OK</div>
+    <div class="status-desc">I am OK, I do not need help.</div>
+  </div>
+</md-card>
+
+<md-card class="status status-help"
+         [class.selected] = "selectedStatus === 2"
+         (click)="statusHelpSelected()">
+  <md-icon class="status-icon">error</md-icon>
+  <div class="status-info">
+    <div class="status-title">Help</div>
+    <div class="status-desc">I need help, but this is not a life threatening emergency.</div>
+  </div>
+</md-card>
+
+<md-card class="status status-emergency"
+         [class.selected] = "selectedStatus === 3"
+         (click)="statusEmergencySelected()">
+  <md-icon class="status-icon">add_circle</md-icon>
+  <div class="status-info">
+    <div class="status-title">Emergency</div>
+    <div class="status-desc">I need help now, as this is a life threatening emergency!</div>
+  </div>
+</md-card>
+
+<md-input-container class="information-input">
+    <textarea mdInput placeholder="Additional Information" rows="1"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="information">
+    </textarea>
+</md-input-container>
+
+<button md-raised-button id="share-status-button"
+        (click)="shareStatusButtonClicked()">Share Status</button>

@@ -5,15 +5,12 @@ import { Observable } from "rxjs";
 @Injectable()
 export class HttpService {
 
-  baseUri = "https://sv4-esn-services.herokuapp.com";
+  //baseUri = "https://sv4-esn-services.herokuapp.com";
+  baseUri = "http://localhost:3000";
 
   jwt = localStorage.getItem('jwt');
 
-  private http: Http;
-
-  constructor(http: Http) {
-    this.http = http;
-  }
+  constructor(private http: Http) { }
 
   get = (path: string, params?: Object): Observable<any> => {
     let requestUri = `${this.baseUri}${path}`;
@@ -38,9 +35,7 @@ export class HttpService {
   post = (path: string, params?: Object): Observable<any> => {
     let requestUri = encodeURI(`${this.baseUri}${path}`);
     let requestOptions = new RequestOptions();
-    requestOptions.headers = new Headers({
-      'Content-Type': 'application/json'
-    });
+    requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
     if (this.jwt) {
       requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
     }
@@ -53,9 +48,7 @@ export class HttpService {
   put = (path: string, params?: Object): Observable<any> => {
     let requestUri = encodeURI(`${this.baseUri}${path}`);
     let requestOptions = new RequestOptions();
-    requestOptions.headers = new Headers({
-      'Content-Type': 'application/json'
-    });
+    requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
     if (this.jwt) {
       requestOptions.headers.append('Authorization', `JWT ${this.jwt}`);
     }

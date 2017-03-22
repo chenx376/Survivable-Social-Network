@@ -2,41 +2,102 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 95%;
+  padding: 0 2vw;
   height: calc(100vh - 60px);
 }
 
 .message-list {
-  /*height: calc(100vh - 60px - 110px);*/
   overflow: scroll;
+  height: calc(100vh - 60px - 110px);
+  padding: 0 1vw;
 }
 
 .message {
   display: flex;
-  margin: 10px 5px;
-}
-
-.message-content {
-  margin-left: 20px;
+  margin: 10px 0;
+  padding: 10px;
 }
 
 .avatar {
-  width: 12vw;
-  height: 12vw;
-  max-width: 56px;
-  max-height: 56px;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
   border-radius: 50%;
+}
+
+.message-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.user-header {
+  display: flex;
+  height: 20px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.status-icon {
+  margin-left: 5px;
+  width: 20px;
+  font-size: 1.2em;
+}
+
+.status-ok {
+  color: #51b53f;
+}
+
+.status-help {
+  color: #b5a33f;
+}
+
+.status-emergency {
+  color: #b53f51;
+}
+
+.online-icon {
+  margin-left: 5px;
+  width: 20px;
+  font-size: 1.2em;
+  color: #51b53f;
+}
+
+.status-information {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100vw - 6vw - 20px - 36px - 15px);
+  font-size: 0.8em;
+  font-style: italic;
+  color: #666;
+}
+
+.message-date {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #666;
+}
+
+.message-content {
+  margin-top: 5px;
+  word-wrap: break-word;
+  width: calc(100vw - 6vw - 20px - 36px - 15px);
 }
 
 .message-controls {
   display: flex;
   align-items: flex-end;
+  width: 94vw;
   height: 110px;
+  padding: 0 1vw;
 }
 
 .message-input {
   flex-grow: 1;
-  margin-right: 3%;
 }
 
 .message-input textarea {
@@ -44,6 +105,7 @@
 }
 
 .message-send-button {
+  margin-left: 3vw;
   margin-bottom: 20px;
   background-color: #3f51b5;
 }

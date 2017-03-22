@@ -1,5 +1,5 @@
 {
-    "mongo_url": "mongodb://localhost:27017",
+    "mongo_url": "mongodb://test:123456@ds137230.mlab.com:37230/heroku_vkmn2h5g",
     "JwtSecretKey": "JWT_SV4_ESN_JWT_SECRET_KEY",
     "errors": {
         "userExists": "Username already exists, please choose another one.",

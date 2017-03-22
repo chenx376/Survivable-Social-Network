@@ -1,37 +1,159 @@
-var expect = require('expect');
-var userDao = require('../dao/userDao.js');
+var expect = require('expect.js');
+var UserDAO = require('../dao/userDao.js');
+var createHash = require('sha.js');
+var ConnectionController = require('../controllers/connection-controller.js');
+var conn;
+var userDao;
+var tmp_id;
 
 suite('UserDAO Tests', function(){
 
-    setup('Setup DB Connection', function(done){
-        var ConnectionController = require('../controllers/connection-controller.js');
-        var conn = new ConnectionController();
-
-        done();
-    });
-
-    test('Listing users', function(done){
-
-        done();
-    });
-
-    test('Finding user by ID', function(done){
-
+    suiteSetup('Setup DB Connection', function(done){
+        conn = new ConnectionController();
+        userDao = new UserDAO();
         done();
     });
 
     test('Creating a user', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
-        done();
+        let user = {
+			username : 'yanli',
+			email : 'yanli@gmail.com',
+			password : shapassword,
+			created_at : '1489962761679',
+			updated_at : '1489962761679',
+			role : 'CITIZEN',
+            location : 'Shanghai'
+        };
+
+        userDao.create(user, function(user){
+            tmp_id = user.id;
+            expect(user.username).to.eql('yanli');
+            expect(user.email).to.eql('yanli@gmail.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('1489962761679');
+            expect(user.updated_at).to.eql('1489962761679');
+            expect(user.role).to.eql('CITIZEN');
+            expect(user.location).to.eql('Shanghai');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Listing users', function(done){
+        userDao.list(function(users){
+            expect(users).to.be.an('array');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    // test('Finding a user by ID', function(done){
+    //
+    //     done();
+    // });
+
+    test('Finding a user by Username', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        let username = 'yanli';
+        userDao.findByUsername(username, function(user){
+            expect(user.username).to.eql('yanli');
+            expect(user.email).to.eql('yanli@gmail.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('1489962761679');
+            expect(user.updated_at).to.eql('1489962761679');
+            expect(user.role).to.eql('CITIZEN');
+            expect(user.location).to.eql('Shanghai');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Finding a user by Invalid Username', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        //let username = 'yanli';
+        let username = null;
+        userDao.findByUsername(username, function(user){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('No such user'); //ERROR
+            done();
+        });
+    });
+
+
+    test('Finding a user by ID', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        let id = tmp_id;
+        userDao.findById(id, function(user){
+            expect(user.username).to.eql('yanli');
+            expect(user.email).to.eql('yanli@gmail.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('1489962761679');
+            expect(user.updated_at).to.eql('1489962761679');
+            expect(user.role).to.eql('CITIZEN');
+            expect(user.location).to.eql('Shanghai');
+            done();
+        }, function(error){
+            expect(error).to.eql('No such user');
+            done();
+        });
     });
 
     test('Updating a user', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
-        done();
+        let user = {
+            id : tmp_id,
+            username : 'yanli',
+            email : 'new@email.com',
+            password : shapassword,
+            created_at : '1489962761679',
+            updated_at : '1489962761679',
+            role : 'CITIZEN',
+            status: 0,
+            status_information: 'status_info',
+            online: true,
+            location : 'Mountain View'
+        };
+
+        userDao.update(user, function(user){
+            expect(user.email).to.eql('new@email.com');
+            done();
+        }, function(error) {
+            expect(error).to.be(undefined);
+            done();
+        });
     });
 
-    test('Removing a user', function(done){
 
+    test('Removing a user', function(done){
+        let id = tmp_id;
+        userDao.remove(id, function(){
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    suiteTeardown('Teardown DB Connection', function(done){
+        conn.disconnect();
         done();
     });
 

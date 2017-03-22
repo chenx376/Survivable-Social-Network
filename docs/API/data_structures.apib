@@ -14,10 +14,21 @@
 	+ 1 - Citizen
 	+ 2 - Administrator
 + status: OK, HELP, EMERGENCY, UNDEFINED(string)
++ status_information: string
 + online: TRUE, FALSE
++ location: string
 
 ### Message (object)
 + sender: ObjectId
++ receiver: ObjectId
 + broadcast: TRUE, FALSE
 + massage: Hello World!
 + sent_at: date
++ user_status: number
++ user_status_information
+
+### Announce (object)
++ announcer: ObjectId
++ content: string
++ created_at: date
++ location: string
