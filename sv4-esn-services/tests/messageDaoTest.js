@@ -102,7 +102,7 @@ suite('MessageDAO Tests', function(){
     test('Retrieve private messages for Sender > Receiver', function(done){
 
         messageDao.privateMessages(sender, receiver, function (messages) {
-            expect(messages).to.be("Array");
+            expect(messages).to.be.an('array');
             done();
         }, function(error) {
             expect(error.message).to.eql('Could not find messages for this combination of users');
