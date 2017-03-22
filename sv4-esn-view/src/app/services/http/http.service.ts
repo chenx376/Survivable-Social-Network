@@ -10,11 +10,7 @@ export class HttpService {
 
   jwt = localStorage.getItem('jwt');
 
-  private http: Http;
-
-  constructor(http: Http) {
-    this.http = http;
-  }
+  constructor(private http: Http) { }
 
   get = (path: string, params?: Object): Observable<any> => {
     let requestUri = `${this.baseUri}${path}`;

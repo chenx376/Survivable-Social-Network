@@ -7,11 +7,7 @@ import { AlertComponent } from '../../components/alert/alert.component';
 @Injectable()
 export class DialogService {
 
-  private dialog: MdDialog;
-
-  constructor(dialog: MdDialog) {
-    this.dialog = dialog;
-  }
+  constructor(private dialog: MdDialog) { }
 
   public openDialogue(viewContainerRef: ViewContainerRef,
                       title: string,

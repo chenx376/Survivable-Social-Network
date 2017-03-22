@@ -10,23 +10,15 @@ import { UserStatus } from '../../models/user.model';
 })
 export class ShareStatusComponent implements OnInit {
 
-  private userService: UserService;
-  private dialogService: DialogService;
-  private viewContainerRef: ViewContainerRef;
-
-  selectedStatus: UserStatus;
+  selectedStatus: UserStatus = UserStatus.OK;
   information: string;
 
-  constructor(userService: UserService,
-              dialogService: DialogService,
-              viewContainerRef: ViewContainerRef) {
-    this.userService = userService;
-    this.dialogService = dialogService;
-    this.viewContainerRef = viewContainerRef;
-  }
+  constructor(private userService: UserService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
-    this.selectedStatus = UserStatus.OK;
+
   }
 
   statusOkSelected = () => this.selectedStatus = UserStatus.OK;

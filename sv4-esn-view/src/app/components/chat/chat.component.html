@@ -4,7 +4,7 @@
     <div class="message-body">
       <div class="user-header">
         <div class="username">{{ message.sender.username }}</div>
-        <div [ngSwitch]="message.sender.status">
+        <div [ngSwitch]="message.userStatus">
           <template [ngSwitchCase]="1">
             <md-icon class="status-icon status-ok">check_circle</md-icon>
           </template>
@@ -19,8 +19,8 @@
                  *ngIf="message.sender.online">language</md-icon>
       </div>
       <div class="status-information"
-           *ngIf="message.sender.statusInformation != null && message.sender.statusInformation.length != 0">
-        {{ message.sender.statusInformation }}
+           *ngIf="message.userStatusInformation != null && message.userStatusInformation.length != 0">
+        {{ message.userStatusInformation }}
       </div>
       <div class="message-date">{{ chatService.formatDate(message.date) }}</div>
       <div class="message-content">{{ message.content }}</div>
@@ -32,7 +32,7 @@
   <md-input-container class="message-input">
     <textarea mdInput rows="1"
               mdTextareaAutosize mdAutosizeMaxRows="3"
-              [(ngModel)]="message">
+              [(ngModel)]="messageContent">
     </textarea>
   </md-input-container>
 

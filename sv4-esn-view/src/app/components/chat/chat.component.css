@@ -91,6 +91,7 @@
 .message-controls {
   display: flex;
   align-items: flex-end;
+  width: 94vw;
   height: 110px;
   padding: 0 1vw;
 }

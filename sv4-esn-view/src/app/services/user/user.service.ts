@@ -6,20 +6,16 @@ import { User, UserStatus } from '../../models/user.model'
 @Injectable()
 export class UserService {
 
-  private httpService: HttpService;
-
   userId: string = localStorage.getItem('user_id');
   user: User;
 
-  constructor(httpService: HttpService) {
-    this.httpService = httpService;
-
+  constructor(private httpService: HttpService) {
     if (this.isUserLoggedIn()) {
       this.getUserInfo(this.userId);
     }
   }
 
-  isUserLoggedIn = (): boolean => this.userId != undefined;
+  isUserLoggedIn = (): boolean => this.userId != null;
 
   login = (username: string, password: string): Observable<void> => {
     return this.httpService.post('/login', { username, password })

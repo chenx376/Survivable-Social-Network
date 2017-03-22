@@ -1,0 +1,15 @@
+<md-card class="announcement" *ngFor="let announcement of announcements">
+  {{announcement.content}}
+  {{announcement.publisher.username}}
+
+</md-card>
+
+<md-input-container class="announcement-input">
+    <textarea mdInput rows="1"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="announcementContent">
+    </textarea>
+</md-input-container>
+
+<button md-raised-button id="publish-anncouncement-button"
+        (click)="publishAnnouncementButtonClicked()">Publish Announcement</button>
