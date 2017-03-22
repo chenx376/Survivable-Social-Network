@@ -102,7 +102,7 @@ app.use('/announces', announces);
  */
 
 app.get('/', function (req, res) {
-        res.json({"sv4-esn-status": "RUNNING"});
+        res.json({"sv4-esn-status": "RUNNING-UPDATED"});
 });
 
 var port = process.env.PORT || 3000;
