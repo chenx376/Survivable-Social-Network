@@ -12,6 +12,8 @@ let userDao;
 let LoginService = require('../services/loginService.js');
 let loginService = new LoginService();
 
+let tmp_user_id;
+
 suite('LoginService Tests', function(){
 
     suiteSetup('Setup DB and Create User', function(done){
@@ -32,6 +34,7 @@ suite('LoginService Tests', function(){
         };
 
         userDao.create(user, function(user){
+            tmp_user_id = user.id;
             done();
         }, function(error){
             done();
@@ -121,8 +124,12 @@ suite('LoginService Tests', function(){
     });
 
     suiteTeardown('Teardown DB Connection', function(done){
+        userDao.remove(tmp_user_id, function(user){
+            done();
+        }, function(error){
+            done();
+        });
         conn.disconnect();
-        done();
     });
 
 
