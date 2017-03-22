@@ -14,6 +14,8 @@ var receiver;
 
 var created_id;
 
+var tmp_sent_at;
+
 suite('MessageDAO Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
@@ -33,6 +35,8 @@ suite('MessageDAO Tests', function(){
             role : 'CITIZEN',
             location : 'Shanghai'
         };
+
+        tmp_sent_at = new Date();
 
         userDao.create(user1, function(created1){
             console.log('Created User1 ' + JSON.stringify(created1) );
@@ -68,7 +72,7 @@ suite('MessageDAO Tests', function(){
             sender : sender,
             receivers : receiver,
             message : "Test message",
-            sent_at : '1489962761679',
+            sent_at : tmp_sent_at,
             broadcast : false,
             user_status: 2,
             user_status_information: 'IM AWESOME'
@@ -98,7 +102,7 @@ suite('MessageDAO Tests', function(){
     test('Retrieve private messages for Sender > Receiver', function(done){
 
         messageDao.privateMessages(sender, receiver, function (messages) {
-            expect(messages).to.be("Array");
+            expect(messages).to.be.an('array');
             done();
         }, function(error) {
             expect(error.message).to.eql('Could not find messages for this combination of users');
