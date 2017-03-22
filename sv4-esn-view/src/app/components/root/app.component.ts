@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router'
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
+import { DialogService } from '../../services/dialog/dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,9 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private userService: UserService,
-              private chatService: ChatService) { }
+              private chatService: ChatService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {
@@ -20,15 +23,21 @@ export class AppComponent implements OnInit {
     }
 
     this.chatService.receivePrivateMessage()
-      .subscribe(() => {
-        console.log('received message');
+      .filter(message => message.receiver === this.userService.userId)
+      .filter(message => this.router.url !== `/chat/${message.sender.userId}`)
+      .subscribe(message => {
+        this.dialogService.openDialogue(this.viewContainerRef,
+          'New Message',
+          `${message.sender.username} sent you a message. Would you like to see it?`)
+          .filter(result => result === true)
+          .subscribe(() => this.router.navigateByUrl(`chat/${message.sender.userId}`))
       })
   }
 
   logoutButtonClicked = (sidenav: any) => {
     sidenav.close();
     this.userService.logout()
-      .subscribe(json => {
+      .subscribe(() => {
         this.router.navigateByUrl('login');
       });
   }

@@ -4,7 +4,7 @@ export class Message {
 
   messageId: string;
   sender: User;
-  receiver: [string];
+  receiver: string;
   content: string;
   date: Date;
   broadcast: boolean;

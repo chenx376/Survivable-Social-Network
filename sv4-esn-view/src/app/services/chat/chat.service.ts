@@ -11,19 +11,10 @@ export class ChatService {
   //private endpoint = "https://sv4-esn-services.herokuapp.com";
   private endpoint = "http://localhost:3000";
 
-  private socket = null; //= io(this.endpoint);
+  private socket = io(this.endpoint);
 
   constructor(private httpService: HttpService,
               private userService: UserService) {
-
-
-    this.socket = io(this.endpoint, {
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax : 5000,
-      reconnectionAttempts: Infinity
-    });
-
     this.userService.isUserLoggedInSubject
       .filter(isUserLoggedIn => isUserLoggedIn === true)
       .subscribe(() => this.subscribeMe());
@@ -31,8 +22,6 @@ export class ChatService {
     this.userService.isUserLoggedInSubject
       .filter(isUserLoggedIn => isUserLoggedIn === false)
       .subscribe(() => this.unsubscribeMe());
-
-
   }
 
   subscribeMe = () => {
@@ -82,9 +71,6 @@ export class ChatService {
       this.socket.on('public-msg-sent', json => {
         observer.next(new Message(json));
       });
-      /*return () => {
-        this.socket.disconnect();
-      };*/
     });
   };
 
@@ -110,9 +96,6 @@ export class ChatService {
       this.socket.on('private-msg-sent', json => {
         observer.next(new Message(json));
       });
-      /*return () => {
-        this.socket.disconnect();
-      };*/
     });
   };
 

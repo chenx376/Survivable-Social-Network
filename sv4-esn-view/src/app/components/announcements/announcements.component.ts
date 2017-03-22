@@ -19,7 +19,6 @@ export class AnnouncementsComponent implements OnInit {
 
   ngOnInit() {
     this.announcementsService.getAnnouncements()
-      .do(a => console.log(a))
       .subscribe(announcements => this.announcements = announcements);
   }
 
