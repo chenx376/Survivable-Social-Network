@@ -58,6 +58,16 @@ suite('AnnounceDAO Tests', function(){
         });
     });
 
+    test('Finding an announcement by Invalid ID', function(done){
+        let id = 'invalid id';
+        announceDao.findById(id, function (announce) {
+            done();
+        }, function (error) {
+            expect(error.message).to.eql('Error when getting announcements.');
+            done();
+        });
+    });
+
     test('Updating an announcement', function(done){
         new_time_stamp = new Date();
         let announce = {
@@ -74,6 +84,23 @@ suite('AnnounceDAO Tests', function(){
             done();
         }, function (error) {
             expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Updating an invalid announcement', function(done){
+        new_time_stamp = new Date();
+        let announce = {
+            id : 'invalid id',
+            content : 'announcement test new',
+            created_at : new_time_stamp,
+            location : 'new Mountain View'
+        };
+
+        announceDao.update(announce, function (announce) {
+            done();
+        }, function (error) {
+            expect(error.message).to.eql('Error when getting announce.');
             done();
         });
     });
