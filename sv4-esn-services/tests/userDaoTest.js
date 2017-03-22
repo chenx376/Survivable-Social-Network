@@ -25,7 +25,10 @@ suite('UserDAO Tests', function(){
 			created_at : '1489962761679',
 			updated_at : '1489962761679',
 			role : 'CITIZEN',
-            location : 'Shanghai'
+            status: 0,
+            status_information: 'status_info',
+            online: false,
+            location : 'Mountain View'
         };
 
         userDao.create(user, function(user){
@@ -36,7 +39,10 @@ suite('UserDAO Tests', function(){
             expect(user.created_at).to.eql('1489962761679');
             expect(user.updated_at).to.eql('1489962761679');
             expect(user.role).to.eql('CITIZEN');
-            expect(user.location).to.eql('Shanghai');
+            expect(user.status).to.eql(0);
+            expect(user.status_information).to.eql('status_info');
+            expect(user.online).to.eql(false);
+            expect(user.location).to.eql('Mountain View');
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -71,7 +77,10 @@ suite('UserDAO Tests', function(){
             expect(user.created_at).to.eql('1489962761679');
             expect(user.updated_at).to.eql('1489962761679');
             expect(user.role).to.eql('CITIZEN');
-            expect(user.location).to.eql('Shanghai');
+            expect(user.status).to.eql(0);
+            expect(user.status_information).to.eql('status_info');
+            expect(user.online).to.eql(false);
+            expect(user.location).to.eql('Mountain View');
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -106,7 +115,10 @@ suite('UserDAO Tests', function(){
             expect(user.created_at).to.eql('1489962761679');
             expect(user.updated_at).to.eql('1489962761679');
             expect(user.role).to.eql('CITIZEN');
-            expect(user.location).to.eql('Shanghai');
+            expect(user.location).to.eql('Mountain View');
+            expect(user.status).to.eql(0);
+            expect(user.status_information).to.eql('status_info');
+            expect(user.online).to.eql(false);
             done();
         }, function(error){
             expect(error).to.eql('No such user');
@@ -116,24 +128,33 @@ suite('UserDAO Tests', function(){
 
     test('Updating a user', function(done){
         var sha256 = createHash('sha256');
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+        var shapassword = sha256.update('new123456', 'utf8').digest('hex');
 
-        let user = {
+        let u = {
             id : tmp_id,
-            username : 'yanli',
+            username : 'new yanli',
             email : 'new@email.com',
             password : shapassword,
-            created_at : '1489962761679',
-            updated_at : '1489962761679',
-            role : 'CITIZEN',
-            status: 0,
-            status_information: 'status_info',
+            created_at : 'new 1489962761679',
+            updated_at : 'new 1489962761679',
+            role : 'new CITIZEN',
+            status : 1,
+            status_information: 'new status_info',
             online: true,
-            location : 'Mountain View'
+            location : 'new Mountain View'
         };
 
-        userDao.update(user, function(user){
+        userDao.update(u, function(user){
+            expect(user.username).to.eql('new yanli');
             expect(user.email).to.eql('new@email.com');
+            expect(user.password).to.eql(shapassword);
+            expect(user.created_at).to.eql('new 1489962761679');
+            expect(user.updated_at).to.eql('new 1489962761679');
+            expect(user.role).to.eql('new CITIZEN');
+            expect(user.status).to.eql(1);
+            expect(user.status_information).to.eql('new status_info');
+            expect(user.online).to.eql(true);
+            expect(user.location).to.eql('new Mountain View');
             done();
         }, function(error) {
             expect(error).to.be(undefined);

@@ -19,15 +19,15 @@ suite('AnnounceDAO Tests', function(){
 
         let announce  = {
             content : 'announcement test',
-            username : 'yanli',
             created_at : tmp_time_stamp,
-            updated_at : tmp_time_stamp,
             location : 'Mountain View'
         };
 
         announceDao.create(announce, function (announce) {
-            expect(announce.content).to.eql('announcement test');
             tmp_id = announce.id;
+            expect(announce.content).to.eql('announcement test');
+            expect(announce.created_at).to.eql(tmp_time_stamp);
+            expect(announce.location).to.eql('Mountain View');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -49,6 +49,8 @@ suite('AnnounceDAO Tests', function(){
         let id = tmp_id;
         announceDao.findById(id, function (announce) {
             expect(announce.content).to.eql('announcement test');
+            expect(announce.created_at).to.eql(tmp_time_stamp);
+            expect(announce.location).to.eql('Mountain View');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -57,17 +59,18 @@ suite('AnnounceDAO Tests', function(){
     });
 
     test('Updating an announcement', function(done){
+        new_time_stamp = new Date();
         let announce = {
             id : tmp_id,
             content : 'announcement test new',
-            username : 'yanli',
-            created_at : tmp_time_stamp,
-            updated_at : tmp_time_stamp,
-            location : 'Mountain View'
+            created_at : new_time_stamp,
+            location : 'new Mountain View'
         };
 
-        announceDao.create(announce, function (announce) {
+        announceDao.update(announce, function (announce) {
             expect(announce.content).to.eql('announcement test new');
+            expect(announce.created_at).to.eql(new_time_stamp);
+            expect(announce.location).to.eql('new Mountain View');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -75,12 +78,10 @@ suite('AnnounceDAO Tests', function(){
         });
     });
 
-
     test('Removing an announcement', function(done){
-        let id = tmp_id;
-        announceDao.remove(id, function(){
+        announceDao.remove(tmp_id, function (announce) {
             done();
-        }, function(error){
+        }, function (error) {
             expect(error).to.be(undefined);
             done();
         });

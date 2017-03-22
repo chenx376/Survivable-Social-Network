@@ -97,7 +97,7 @@ module.exports = class UserDAO {
             }
 
             user.id = userToUpdate.id;
-            user.name = userToUpdate.name ? userToUpdate.name : user.name;
+            user.username = userToUpdate.username ? userToUpdate.username : user.username;
             user.email = userToUpdate.email ? userToUpdate.email : user.email;
             user.password = userToUpdate.password ? userToUpdate.password : user.password;
             user.created_at = userToUpdate.created_at ? userToUpdate.created_at : user.created_at;
