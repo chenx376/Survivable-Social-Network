@@ -95,6 +95,7 @@ module.exports = class MessageDAO{
             message.message = userToUpdate.message ? userToUpdate.message : message.message;
             message.sent_at = userToUpdate.sent_at ? userToUpdate.sent_at : message.sent_at;
             message.user_status_information = userToUpdate.user_status_information ? userToUpdate.user_status_information : message.user_status_information;
+            message.user_status = userToUpdate.user_status ? userToUpdate.user_status : message.user_status;
 
 
             message.save(function (err, message) {
