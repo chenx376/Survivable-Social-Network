@@ -14,7 +14,15 @@ export class ChatService {
   private socket = io(this.endpoint);
 
   constructor(private httpService: HttpService,
-              private userService: UserService) { }
+              private userService: UserService) {
+    this.userService.isUserLoggedInSubject
+      .filter(isUserLoggedIn => isUserLoggedIn === true)
+      .subscribe(() => this.subscribeMe());
+
+    this.userService.isUserLoggedInSubject
+      .filter(isUserLoggedIn => isUserLoggedIn === false)
+      .subscribe(() => this.unsubscribeMe());
+  }
 
   subscribeMe = () => {
     let payload = {
@@ -22,6 +30,14 @@ export class ChatService {
       data: { myself: this.userService.userId }
     };
     this.socket.emit('subscribe', payload);
+  };
+
+  unsubscribeMe = () => {
+    let payload = {
+      jwt: this.httpService.jwt,
+      data: { myself: this.userService.userId }
+    };
+    this.socket.emit('unsubscribe', payload);
   };
 
   getPublicMessages = (): Observable<[Message]> => {
@@ -78,21 +94,6 @@ export class ChatService {
   };
 
   receivePrivateMessage = (): Observable<Message> => {
-
-    /**
-     * Important NOTICE!
-     * This event will only be received if the
-     * method subscribeMe( MYSELF_ID ) has been called first.
-     *
-     * The backend websockets system will orchestrate the notification
-     * for specific "CHANNEL_IDS" which in this case is the RECEIVER_ID
-     *
-     * For our purpose here in the FSE ESN we should call first
-     * subscribeMe( loggedUser id )
-     *
-     * and then expect to receive messages using the private-msg-sent event...
-     *
-     */
     return new Observable(observer => {
       this.socket.on('private-msg-sent', json => {
         observer.next(new Message(json));
@@ -103,7 +104,7 @@ export class ChatService {
     });
   };
 
-  formatDate = (date: Date):string => {
+  formatDate = (date: Date): string => {
     let hour = ('0' + date.getHours()).slice(-2);
     let minute = ('0' + date.getMinutes()).slice(-2);
     let second = ('0' + date.getSeconds()).slice(-2);
