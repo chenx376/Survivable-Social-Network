@@ -10,13 +10,8 @@ dependencies:
     - npm install -g mocha
     - npm install -g grunt
     - npm install -g mongodb
-    - npm install -g @angular/cli
     - npm install:
         pwd: sv4-esn-services/
-    - npm install:
-        pwd: sv4-esn-view/
-    - ng build:
-        pwd: sv4-esn-view/
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
 test:
   override:
