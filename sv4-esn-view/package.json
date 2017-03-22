@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "http-server",
+    "start": "http-server dist/",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "^1.0.0-rc.2",
+    "@angular/cli": "^1.0.0-rc.4",
     "@angular/common": "^2.4.8",
     "@angular/compiler": "^2.4.8",
     "@angular/core": "^2.4.8",
