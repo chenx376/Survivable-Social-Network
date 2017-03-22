@@ -1,5 +1,5 @@
 <md-card class="status status-ok"
-         [class.selected] = "selectedStatus == 1"
+         [class.selected] = "selectedStatus === 1"
          (click)="statusOkSelected()">
   <md-icon class="status-icon">check_circle</md-icon>
   <div class="status-info">
@@ -9,7 +9,7 @@
 </md-card>
 
 <md-card class="status status-help"
-         [class.selected] = "selectedStatus == 2"
+         [class.selected] = "selectedStatus === 2"
          (click)="statusHelpSelected()">
   <md-icon class="status-icon">error</md-icon>
   <div class="status-info">
@@ -19,7 +19,7 @@
 </md-card>
 
 <md-card class="status status-emergency"
-         [class.selected] = "selectedStatus == 3"
+         [class.selected] = "selectedStatus === 3"
          (click)="statusEmergencySelected()">
   <md-icon class="status-icon">add_circle</md-icon>
   <div class="status-info">

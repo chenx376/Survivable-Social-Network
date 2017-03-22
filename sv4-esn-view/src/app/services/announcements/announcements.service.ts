@@ -17,6 +17,15 @@ export class AnnouncementsService {
 
   publishAnnouncement = (content: string): Observable<void> => {
     return this.httpService.post('/announces/', { content, announcer: this.userService.userId });
+  };
+
+  formatDate = (date: Date): string => {
+    let hour = ('0' + date.getHours()).slice(-2);
+    let minute = ('0' + date.getMinutes()).slice(-2);
+    let second = ('0' + date.getSeconds()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
+    let day = ('0' + date.getDate()).slice(-2);
+    return `${date.getFullYear()}/${month}/${day} ${hour}:${minute}:${second}`;
   }
 
 }

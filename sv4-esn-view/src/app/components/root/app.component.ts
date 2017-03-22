@@ -17,8 +17,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {
       this.router.navigateByUrl('login');
-    } else {
-      this.chatService.subscribeMe();
     }
   }
 
