@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "preinstall": "npm install -g http-server",
+    "start": "http-server dist -p $PORT",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
