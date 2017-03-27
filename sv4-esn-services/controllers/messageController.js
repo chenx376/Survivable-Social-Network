@@ -20,6 +20,7 @@ module.exports = {
         });
     },
 
+
     /**
      * messageController.show()
      */
@@ -31,6 +32,7 @@ module.exports = {
             res.status(404).json(error);
         });
     },
+
 
     /**
      * messageController.create()
