@@ -66,11 +66,11 @@ module.exports = function(io) {
                     messageDao.create(obj.data.message, function (createdMessage) {
                             messageDao.findById(createdMessage._id, function(message) {
 
-
                                 io.to(socket_map[obj.data.message.sender]).emit('private-msg-sent', message);
                                 io.to(socket_map[obj.data.message.receiver]).emit('private-msg-sent', message);
 
                                 console.log('New private message sent. Sender['+obj.data.message.sender+']');// Socket['+socket_map[obj.data.message.sender]+']');
+                                
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');
                             })
