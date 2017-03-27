@@ -13,6 +13,6 @@ export class DialogComponent {
   cancelButtonTitle: string;
   confirmButtonTitle: string;
 
-  constructor(private dialogRef: MdDialogRef<DialogComponent>) { }
+  constructor(dialogRef: MdDialogRef<DialogComponent>) { }
 
 }
