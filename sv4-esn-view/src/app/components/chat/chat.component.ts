@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               private userService: UserService,
               private chatService: ChatService) { }
 
+  
   ngOnInit() {
     this.route.url
       .map(url => url[url.length - 1].path)
