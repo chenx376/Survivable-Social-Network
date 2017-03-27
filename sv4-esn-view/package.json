@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "preinstall": "npm install -g live-server",
-    "start": "live-server --entry-file=index.html --port=$PORT",
+    "start": "node liveserver.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
