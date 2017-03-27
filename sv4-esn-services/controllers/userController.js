@@ -10,6 +10,7 @@ let userDao = new UserDAO();
  */
 module.exports = {
 
+
     /**
      * userController.list()
      */
