@@ -10,9 +10,13 @@ dependencies:
     - npm install -g mocha
     - npm install -g grunt
     - npm install -g mongodb
+    - npm install -g @angular/cli
     - npm install:
         pwd: sv4-esn-services/
+    - npm install:
+        pwd: sv4-esn-view/
     - git config --global url.ssh://git@heroku.com/.insteadOf https://git.heroku.com/
+
 test:
   override:
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.announces.drop()"
@@ -24,6 +28,7 @@ test:
         pwd: sv4-esn-services
     - cp -rf coverage $CIRCLE_TEST_REPORTS/coverage:
         pwd: sv4-esn-services
+        
 deployment:
   prod:
     branch: master
