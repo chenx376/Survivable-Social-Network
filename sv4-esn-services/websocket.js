@@ -5,6 +5,9 @@ let userDao = new UserDAO();
 let MessageDAO = require('./dao/messageDao.js');
 let messageDao = new MessageDAO();
 
+let AnnounceDAO = require('./dao/announceDao.js');
+let annouceDao = new AnnounceDAO();
+
 var config = require('config');
 
 const jwt = require('jsonwebtoken');
@@ -54,6 +57,7 @@ module.exports = function(io) {
             });
 
         });
+
 
         socket.on('private-msg', function (obj) {
 
@@ -110,5 +114,32 @@ module.exports = function(io) {
             io.emit('user-list-changed');
             console.log('disconnected event');
         });
+
+        socket.on('public-announce', function (obj) {
+
+            VerifyJwt(obj.jwt, function(decoded){
+
+                if(obj.data.announcement) {
+                    //Set user sender! Dont let the user mock this! Get by JWT
+                    //obj.data.message.sender = decoded.id;
+
+                    annouceDao.create(obj.data.announcement, function (createdAnnouncement) {
+                            annouceDao.findById(createdAnnouncement._id, function(announcement) {
+                                io.emit('public-msg-sent',  announcement);
+                                console.log('New public message sent.');
+                            }, function(error) {
+                                console.log('Error finding message just saved in the database this is crazy!');
+                            })
+
+                        },
+                        function (error) {
+                            console.log('Failed to send public message.')
+                        })
+                }
+
+            });
+
+        });
+
     });
 }

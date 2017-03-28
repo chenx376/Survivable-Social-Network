@@ -29,7 +29,7 @@ var jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
 jwtOptions.secretOrKey = config.get('JwtSecretKey');
 
-var chat = require('./chat.js')(io);
+var websocket = require('./websocket.js')(io);
 var conn = new ConnectionController();
 
 app.use(function (req, res, next) {
