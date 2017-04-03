@@ -30,9 +30,4 @@ router.put('/:id',passport.authenticate('jwt', { session: false }), messageContr
 router.delete('/:id',passport.authenticate('jwt', { session: false }), messageController.remove);
 
 
-/*
- * GET - PRIVATE CHAT
- */
-router.get('/:uid1/:uid2',passport.authenticate('jwt', { session: false }), messageController.privateMessages);
-
 module.exports = router;

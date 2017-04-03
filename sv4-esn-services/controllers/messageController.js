@@ -13,7 +13,7 @@ module.exports = {
      * messageController.list_public()
      */
     list: function (req, res) {
-        messageDao.list_public(function (messages) {
+        messageDao.list(function (messages) {
             res.json(messages);
         }, function(error) {
             res.status(404).json(error);
@@ -53,6 +53,8 @@ module.exports = {
                     message: 'No such user'
                 });
             }
+
+            console.log(user_id);
 
             let message = {
                 sender : req.body.sender,
