@@ -14,7 +14,7 @@ module.exports = class MessageDAO{
     /**
      * messageController.list()
      */
-    list_public(success, error) {
+    list(success, error) {
         messageModel
             .find({broadcast: true})
             .sort({sent_at: 1})

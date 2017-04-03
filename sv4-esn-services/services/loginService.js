@@ -13,27 +13,20 @@ module.exports = class LoginService {
      */
     doLogin(username, password, successCallback, errorCallback) {
 
-
-        console.log('doLogin: ' + username);
-
         if(username && password) {
-            if (username == null || password == null) {
-                return errorCallback(404, { message:"You should input Username or Password for blank spance."});
-            }
             if (username.length < 3){
-                //return res.status(404).json({ message:'Username less than three character'});
                 return errorCallback(404, { message:'Username less than three characters'} );
             }
             if (reserve_name.indexOf(username) > -1){
-                //return res.status(404).json({ message:'Username is in the list of reserve name'});
                 return errorCallback(404, { message:'Username is in the list of reserve name'} );
             }
             if (password.length <4){
-                //return res.status(404).json({ message:'Password less than three character'});
                 return errorCallback(404, { message:'Password less than three character'} );
             }
             var sha256 = createHash('sha256');
             password = sha256.update(password, 'utf8').digest('hex');
+        } else {
+            return errorCallback(404, { message:"You should input Username or Password for blank space."});
         }
 
         userDao.findByUsername(username,function(user){
