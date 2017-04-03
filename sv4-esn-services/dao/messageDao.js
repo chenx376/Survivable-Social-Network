@@ -32,43 +32,6 @@ module.exports = class MessageDAO{
 
 
     /**
-     * messageController.list_sender
-     */
-    list_sender(id, success, error) {
-        messageModel
-            .find({sender:id})
-            .populate('sender')
-            .exec( function (err, messages) {
-                if (err) {
-                    return error({
-                        message: 'Error when getting message.',
-                        error: err
-                    });
-                }
-                return success(messages);
-            });
-    };
-
-    /**
-     * messageController.list_receiver
-     */
-
-    list_receiver(id, success, error) {
-        messageModel
-            .find({receiver:id})
-            .populate('sender')
-            .exec( function (err, messages) {
-                if (err) {
-                    return error({
-                        message: 'Error when getting message.',
-                        error: err
-                    });
-                }
-                return success(messages);
-            });
-    };
-
-    /**
      * messageController.show()
      */
     findById(id, success, error) {
