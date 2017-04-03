@@ -10,16 +10,39 @@ let messageDao = new MessageDAO();
 module.exports = {
 
     /**
-     * messageController.list()
+     * messageController.list_public()
      */
     list: function (req, res) {
-        messageDao.list(function (messages) {
+        messageDao.list_public(function (messages) {
             res.json(messages);
         }, function(error) {
             res.status(404).json(error);
         });
     },
 
+    /**
+     * messageController.list_sender()
+     */
+
+    list_sender: function (req, res) {
+        messageDao.list_sender(function (messages) {
+            res.json(messages);
+        }, function(error) {
+            res.status(404).json(error);
+        });
+    },
+
+    /**
+     * messageController.list_receiver()
+     */
+
+    list_receiver: function (req, res) {
+        messageDao.list_receiver(function (messages) {
+            res.json(messages);
+        }, function(error) {
+            res.status(404).json(error);
+        });
+    },
 
     /**
      * messageController.show()

@@ -17,6 +17,9 @@ module.exports = class LoginService {
         console.log('doLogin: ' + username);
 
         if(username && password) {
+            if (username == null || password == null) {
+                return errorCallback(404, { message:"You should input Username or Password for blank spance."});
+            }
             if (username.length < 3){
                 //return res.status(404).json({ message:'Username less than three character'});
                 return errorCallback(404, { message:'Username less than three characters'} );
