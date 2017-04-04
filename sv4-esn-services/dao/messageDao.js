@@ -216,6 +216,14 @@ module.exports = class MessageDAO {
                     });
                 }
 
+                    messages.sort(function (a,b) {
+                        if (a.sent_at < b.sent_at)
+                            return -1;
+                        if (a.sent_at > b.sent_at)
+                            return 1;
+                        return 0;
+                    });
+
                 // if(messages && messages.length > 0)
                     success(messages);
                 // else

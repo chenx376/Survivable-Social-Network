@@ -81,11 +81,12 @@ module.exports = {
      */
     update: function (req, res) {
         let message = {
-            sender : req.body.sender,
-            receivers : req.body.receivers,
-            message : req.body.message,
-            sent_at : req.body.sent_at,
-            broadcast : req.body.broadcast
+            id          : req.params.id,
+            sender      : req.body.sender,
+            receiver    : req.body.receivers,
+            message     : req.body.message,
+            sent_at     : req.body.sent_at,
+            broadcast   : req.body.broadcast
 
         };
 
