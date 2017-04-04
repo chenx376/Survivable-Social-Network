@@ -96,6 +96,45 @@ suite('LoginService Tests', function(){
 
     });
 
+    test('No username and password', function(done){
+
+        loginService.doLogin(null, null, /*success*/ function(obj) {
+            expect(obj.id).to.be(null);
+            expect(obj.token).to.be(null);
+            done();
+        }, function(code, error){
+            expect(error.message).to.eql('Please enter the Username and the Password.');
+            done();
+        });
+
+    });
+
+    test('Have username but not password', function(done){
+
+        loginService.doLogin('abc', null, /*success*/ function(obj) {
+            expect(obj.id).to.be(null);
+            expect(obj.token).to.be(null);
+            done();
+        }, function(code, error){
+            expect(error.message).to.eql('Please enter the Password.');
+            done();
+        });
+
+    });
+
+    test('Have password but not username', function(done){
+
+        loginService.doLogin(null, '123456', /*success*/ function(obj) {
+            expect(obj.id).to.be(null);
+            expect(obj.token).to.be(null);
+            done();
+        }, function(code, error){
+            expect(error.message).to.eql('Please enter the Username.');
+            done();
+        });
+
+    });
+
     test('No such user', function(done){
 
         loginService.doLogin('thisuserisnotsupposedtoexist', '123456', /*success*/ function(obj) {

@@ -50,12 +50,12 @@ suite('AnnounceDAO Tests', function(){
             location : 'Mountain View'
         };
 
-        announceDao.create(announce, function (announce) {
-            tmp_id = announce.id;
-            expect(announce.content).to.eql('announcement test');
-            expect(announce.announcer).to.eql(tmp_user_id);
-            expect(announce.created_at).to.eql(tmp_time_stamp);
-            expect(announce.location).to.eql('Mountain View');
+        announceDao.create(announce, function (announceRes) {
+            tmp_id = announceRes._id;
+            expect(announceRes.content).to.eql('announcement test');
+            expect(announceRes.announcer).to.eql(tmp_user_id);
+            expect(announceRes.created_at).to.eql(tmp_time_stamp);
+            expect(announceRes.location).to.eql('Mountain View');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -79,7 +79,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.content).to.eql('announcement test');
             done();
         }, function (error) {
-            expect(error.message).to.be('No such announce');
+            expect(error).to.be(undefined);
             done();
         });
     });
@@ -87,6 +87,7 @@ suite('AnnounceDAO Tests', function(){
     test('Finding an announcement by Invalid ID', function(done){
         let id = 'invalid id';
         announceDao.findById(id, function (announce) {
+            expect('Error Case').to.eql('Should not go to here');
             done();
         }, function (error) {
             expect(error.message).to.eql('Error when getting announcements.');
@@ -104,7 +105,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.content).to.eql('announcement test');
             done();
         }, function (error) {
-            expect(error.message).to.be('No such announce.');
+            expect(error).to.be(undefined);
             done();
         });
     });
@@ -126,7 +127,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.location).to.eql('new Mountain View');
             done();
         }, function (error) {
-            expect(error.message).to.be('No such announce.');
+            expect(error).to.be(undefined);
             done();
         });
     });
@@ -142,6 +143,7 @@ suite('AnnounceDAO Tests', function(){
         };
 
         announceDao.update(announce, function (announce) {
+            expect('Error Case').to.eql('Should not go to here');
             done();
         }, function (error) {
             expect(error.message).to.eql('Error when getting announce.');
