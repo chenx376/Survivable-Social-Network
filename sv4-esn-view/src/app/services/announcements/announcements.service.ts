@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import * as io from 'socket.io-client';
 import { HttpService } from '../http/http.service';
 import { Announcement } from '../../models/announcement.model'
 import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AnnouncementsService {
+
+  //private endpoint = "http://localhost:3000";
+  private endpoint = "https://sv4-esn-services.herokuapp.com";
+
+  private socket = io(this.endpoint);
+
 
   constructor(private httpService: HttpService,
               private userService: UserService) { }
@@ -17,6 +24,14 @@ export class AnnouncementsService {
 
   publishAnnouncement = (content: string): Observable<void> => {
     return this.httpService.post('/announces/', { content, announcer: this.userService.userId });
+  };
+
+  listenToAnnouncementEvent = (): Observable<Announcement> => {
+    return new Observable(observer => {
+      this.socket.on('public-announcement-sent', json => {
+        observer.next(new Announcement(json));
+      });
+    });
   };
 
   formatDate = (date: Date): string => {

@@ -1,7 +1,13 @@
 /**
  * @author Arthur M Sampaio
  */
-var app = require('express')();
+
+
+var singleton = require('./singleton.js');
+var app = singleton.getApp();
+var http = singleton.getHttp();
+var io = singleton.getIO();
+
 
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
@@ -12,8 +18,7 @@ var JwtStrategy = passportJWT.Strategy;
 var config = require('config');
 
 var ConnectionController = require('./controllers/connection-controller.js')
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 

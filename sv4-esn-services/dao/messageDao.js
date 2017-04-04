@@ -10,7 +10,11 @@ let userModel = require('../models/userModel.js');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
-module.exports = class MessageDAO{
+var singleton = require('../singleton.js');
+var io = singleton.getIO();
+let socket_map = singleton.socketMap;
+
+module.exports = class MessageDAO {
 
     /**
      * messageController.list()
@@ -20,6 +24,7 @@ module.exports = class MessageDAO{
             .find({broadcast: true})
             .sort({sent_at: 1})
             .populate('sender')
+            .populate('receiver')
             .exec( function (err, messages) {
                 if (err) {
                     return error({
@@ -37,6 +42,7 @@ module.exports = class MessageDAO{
     findById(id, success, error) {
         messageModel.findOne({_id: id})
             .populate('sender')
+            .populate('receiver')
             .exec( function (err, message) {
                 if (err) {
                     return error({
@@ -52,41 +58,64 @@ module.exports = class MessageDAO{
                 return success(message);
             });
     };
-
     /**
      * messageController.create()
-     */
-    create(messageObj, success, error) {
+    */
+   create(messageObj, success, error) {
 
-        var user_id = messageObj.sender;
+        let user_id = messageObj.sender;
 
         userModel.findOne({_id: user_id}, function (err, user) {
+
             if (err) {
                 return error({
                     message: 'Error when getting user',
                     error: err
                 });
             }
-            if (!user) {
-                return error({
-                    message: 'No such user'
-                });
-            }
 
+            messageObj.sent_at = new Date();
             messageObj.user_status = user.status;
             messageObj.user_status_information = user.status_information;
 
             let messageToCreate = messageModel(messageObj);
 
-            messageToCreate.sent_at = new Date();
             messageToCreate.save(function (err, message) {
+
                 if (err) {
                     return error({
                         message: 'Error when creating message',
                         error: err
                     });
                 }
-                return success(message._doc);
+
+                let msg = message._doc;
+
+                messageModel.findOne({_id: msg._id})
+                    .populate('sender')
+                    .populate('receiver')
+                    .exec(function (err, created) {
+                        if (err) {
+                            return error({
+                                message: 'Error when getting message.',
+                                error: err
+                            });
+                        }
+                        if (!message) {
+                            return error({
+                                message: 'No such message'
+                            });
+                        }
+
+                        if (created.broadcast) {
+                            io.emit('public-msg-sent', created);
+                        } else {
+                            io.to(socket_map[created.sender.id]).emit('private-msg-sent', created);
+                            io.to(socket_map[created.receiver.id]).emit('private-msg-sent', created);
+                        }
+                        return success(msg);
+
+                    });
             });
         });
     };
@@ -162,6 +191,7 @@ module.exports = class MessageDAO{
         let messages = [];
         messageModel.find({broadcast: false, sender: new ObjectId(uid1), receiver: new ObjectId(uid2) })
             .populate('sender')
+            .populate('receiver')
             .sort({sent_at: 1})
             .exec(/*success*/ function(err, data1){
 
@@ -173,6 +203,7 @@ module.exports = class MessageDAO{
 
             messageModel.find({broadcast: false, sender: new ObjectId(uid2), receiver: new ObjectId(uid1) })
                 .populate('sender')
+                .populate('receiver')
                 .sort({sent_at: 1})
                 .exec(/*success*/ function(err, data2){
 

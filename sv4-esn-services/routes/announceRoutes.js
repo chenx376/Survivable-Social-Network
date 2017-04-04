@@ -14,21 +14,21 @@ router.get('/', passport.authenticate('jwt', { session: false }), announceContro
 /*
  * GET
  */
-router.get('/:id', passport.authenticate('jwt', { session: false }),  announceController.show);
+router.get('/:id', passport.authenticate('jwt', { session: false }), announceController.show);
 
 /*
  * POST
  */
-router.post('/',  announceController.create);
+router.post('/', announceController.create);
 
 /*
  * PUT
  */
-router.put('/:id', passport.authenticate('jwt', { session: false }),  announceController.update);
+router.put('/:id', passport.authenticate('jwt', { session: false }), announceController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', passport.authenticate('jwt', { session: false }),  announceController.remove);
+router.delete('/:id', passport.authenticate('jwt', { session: false }), announceController.remove);
 
 module.exports = router;

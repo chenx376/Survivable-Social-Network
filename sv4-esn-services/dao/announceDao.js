@@ -45,7 +45,7 @@ module.exports = class AnnounceDao {
                         message: 'No such announce'
                     });
                 }
-                return success(announce)
+                return success(announce._doc);
             });
     };
 
@@ -62,7 +62,7 @@ module.exports = class AnnounceDao {
                     error: err
                 });
             }
-            return success(announce);
+            return success(announce._doc);
         });
     };
 

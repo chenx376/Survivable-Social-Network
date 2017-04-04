@@ -3,6 +3,9 @@
  */
 let AnnounceDao = require('../dao/announceDao.js')
 
+var socketManager = require('../singleton.js');
+var io = socketManager.getIO();
+
 let announceDao = new AnnounceDao();
 
 /**
@@ -12,12 +15,13 @@ let announceDao = new AnnounceDao();
  */
 
 module.exports = {
+
     /**
      * announceController.list()
      */
     list: function (req,res) {
         announceDao.list(function (announces) {
-            announces = announces.slice(announces.length-3,announces.length);
+            //announces = announces.slice(announces.length-3,announces.length);
             res.json(announces);
         }, function (error) {
             res.status(404).json(error);
@@ -46,8 +50,19 @@ module.exports = {
             location : req.body.location
         };
 
-        announceDao.create(announce, function (announce) {
-            res.status(201).json(announce);
+        announceDao.create(announce, function (created) {
+
+            announceDao.findById(created._id, function (found) {
+
+                //if(found.announcer._doc)
+                //    found.announcer = found.announcer._doc; //Remove _doc of deep populated announcer
+
+                io.emit('public-announcement-sent',  found);
+                res.status(201).json(found);
+            }, function (error) {
+                res.status(404).json(error);
+            });
+
         }, function (error) {
             res.status(404).json(error);
         });
@@ -69,6 +84,7 @@ module.exports = {
             res.status(404).json(error);
         });
     },
+
     /**
      * announceController.remove()
      */

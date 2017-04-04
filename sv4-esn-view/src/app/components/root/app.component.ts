@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
 import { DialogService } from '../../services/dialog/dialog.service';
+import { AnnouncementsService } from '../../services/announcements/announcements.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
               private userService: UserService,
               private chatService: ChatService,
               private dialogService: DialogService,
-              private viewContainerRef: ViewContainerRef) { }
+              private viewContainerRef: ViewContainerRef,
+              private announcementService: AnnouncementsService) { }
 
   ngOnInit() {
     if (!this.userService.isUserLoggedIn()) {
@@ -31,7 +33,21 @@ export class AppComponent implements OnInit {
           `${message.sender.username} sent you a message. Would you like to see it?`)
           .filter(result => result === true)
           .subscribe(() => this.router.navigateByUrl(`chat/${message.sender.userId}`))
-      })
+      });
+
+
+    this.announcementService.listenToAnnouncementEvent()
+          .filter(announcement => this.router.url !== `/announcements`)
+          .subscribe(  announcement => {
+            this.dialogService.openDialogue(this.viewContainerRef,
+              'New Announcement',
+              `${announcement.publisher.username} sent you a message. Would you like to see it?`)
+              .filter(result => result === true)
+              .subscribe(() => this.router.navigateByUrl(`announcements`))
+          }  );
+
+
+
   }
 
   logoutButtonClicked = (sidenav: any) => {
