@@ -25,6 +25,7 @@
     "passport-local": "^1.0.0",
     "reserved-usernames": "^1.0.3",
     "sha.js": "^2.4.8",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "supertest": "^3.0.0"
   }
 }

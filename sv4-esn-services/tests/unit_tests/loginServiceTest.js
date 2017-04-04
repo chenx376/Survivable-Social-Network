@@ -122,13 +122,13 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Removing the user that was created', function(done){
-        userDao.remove(tmp_user_id, function(){
-            done();
-        }, function(error){
-            done();
-        });
-    });
+    // test('Removing the user that was created', function(done){
+    //     userDao.remove(tmp_user_id, function(){
+    //         done();
+    //     }, function(error){
+    //         done();
+    //     });
+    // });
 
     suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();

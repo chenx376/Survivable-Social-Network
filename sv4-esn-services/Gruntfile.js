@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         },
         mocha_istanbul: {
             coverage: {
-                src: 'tests', // a folder works nicely
+                src: ['tests/**/*.js'], // a folder works nicely
                 options: {
                     mochaOptions: ['--reporter', 'mocha-junit-reporter', '--ui', 'tdd', '--timeout', '30000'] // any extra options for mocha
                 }
@@ -36,10 +36,10 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', []);
 
-    //Test
+    // Test
     grunt.registerTask('test', ['mochaTest:local']);
 
-    //Coverage
+    // Coverage
     grunt.registerTask('coverage', ['mocha_istanbul']);
 
 
