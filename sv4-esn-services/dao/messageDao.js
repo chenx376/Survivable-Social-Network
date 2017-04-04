@@ -6,6 +6,7 @@ let mongoose = require('mongoose');
 let config = require('config');
 
 let messageModel = require('../models/messageModel.js');
+let userModel = require('../models/userModel.js');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -29,7 +30,6 @@ module.exports = class MessageDAO{
                 return success(messages);
             });
     };
-
 
     /**
      * messageController.show()
@@ -57,18 +57,37 @@ module.exports = class MessageDAO{
      * messageController.create()
      */
     create(messageObj, success, error) {
-        let messageToCreate = messageModel(messageObj);
 
-        messageToCreate.sent_at = new Date();
+        var user_id = messageObj.sender;
 
-        messageToCreate.save(function (err, message) {
+        userModel.findOne({_id: user_id}, function (err, user) {
             if (err) {
                 return error({
-                    message: 'Error when creating message',
+                    message: 'Error when getting user',
                     error: err
                 });
             }
-            return success(message._doc);
+            if (!user) {
+                return error({
+                    message: 'No such user'
+                });
+            }
+
+            messageObj.user_status = user.status;
+            messageObj.user_status_information = user.status_information;
+
+            let messageToCreate = messageModel(messageObj);
+
+            messageToCreate.sent_at = new Date();
+            messageToCreate.save(function (err, message) {
+                if (err) {
+                    return error({
+                        message: 'Error when creating message',
+                        error: err
+                    });
+                }
+                return success(message._doc);
+            });
         });
     };
 

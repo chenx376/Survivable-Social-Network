@@ -42,6 +42,7 @@ module.exports = function(io) {
 
                     messageDao.create(obj.data.message, function (createdMessage) {
                             messageDao.findById(createdMessage._id, function(message) {
+
                                 io.emit('public-msg-sent',  message);
                                 console.log('New public message sent.');
                             }, function(error) {
