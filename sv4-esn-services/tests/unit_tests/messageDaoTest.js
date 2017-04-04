@@ -1,9 +1,9 @@
 var expect = require('expect.js');
-var MessageDAO = require('../dao/messageDao.js');
-var UserDAO = require('../dao/userDao.js');
+var MessageDAO = require('../../dao/messageDao.js');
+var UserDAO = require('../../dao/userDao.js');
 
 var createHash = require('sha.js');
-var ConnectionController = require('../controllers/connection-controller.js');
+var ConnectionController = require('../../controllers/connection-controller.js');
 var conn;
 
 var messageDao;

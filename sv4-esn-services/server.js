@@ -11,7 +11,6 @@ var io = singleton.getIO();
 
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
-var createHash = require('sha.js')
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
@@ -22,7 +21,6 @@ var ConnectionController = require('./controllers/connection-controller.js')
 
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-var reserve_name = require('reserved-usernames');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
@@ -47,7 +45,6 @@ app.use(function (req, res, next) {
 
 // Middleware, Headers and Server Bootstrap
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
 app.use(bodyParser.json({
     type: function() {
         return true;
@@ -56,8 +53,6 @@ app.use(bodyParser.json({
 
 
 var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
-
-    console.log('JWT payload received', jwt_payload);
 
     userDao.findById(jwt_payload.id,function(user){
         if (!user) {
@@ -95,7 +90,6 @@ app.post("/login", function(req, res) {
 var users = require('./routes/userRoutes.js');
 app.use('/users', users);
 
-
 var messages = require('./routes/messageRoutes.js');
 app.use('/messages', messages);
 
@@ -105,12 +99,17 @@ app.use('/announces', announces);
 /**
  * End of REST API Endpoints
  */
-
 app.get('/', function (req, res) {
-        res.json({"sv4-esn-status": "RITVIK"});
+        res.json({"sv4-esn-status": "Running"});
 });
 
 var port = process.env.PORT || 3000;
 http.listen( port, function () {
     console.log('ENV[' + process.env.NODE_ENV + '] Server started: ' + port);
 });
+
+/**
+ * Module exports for API Tests
+ */
+module.exports.getApp = app;
+module.exports.getConn = conn;

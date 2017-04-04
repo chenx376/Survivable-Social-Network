@@ -2,13 +2,13 @@ var expect = require('expect.js');
 var createHash = require('sha.js');
 var sha256 = createHash('sha256');
 
-var ConnectionController = require('../controllers/connection-controller.js');
+var ConnectionController = require('../../controllers/connection-controller.js');
 var conn;
 
-let UserDAO = require('../dao/userDao.js');
+let UserDAO = require('../../dao/userDao.js');
 let userDao;
 
-let LoginService = require('../services/loginService.js');
+let LoginService = require('../../services/loginService.js');
 let loginService = new LoginService();
 
 let tmp_user_id;

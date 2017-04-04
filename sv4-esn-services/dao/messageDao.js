@@ -6,6 +6,7 @@ let mongoose = require('mongoose');
 let config = require('config');
 
 let messageModel = require('../models/messageModel.js');
+let userModel = require('../models/userModel.js');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -35,7 +36,6 @@ module.exports = class MessageDAO {
             });
     };
 
-
     /**
      * messageController.show()
      */
@@ -58,50 +58,65 @@ module.exports = class MessageDAO {
                 return success(message);
             });
     };
-
     /**
      * messageController.create()
-     */
-    create(messageObj, success, error) {
-        let messageToCreate = messageModel(messageObj);
+    */
+   create(messageObj, success, error) {
 
-        messageToCreate.sent_at = new Date();
+        let user_id = messageObj.sender;
 
-        messageToCreate.save(function (err, message) {
+        userModel.findOne({_id: user_id}, function (err, user) {
+
             if (err) {
                 return error({
-                    message: 'Error when creating message',
+                    message: 'Error when getting user',
                     error: err
                 });
             }
 
-            let msg = message._doc;
+            messageObj.sent_at = new Date();
+            messageObj.user_status = user.status;
+            messageObj.user_status_information = user.status_information;
 
-            messageModel.findOne({_id: msg._id})
-                .populate('sender')
-                .populate('receiver')
-                .exec( function (err, created) {
-                    if (err) {
-                        return error({
-                            message: 'Error when getting message.',
-                            error: err
-                        });
-                    }
-                    if (!message) {
-                        return error({
-                            message: 'No such message'
-                        });
-                    }
+            let messageToCreate = messageModel(messageObj);
 
-                    if (created.broadcast) {
-                        io.emit('public-msg-sent',  created);
-                    } else {
-                        io.to(socket_map[created.sender.id]).emit('private-msg-sent', created);
-                        io.to(socket_map[created.receiver.id]).emit('private-msg-sent', created);
-                    }
-                    return success(msg);
+            messageToCreate.save(function (err, message) {
 
-                });
+                if (err) {
+                    return error({
+                        message: 'Error when creating message',
+                        error: err
+                    });
+                }
+
+                let msg = message._doc;
+
+                messageModel.findOne({_id: msg._id})
+                    .populate('sender')
+                    .populate('receiver')
+                    .exec(function (err, created) {
+                        if (err) {
+                            return error({
+                                message: 'Error when getting message.',
+                                error: err
+                            });
+                        }
+                        if (!message) {
+                            return error({
+                                message: 'No such message'
+                            });
+                        }
+
+                        if (created.broadcast) {
+                            io.emit('public-msg-sent', created);
+                        } else {
+                            io.to(socket_map[created.sender.id]).emit('private-msg-sent', created);
+                            io.to(socket_map[created.receiver.id]).emit('private-msg-sent', created);
+                        }
+                        return success(msg);
+
+                    });
+            });
         });
     };
 

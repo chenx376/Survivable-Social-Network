@@ -54,8 +54,6 @@ module.exports = {
                 });
             }
 
-            console.log(user_id);
-
             let message = {
                 sender : req.body.sender,
                 receivers : req.body.receivers,
@@ -65,6 +63,8 @@ module.exports = {
                 user_status: (user.status)?user.status:0,
                 user_status_information: user.status_information
             };
+
+
 
             messageDao.create(message, function (message) {
                 res.status(201).json(message);

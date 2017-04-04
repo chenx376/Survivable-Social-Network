@@ -20,13 +20,21 @@ module.exports = class LoginService {
             if (reserve_name.indexOf(username) > -1){
                 return errorCallback(404, { message:'Username is in the list of reserve name'} );
             }
-            if (password.length <4){
-                return errorCallback(404, { message:'Password less than three character'} );
+            if (password.length < 4){
+                return errorCallback(404, { message:'Password less than four character'} );
             }
             var sha256 = createHash('sha256');
             password = sha256.update(password, 'utf8').digest('hex');
         } else {
-            return errorCallback(404, { message:"You should input Username or Password for blank space."});
+            if( !username && !password){
+                return errorCallback(404, { message:"Please enter the Username and the Password."});
+            } else {
+                if (!username){
+                    return errorCallback(404, { message:"Please enter the Username."});
+                } else {
+                    return errorCallback(404, { message:"Please enter the Password."});
+                }
+            }
         }
 
         userDao.findByUsername(username,function(user){
