@@ -5,7 +5,6 @@ var app = require('express')();
 
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
-var createHash = require('sha.js')
 
 var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
@@ -17,7 +16,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-var reserve_name = require('reserved-usernames');
 
 let UserDAO = require('./dao/userDao.js');
 let userDao = new UserDAO();
@@ -42,7 +40,6 @@ app.use(function (req, res, next) {
 
 // Middleware, Headers and Server Bootstrap
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
 app.use(bodyParser.json({
     type: function() {
         return true;
@@ -51,8 +48,6 @@ app.use(bodyParser.json({
 
 
 var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
-
-    console.log('JWT payload received', jwt_payload);
 
     userDao.findById(jwt_payload.id,function(user){
         if (!user) {
