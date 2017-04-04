@@ -10,8 +10,8 @@ import { UserStatus } from '../../models/user.model';
 })
 export class ShareStatusComponent implements OnInit {
 
-  selectedStatus: UserStatus = UserStatus.OK;
-  information: string;
+  selectedStatus = UserStatus.OK;
+  information = '';
 
   constructor(private userService: UserService,
               private dialogService: DialogService,
