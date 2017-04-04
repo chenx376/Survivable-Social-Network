@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         mochaTest: {
           local: {
             options: {
-              reporter: 'mocha-junit-reporter',
+              reporter: 'spec',
                 // reporter: 'mocha-junit-reporter',
               //captureFile: 'results.txt', // Optionally capture the reporter output to a file
               quiet: false, // Optionally suppress output to standard out (defaults to false)

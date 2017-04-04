@@ -90,7 +90,6 @@ app.post("/login", function(req, res) {
 var users = require('./routes/userRoutes.js');
 app.use('/users', users);
 
-
 var messages = require('./routes/messageRoutes.js');
 app.use('/messages', messages);
 
@@ -100,12 +99,17 @@ app.use('/announces', announces);
 /**
  * End of REST API Endpoints
  */
-
 app.get('/', function (req, res) {
-        res.json({"sv4-esn-status": "RITVIK"});
+        res.json({"sv4-esn-status": "Running"});
 });
 
 var port = process.env.PORT || 3000;
 http.listen( port, function () {
     console.log('ENV[' + process.env.NODE_ENV + '] Server started: ' + port);
 });
+
+/**
+ * Module exports for API Tests
+ */
+module.exports.getApp = app;
+module.exports.getConn = conn;
