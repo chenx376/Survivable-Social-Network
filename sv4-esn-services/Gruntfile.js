@@ -36,10 +36,10 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', []);
 
-    //Test
+    // Test
     grunt.registerTask('test', ['mochaTest:local']);
 
-    //Coverage
+    // Coverage
     grunt.registerTask('coverage', ['mocha_istanbul']);
 
 
