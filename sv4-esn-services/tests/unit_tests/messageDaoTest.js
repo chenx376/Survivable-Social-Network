@@ -211,17 +211,17 @@ suite('MessageDAO Tests', function(){
         });
     });
 
-    test('Removing the users that was created', function(done){
-        userDao.remove(sender, function(){
-            userDao.remove(receiver, function(){
-                done();
-            }, function(error){
-                done();
-            });
-        }, function(error){
-            done();
-        });
-    });
+    // test('Removing the users that was created', function(done){
+    //     userDao.remove(sender, function(){
+    //         userDao.remove(receiver, function(){
+    //             done();
+    //         }, function(error){
+    //             done();
+    //         });
+    //     }, function(error){
+    //         done();
+    //     });
+    // });
 
     suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();
