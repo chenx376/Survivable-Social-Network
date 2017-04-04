@@ -1,6 +1,6 @@
-#Group Sessions
+#Group Login
 
-## Register and Login [POST /sessions]
+## Login [POST /login]
 
 + Request (application/json)
 	+ Attributes
@@ -10,17 +10,3 @@
 + Response 200 (application/json)
 	+ Attributes (Session)
 
-## Validate a Session [GET /sessions/{session_id}]
-
-+ Parameters
-  + session_id: 88888888 (string) - session's id
-
-+ Response 200 (application/json)
-	+ Attributes (Session)
-
-## Log Out from a Session [DELETE /sessions/{session_id}]
-
-+ Parameters
-    + session_id: 88888888 (string) - session's id
-
-+ Response 200 (application/json)
