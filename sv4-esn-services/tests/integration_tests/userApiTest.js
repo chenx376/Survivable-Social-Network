@@ -14,7 +14,7 @@ suite('Users API Tests', function(){
 
     test('Users POST', function(done){
         newUser = {
-            'username' : 'api_test',
+            'username' : 'user_api_test',
             'password' : 'BASE64_SHA_SUPER_SECURE_PASSWORD',
         }
         request(app)
@@ -29,9 +29,10 @@ suite('Users API Tests', function(){
             request(app)
             .post('/login')
             .send(newUser)
+            .expect(200)
             .end(function(err, res){
                 tempJWT = res.body.token;
-                console.log(tempJWT);
+                // console.log(tempJWT);
                 done();
             });
         });
@@ -63,7 +64,7 @@ suite('Users API Tests', function(){
             done();
         });
     })
-
+    
     suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();
         done();
