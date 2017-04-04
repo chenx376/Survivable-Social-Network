@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/user.model';
+import { User, UserStatus } from '../../models/user.model';
 
 @Component({
   selector: 'app-directory',
@@ -9,7 +9,11 @@ import { User } from '../../models/user.model';
 })
 export class DirectoryComponent implements OnInit {
 
-  users: [User];
+  users: User[];
+  filteredUsers: User[];
+
+  searchTerm = '';
+  selectedStatus = UserStatus.Undefined;
 
   constructor(private userService: UserService) { }
 
@@ -30,7 +34,42 @@ export class DirectoryComponent implements OnInit {
           }
         }
       }))
-      .subscribe(users => this.users = users);
+      .subscribe(users => {
+        this.users = users;
+        this.updateSearch();
+      });
+  }
+
+  updateSearch = () => {
+    this.filteredUsers = this.users
+      .filter(user => {
+        if (this.selectedStatus == UserStatus.Undefined) { return true; }
+        return user.status == this.selectedStatus;
+      })
+      .filter(user => {
+        if (this.searchTerm.trim().length == 0) { return true; }
+        return user.username.includes(this.searchTerm.trim());
+      });
+  };
+
+  statusOkSelected = () => {
+    this.selectedStatus = UserStatus.OK;
+    this.updateSearch();
+  };
+
+  statusHelpSelected = () => {
+    this.selectedStatus = UserStatus.Help;
+    this.updateSearch();
+  };
+
+  statusEmergencySelected = () => {
+    this.selectedStatus = UserStatus.Emergency;
+    this.updateSearch();
+  };
+
+  clearStatusSelection = () => {
+    this.selectedStatus = UserStatus.Undefined;
+    this.updateSearch();
   }
 
 }

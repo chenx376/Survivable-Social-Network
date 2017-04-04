@@ -1,4 +1,33 @@
-<div class="user" *ngFor="let user of users" routerLink="/chat/{{ user.userId }}">
+<md-input-container class="search-bar">
+  <input mdInput placeholder="Search"
+         [(ngModel)]="searchTerm"
+         (ngModelChange)="updateSearch()">
+</md-input-container>
+
+<div class="status-filter">
+  <md-card class="status-option status-ok"
+           [class.selected] = "selectedStatus === 1"
+           (click)="statusOkSelected()">
+    <md-icon class="status-icon">check_circle</md-icon>
+  </md-card>
+  <md-card class="status-option status-help"
+           [class.selected] = "selectedStatus === 2"
+           (click)="statusHelpSelected()">
+    <md-icon class="status-icon">error</md-icon>
+  </md-card>
+  <md-card class="status-option status-emergency"
+           [class.selected] = "selectedStatus === 3"
+           (click)="statusEmergencySelected()">
+    <md-icon class="status-icon">add_circle</md-icon>
+  </md-card>
+  <md-card class="status-option clear-status"
+           [class.selected] = "selectedStatus === 0"
+           (click)="clearStatusSelection()">
+    <md-icon class="status-icon">cancel</md-icon>
+  </md-card>
+</div>
+
+<div class="user" *ngFor="let user of filteredUsers" routerLink="/chat/{{ user.userId }}">
   <img class="avatar" src="{{ userService.getAvatarUrl(user.username) }}" />
   <div class="user-info">
     <div class="user-header">
