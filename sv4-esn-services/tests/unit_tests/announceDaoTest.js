@@ -1,12 +1,12 @@
 var expect = require('expect.js');
-let AnnounceDao = require('../dao/announceDao.js')
+let AnnounceDao = require('../../dao/announceDao.js')
 let announceDao;
-var ConnectionController = require('../controllers/connection-controller.js');
+var ConnectionController = require('../../controllers/connection-controller.js');
 var conn;
 var tmp_id;
 var tmp_time_stamp;
 var tmp_user_id;
-let UserDAO = require('../dao/userDao.js');
+let UserDAO = require('../../dao/userDao.js');
 let userDao;
 var createHash = require('sha.js');
 
@@ -154,6 +154,14 @@ suite('AnnounceDAO Tests', function(){
             done();
         }, function (error) {
             expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Removing the user that was created', function(done){
+        userDao.remove(tmp_user_id, function(){
+            done();
+        }, function(error){
             done();
         });
     });
