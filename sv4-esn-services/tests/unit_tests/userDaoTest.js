@@ -120,7 +120,7 @@ suite('UserDAO Tests', function(){
             expect(user.online).to.eql(false);
             done();
         }, function(error){
-            expect(error).to.eql('No such user');
+            expect(error).to.be(undefined);
             done();
         });
     });
