@@ -79,7 +79,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.content).to.eql('announcement test');
             done();
         }, function (error) {
-            expect(error).to.be(undefined);
+            expect(error.message).to.be('No such announce');
             done();
         });
     });
@@ -104,7 +104,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.content).to.eql('announcement test');
             done();
         }, function (error) {
-            expect(error).to.be(undefined);
+            expect(error.message).to.be('No such announce.');
             done();
         });
     });
@@ -126,7 +126,7 @@ suite('AnnounceDAO Tests', function(){
             expect(announce.location).to.eql('new Mountain View');
             done();
         }, function (error) {
-            expect(error).to.be(undefined);
+            expect(error.message).to.be('No such announce.');
             done();
         });
     });

@@ -12,6 +12,7 @@ var newUserID_1;
 var tempJWT_2;
 var newUser_2;
 var newUserID_2;
+var messageID;
 
 suite('Message API Tests', function(){
 
@@ -85,7 +86,7 @@ suite('Message API Tests', function(){
     test('Messages POST', function(done){
         let message = {
             sender : newUserID_1,
-            receivers : newUserID_2,
+            receiver : newUserID_2,
             message : "Test message",
             sent_at : new Date(),
             broadcast : false,
@@ -97,6 +98,48 @@ suite('Message API Tests', function(){
         .set('Authorization', 'JWT ' + tempJWT_1)
         .send(message)
         .expect(201)
+        .end(function(err, res){
+            if (err) throw err;
+            messageID = res.body._id;
+            done();
+        });
+    })
+
+    // Below are test cases for the APIs that is never used in our functionality
+
+    test('Messages GET by ID', function(done){
+        request(app)
+        .get('/messages/' + messageID)
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .expect(200)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
+    test('Messages PUT', function(done){
+        let updatedMessage = {
+            sender : newUserID_1,
+            receiver : newUserID_2,
+            message : "Test message new",
+        };
+        request(app)
+        .put('/messages/' + messageID)
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .send(updatedMessage)
+        .expect(200)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
+    test('Messages DELETE', function(done){
+        request(app)
+        .delete('/messages/' + messageID)
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .expect(204)
         .end(function(err, res){
             if (err) throw err;
             done();
