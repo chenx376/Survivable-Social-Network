@@ -12,7 +12,7 @@ var config = require('config');
 
 const jwt = require('jsonwebtoken');
 
-let socket_map = {};
+let socket_map = require('./singleton.js').socketMap;
 
 module.exports = function(io) {
 
@@ -27,7 +27,6 @@ module.exports = function(io) {
 
     }
 
-
     io.on('connection', function (socket) {
 
         console.log('Socket.io client Connected.');
@@ -40,14 +39,11 @@ module.exports = function(io) {
                     //Set user sender! Dont let the user mock this! Get by JWT
                     //obj.data.message.sender = decoded.id;
 
+                    /**
+                     * MESSAGEDAO ALREADY HANDLES BROADCAST OF EVENTS TO SUPPORT HEADLESS CLIENT
+                     */
                     messageDao.create(obj.data.message, function (createdMessage) {
-                            messageDao.findById(createdMessage._id, function(message) {
-                                io.emit('public-msg-sent',  message);
-                                console.log('New public message sent.');
-                            }, function(error) {
-                                console.log('Error finding message just saved in the database this is crazy!');
-                            })
-
+                            console.log('New public message sent.');
                         },
                         function (error) {
                             console.log('Failed to send public message.')
@@ -67,13 +63,14 @@ module.exports = function(io) {
                     //Set user sender! Dont let the user mock this! Get by JWT
                     //obj.data.message.sender = decoded.id;
 
+                    /**
+                     * MESSAGEDAO ALREADY HANDLES BROADCAST OF EVENTS TO SUPPORT HEADLESS CLIENT
+                     */
                     messageDao.create(obj.data.message, function (createdMessage) {
+
                             messageDao.findById(createdMessage._id, function(message) {
 
-                                io.to(socket_map[obj.data.message.sender]).emit('private-msg-sent', message);
-                                io.to(socket_map[obj.data.message.receiver]).emit('private-msg-sent', message);
-
-                                console.log('New private message sent. Sender['+obj.data.message.sender+']');// Socket['+socket_map[obj.data.message.sender]+']');
+                                console.log('New private message sent. Sender[' + obj.data.message.sender + ']');// Socket['+socket_map[obj.data.message.sender]+']');
                                 
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');
@@ -115,7 +112,7 @@ module.exports = function(io) {
             console.log('disconnected event');
         });
 
-        socket.on('public-announce', function (obj) {
+        socket.on('public-announcement', function (obj) {
 
             VerifyJwt(obj.jwt, function(decoded){
 
@@ -125,7 +122,7 @@ module.exports = function(io) {
 
                     annouceDao.create(obj.data.announcement, function (createdAnnouncement) {
                             annouceDao.findById(createdAnnouncement._id, function(announcement) {
-                                io.emit('public-msg-sent',  announcement);
+                                io.emit('public-announcement-sent',  announcement);
                                 console.log('New public message sent.');
                             }, function(error) {
                                 console.log('Error finding message just saved in the database this is crazy!');

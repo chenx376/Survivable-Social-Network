@@ -14,6 +14,10 @@ export class User {
   online: boolean = false;
 
   constructor(json: any) {
+
+    if(!json)
+      throw 'You are  trying to create User Model with a null JSON';
+
     this.userId = json._id;
     this.username = json.username;
     this.status = json.status;

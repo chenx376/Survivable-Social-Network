@@ -18,8 +18,20 @@ export class AnnouncementsComponent implements OnInit {
               private viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
+
     this.announcementsService.getAnnouncements()
-      .subscribe(announcements => this.announcements = announcements);
+      .subscribe(announcements => {
+        this.announcements = announcements;
+      });
+
+
+    //REGISTER TO LISTEN TO EVENTS
+    this.announcementsService.listenToAnnouncementEvent()
+      .subscribe(  announce => {
+        this.announcements.push(announce);
+        console.log('Announces received by event: ' + announce.content + ' - ' + announce.publisher );
+      } );
+
   }
 
   publishAnnouncementButtonClicked = () => {
