@@ -93,7 +93,7 @@ module.exports = function(io) {
                 if(obj.data.myself /*the room id is user's id (receiver of the message) */) {
 
                     socket_map[obj.data.myself] = socket.id;
-                    console.log('New private message sent. Sender['+obj.data.myself+'] Socket['+socket_map[obj.data.myself]+']');
+                    console.log('Registering new socket ['+obj.data.myself+'] Socket['+socket_map[obj.data.myself]+']');
 
                     //socket.join(obj.data.myself);
 //                    socket.join(obj.data.myself);

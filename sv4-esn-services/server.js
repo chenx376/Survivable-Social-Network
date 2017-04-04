@@ -8,7 +8,6 @@ var app = singleton.getApp();
 var http = singleton.getHttp();
 var io = singleton.getIO();
 
-
 var passport = require('passport');
 var passportJWT = require('passport-jwt');
 

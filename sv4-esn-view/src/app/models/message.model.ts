@@ -4,7 +4,7 @@ export class Message {
 
   messageId: string;
   sender: User;
-  receiver: string;
+  receiver: User;
   content: string;
   date: Date;
   broadcast: boolean;
@@ -18,7 +18,7 @@ export class Message {
 
     this.messageId = json._id;
     this.sender = new User(json.sender);
-    this.receiver = json.receiver;
+    this.receiver = new User(json.receiver);
     this.content = json.message;
     this.date = new Date(json.sent_at);
     this.broadcast = json.broadcast;

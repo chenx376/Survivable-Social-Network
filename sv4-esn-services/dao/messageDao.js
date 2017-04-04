@@ -110,8 +110,11 @@ module.exports = class MessageDAO {
                         if (created.broadcast) {
                             io.emit('public-msg-sent', created);
                         } else {
-                            io.to(socket_map[created.sender.id]).emit('private-msg-sent', created);
-                            io.to(socket_map[created.receiver.id]).emit('private-msg-sent', created);
+                            if(created.sender && created.sender._id)
+                                io.to(socket_map[created.sender._id]).emit('private-msg-sent', created._doc);
+
+                            if(created.receiver && created.receiver._id)
+                                io.to(socket_map[created.receiver._id]).emit('private-msg-sent', created._doc);
                         }
                         return success(msg);
 

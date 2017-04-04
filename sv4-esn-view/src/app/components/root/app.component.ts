@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     }
 
     this.chatService.receivePrivateMessage()
-      .filter(message => message.receiver === this.userService.userId)
+      .filter(message => message.receiver.userId === this.userService.userId)
       .filter(message => this.router.url !== `/chat/${message.sender.userId}`)
       .subscribe(message => {
         this.dialogService.openDialogue(this.viewContainerRef,
@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
           .filter(result => result === true)
           .subscribe(() => this.router.navigateByUrl(`chat/${message.sender.userId}`))
       });
-
 
     this.announcementService.listenToAnnouncementEvent()
           .filter(announcement => this.router.url !== `/announcements`)
