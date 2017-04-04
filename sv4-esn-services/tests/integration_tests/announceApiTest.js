@@ -9,6 +9,7 @@ var conn = server.getConn;
 var announceTempJWT;
 var announceUser;
 var announceUserID;
+var announceID;
 
 suite('Announcements API Tests', function(){
 
@@ -61,6 +62,49 @@ suite('Announcements API Tests', function(){
         .set('Authorization', 'JWT ' + announceTempJWT)
         .send(announcement)
         .expect(201)
+        .end(function(err, res){
+            if (err) throw err;
+            announceID = res.body._id;
+            done();
+        });
+    })
+
+    // Below are test cases for APIs that we never used in the functionality
+
+    test('Announcements GET by ID', function(done){
+        request(app)
+        .get('/announces/' + announceID)
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .expect(200)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
+    test('Announcements PUT', function(done){
+        let announcement  = {
+            content : 'announcement test new',
+            announcer : announceUserID,
+            created_at : new Date(),
+            location : 'Mountain View'
+        };
+        request(app)
+        .put('/announces/' + announceID)
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .send(announcement)
+        .expect(201)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
+    test('Announcements DELETE', function(done){
+        request(app)
+        .delete('/announces/' + announceID)
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .expect(204)
         .end(function(err, res){
             if (err) throw err;
             done();

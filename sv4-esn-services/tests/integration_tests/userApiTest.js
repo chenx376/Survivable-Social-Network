@@ -64,7 +64,33 @@ suite('Users API Tests', function(){
             done();
         });
     })
-    
+
+    test('Users GET by ID', function(done){
+        request(app)
+        .get('/users/' + newUserID)
+        .set('Authorization', 'JWT ' + tempJWT)
+        .expect(200)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
+    test('Users DELETE', function(done){
+        var updateUser = {
+            'username' : 'api_test',
+            'password' : 'updated_password',
+        }
+        request(app)
+        .delete('/users/' + newUserID)
+        .set('Authorization', 'JWT ' + tempJWT)
+        .expect(204)
+        .end(function(err, res){
+            if (err) throw err;
+            done();
+        });
+    })
+
     suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();
         done();
