@@ -54,6 +54,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.socketConnection = this.chatService.receivePublicMessage()
             .subscribe(message => {
               this.searchMessagesService.messages.push(message);
+              this.searchMessagesService.updateSearch();
               setTimeout(() => {
                 this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
               }, 0);
@@ -72,6 +73,7 @@ export class ChatComponent implements OnInit, OnDestroy {
             .filter(message => message.sender.userId === this.userService.userId || this.router.url === `/chat/${message.sender.userId}`)
             .subscribe(message => {
               this.searchMessagesService.messages.push(message);
+              this.searchMessagesService.updateSearch();
               setTimeout(() => {
                 this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
               }, 0);

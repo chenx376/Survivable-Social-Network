@@ -29,6 +29,7 @@ export class AnnouncementsComponent implements OnInit {
     this.announcementsService.listenToAnnouncementEvent()
       .subscribe(announcement => {
         this.searchAnnouncementsService.announcements.unshift(announcement);
+        this.searchAnnouncementsService.updateSearch();
       });
   }
 
