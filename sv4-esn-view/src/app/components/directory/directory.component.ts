@@ -31,6 +31,7 @@ export class DirectoryComponent implements OnInit {
         }
       }))
       .subscribe(users => {
+        this.searchUsersService.reset();
         this.searchUsersService.users = users;
         this.searchUsersService.updateSearch();
       });

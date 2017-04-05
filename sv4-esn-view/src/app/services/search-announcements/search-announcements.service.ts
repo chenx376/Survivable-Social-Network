@@ -14,6 +14,14 @@ export class SearchAnnouncementsService {
 
   constructor() { }
 
+  reset = () => {
+    this.announcements = [];
+    this.filteredAnnouncements = [];
+    this.displayedAnnouncements = [];
+    this.searchTerm = '';
+    this.showMoreAnnouncements = false;
+  };
+
   updateSearch = () => {
     if (this.searchTerm.trim().length !== 0) {
       if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {

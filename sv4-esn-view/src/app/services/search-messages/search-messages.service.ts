@@ -14,6 +14,14 @@ export class SearchMessagesService {
 
   constructor() { }
 
+  reset = () => {
+    this.messages = [];
+    this.filteredMessages = [];
+    this.displayedMessages = [];
+    this.searchTerm = '';
+    this.showMoreMessages = false;
+  };
+
   updateSearch = () => {
     if (this.searchTerm.trim().length !== 0) {
       if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
