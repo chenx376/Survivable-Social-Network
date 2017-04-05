@@ -100,7 +100,8 @@ module.exports = class UserDAO {
             user.role = userToUpdate.role ? userToUpdate.role : user.role;
             user.status = userToUpdate.status ? userToUpdate.status: user.status;
             user.status_information = userToUpdate.status_information ? userToUpdate.status_information : user.status_information;
-            if(userToUpdate.online !== null)
+
+            if(userToUpdate.online !== null && userToUpdate.online !== undefined)
                 user.online = userToUpdate.online;
 
             user.location = userToUpdate.location? userToUpdate.location: user.location;

@@ -165,6 +165,25 @@ suite('Message API Tests', function(){
 
     // Error cases
 
+    test('Error Case - Messages POST - Invalid Sender', function(done){
+        let invalidMessage = {
+            sender : 'Invalid Sender',
+            receiver : 'Invalid Receiver',
+            message : "Test message new",
+        };
+        request(app)
+        .post('/messages')
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .send(invalidMessage)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(404);
+            done();
+        });
+    })
+
     test('Error Case - Messages GET by ID - Invalid ID', function(done){
         request(app)
         .get('/messages/invalidID')
