@@ -65,9 +65,12 @@ suite('Message API Tests', function(){
         request(app)
         .get('/messages')
         .set('Authorization', 'JWT ' + tempJWT_1)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('array');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -76,9 +79,12 @@ suite('Message API Tests', function(){
         request(app)
         .get('/messages/' + newUserID_1 + '/' + newUserID_2)
         .set('Authorization', 'JWT ' + tempJWT_1)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('array');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -97,9 +103,12 @@ suite('Message API Tests', function(){
         .post('/messages')
         .set('Authorization', 'JWT ' + tempJWT_1)
         .send(message)
-        .expect(201)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(201);
             messageID = res.body._id;
             done();
         });
@@ -111,9 +120,12 @@ suite('Message API Tests', function(){
         request(app)
         .get('/messages/' + messageID)
         .set('Authorization', 'JWT ' + tempJWT_1)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -128,9 +140,12 @@ suite('Message API Tests', function(){
         .put('/messages/' + messageID)
         .set('Authorization', 'JWT ' + tempJWT_1)
         .send(updatedMessage)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -139,9 +154,58 @@ suite('Message API Tests', function(){
         request(app)
         .delete('/messages/' + messageID)
         .set('Authorization', 'JWT ' + tempJWT_1)
-        .expect(204)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(204);
+            done();
+        });
+    })
+
+    // Error cases
+
+    test('Error Case - Messages GET by ID - Invalid ID', function(done){
+        request(app)
+        .get('/messages/invalidID')
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(404);
+            done();
+        });
+    })
+
+    test('Error Case - Messages PUT - Invalid ID', function(done){
+        let updatedMessage = {
+            _id : 'invalidID',
+            sender : newUserID_1,
+            receiver : newUserID_2,
+            message : "Test message new",
+        };
+        request(app)
+        .put('/messages/invalidID')
+        .set('Authorization', 'JWT ' + tempJWT_1)
+        .send(updatedMessage)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(404);
+            done();
+        });
+    })
+
+    test('Error Case - Messages DELETE - Invalid ID', function(done){
+        request(app)
+        .delete('/messages/invalidID')
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(401);
             done();
         });
     })

@@ -5,7 +5,7 @@
 </md-input-container>
 
 <md-card class="announcement" *ngFor="let announcement of searchAnnouncementsService.displayedAnnouncements">
-  <div>{{announcement.content}}</div>
+  <div class="announcement-content">{{announcement.content}}</div>
   <div class="announcement-publisher">Posted by {{announcement.publisher.username}}</div>
 </md-card>
 

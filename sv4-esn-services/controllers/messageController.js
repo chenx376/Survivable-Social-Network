@@ -83,7 +83,7 @@ module.exports = {
         let message = {
             id          : req.params.id,
             sender      : req.body.sender,
-            receiver    : req.body.receivers,
+            receiver    : req.body.receiver,
             message     : req.body.message,
             sent_at     : req.body.sent_at,
             broadcast   : req.body.broadcast

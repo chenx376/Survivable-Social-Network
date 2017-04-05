@@ -13,7 +13,7 @@ module.exports = class ConnectionController {
     }
 
     errorHandler(error) {
-        console.log('MongoDB Error Connecting to database: '  + error );
+        console.log('MongoDB Error Connecting to database: ' + error );
     }
 
     openHandler() {

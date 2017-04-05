@@ -25,9 +25,19 @@
   padding: 10px 15px;
 }
 
+.announcement:nth-child(2) .announcement-content,
+.announcement:nth-child(3) .announcement-content,
+.announcement:nth-child(4) .announcement-content {
+  font-weight: bold;
+}
+
 .announcement-publisher {
   margin-top: 5px;
   font-size: 0.8em;
   font-style: italic;
   color: #666;
+}
+
+#publish-announcement-button {
+  margin-bottom: 10px;
 }

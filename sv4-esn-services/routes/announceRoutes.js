@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var announceController = require ('../controllers/announceController.js');
+var announceController = require('../controllers/announceController.js');
 
 /*
  * GET

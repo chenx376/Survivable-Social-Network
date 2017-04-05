@@ -12,21 +12,21 @@ router.get('/', passport.authenticate('jwt', { session: false }), userController
 /*
  * GET
  */
-router.get('/:id', passport.authenticate('jwt', { session: false }),  userController.show);
+router.get('/:id', passport.authenticate('jwt', { session: false }), userController.show);
 
 /*
  * POST
  */
-router.post('/',  userController.create);
+router.post('/', userController.create);
 
 /*
  * PUT
  */
-router.put('/:id', passport.authenticate('jwt', { session: false }),  userController.update);
+router.put('/:id', passport.authenticate('jwt', { session: false }), userController.update);
 
 /*
  * DELETE
  */
-router.delete('/:id', passport.authenticate('jwt', { session: false }),  userController.remove);
+router.delete('/:id', passport.authenticate('jwt', { session: false }), userController.remove);
 
 module.exports = router;

@@ -57,7 +57,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Username less than three characters', function(done){
+    test('Error Case - Username less than three characters', function(done){
 
         loginService.doLogin('ab', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -70,7 +70,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Username is in the list of reserved names', function(done){
+    test('Error Case - Username is in the list of reserved names', function(done){
 
         loginService.doLogin('mysql', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -83,7 +83,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Password less than three character', function(done){
+    test('Error Case - Password less than three character', function(done){
 
         loginService.doLogin('loginuser', '12', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -96,7 +96,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('No username and password', function(done){
+    test('Error Case - No username and password', function(done){
 
         loginService.doLogin(null, null, /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -109,7 +109,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Have username but not password', function(done){
+    test('Error Case - Have username but not password', function(done){
 
         loginService.doLogin('abc', null, /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -122,7 +122,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Have password but not username', function(done){
+    test('Error Case - Have password but not username', function(done){
 
         loginService.doLogin(null, '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -135,7 +135,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('No such user', function(done){
+    test('Error Case - No such user', function(done){
 
         loginService.doLogin('thisuserisnotsupposedtoexist', '123456', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
@@ -148,7 +148,7 @@ suite('LoginService Tests', function(){
 
     });
 
-    test('Incorrect password', function(done){
+    test('Error Case - Incorrect password', function(done){
 
         loginService.doLogin('loginuser', 'aaaaaa', /*success*/ function(obj) {
             expect(obj.id).to.be(null);
