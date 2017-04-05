@@ -12,13 +12,13 @@ export class Message {
   userStatusInformation: string;
 
   constructor(json: any) {
-
-    if(!json)
-      throw 'You are trying to create Message Model with a null JSON';
-
     this.messageId = json._id;
-    this.sender = new User(json.sender);
-    this.receiver = new User(json.receiver);
+    if (json.sender) {
+      this.sender = new User(json.sender);
+    }
+    if (json.receiver) {
+      this.receiver = new User(json.receiver);
+    }
     this.content = json.message;
     this.date = new Date(json.sent_at);
     this.broadcast = json.broadcast;

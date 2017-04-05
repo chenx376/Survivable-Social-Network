@@ -19,7 +19,7 @@ export class UserService {
     }
   }
 
-  isUserLoggedIn = (): boolean => this.userId != null;
+  isUserLoggedIn = (): boolean => this.userId !== null;
 
   login = (username: string, password: string): Observable<void> => {
     return this.httpService.post('/login', { username, password })

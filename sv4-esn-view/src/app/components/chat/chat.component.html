@@ -19,7 +19,7 @@
                  *ngIf="message.sender.online">language</md-icon>
       </div>
       <div class="status-information"
-           *ngIf="message.userStatusInformation != null && message.userStatusInformation.length != 0">
+           *ngIf="message.userStatusInformation !== null && message.userStatusInformation.length !== 0">
         {{ message.userStatusInformation }}
       </div>
       <div class="message-date">{{ chatService.formatDate(message.date) }}</div>
