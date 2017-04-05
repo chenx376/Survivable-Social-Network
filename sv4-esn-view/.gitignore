@@ -24,7 +24,7 @@
 
 # Ignore test files
 # ng test
-src/app/*.js
+src/app/**/*.js
 
 # misc
 /.sass-cache
