@@ -6,9 +6,13 @@
   height: calc(100vh - 60px);
 }
 
+.search-bar {
+  margin-top: 10px;
+}
+
 .message-list {
   overflow: scroll;
-  height: calc(100vh - 60px - 110px);
+  max-height: calc(100vh - 60px - 66px - 110px);
   padding: 0 1vw;
 }
 
@@ -86,6 +90,11 @@
   margin-top: 5px;
   word-wrap: break-word;
   width: calc(100vw - 6vw - 20px - 36px - 15px);
+}
+
+.load-more-button {
+  align-self: center;
+  margin-bottom: 10px;
 }
 
 .message-controls {

@@ -13,9 +13,7 @@ export class Message {
 
   constructor(json: any) {
     this.messageId = json._id;
-    if (json.sender) {
-      this.sender = new User(json.sender);
-    }
+    this.sender = new User(json.sender);
     if (json.receiver) {
       this.receiver = new User(json.receiver);
     }

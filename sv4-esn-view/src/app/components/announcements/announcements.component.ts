@@ -12,7 +12,7 @@ import { STOP_WORDS } from '../../constants/stopWords';
 export class AnnouncementsComponent implements OnInit {
 
   private announcements: Announcement[] = [];
-  filteredAnnouncements: Announcement[] = [];
+  private filteredAnnouncements: Announcement[] = [];
   displayedAnnouncements: Announcement[] = [];
 
   searchTerm = '';
