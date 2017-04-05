@@ -39,9 +39,9 @@ module.exports = class AnnounceDao {
                         error: err
                     });
                 }
-                if (!announce){
-                    return error({message: 'No such announce'});
-                }
+                // if (!announce){
+                //     return error({message: 'No such announce'});
+                // }
                 return success(announce._doc);
             });
     }
@@ -75,11 +75,11 @@ module.exports = class AnnounceDao {
                     error: err
                 });
             }
-            if (!announce) {
-                return error({
-                    message: 'No such announce.'
-                });
-            }
+            // if (!announce) {
+            //     return error({
+            //         message: 'No such announce.'
+            //     });
+            // }
 
             announce.id = announceToUpdate.id;
             announce.announcer = announceToUpdate.announcer ? announceToUpdate.announcer : announce.announcer;
