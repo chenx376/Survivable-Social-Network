@@ -12,6 +12,13 @@ export class SearchUsersService {
 
   constructor() { }
 
+  reset = () => {
+    this.users = [];
+    this.filteredUsers = [];
+    this.searchTerm = '';
+    this.selectedStatus = UserStatus.Undefined;
+  };
+
   updateSearch = () => {
     this.filteredUsers = this.users
       .filter(user => this.selectedStatus === UserStatus.Undefined || user.status === this.selectedStatus)

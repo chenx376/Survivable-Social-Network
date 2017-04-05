@@ -21,6 +21,7 @@ export class AnnouncementsComponent implements OnInit {
   ngOnInit() {
     this.announcementsService.getAnnouncements()
       .subscribe(announcements => {
+        this.searchAnnouncementsService.reset();
         this.searchAnnouncementsService.announcements = announcements;
         this.searchAnnouncementsService.updateSearch();
       });

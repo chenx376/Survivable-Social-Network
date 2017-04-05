@@ -45,6 +45,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.publicChat) {
       this.chatService.getPublicMessages()
         .subscribe(messages => {
+          this.searchMessagesService.reset();
           this.searchMessagesService.messages = messages;
           this.searchMessagesService.updateSearch();
           setTimeout(() => {
@@ -61,7 +62,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     } else {
       this.chatService.getPrivateMessages(this.targetUserId)
         .subscribe(messages => {
+          this.searchMessagesService.reset();
           this.searchMessagesService.messages = messages;
+          this.searchMessagesService.updateSearch();
           setTimeout(() => {
             this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
           }, 0);
