@@ -8,12 +8,10 @@ export class Announcement {
   publisher: User;
 
   constructor(json: any) {
-
     this.announcementId = json._id;
     this.content = json.content;
     this.date = new Date(json.created_at);
     this.publisher = new User(json.announcer);
-
   }
 
 }
