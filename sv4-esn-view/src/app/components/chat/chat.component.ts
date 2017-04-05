@@ -19,15 +19,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('messageList') messageList: ElementRef;
 
-  messages: [Message];
-  messageContent: string;
+  messages: Message[] = [];
+  messageContent = '';
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private chatService: ChatService) { }
 
-  
+
   ngOnInit() {
     this.route.url
       .map(url => url[url.length - 1].path)
@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.socketConnection != null) {
+    if (this.socketConnection !== null) {
       this.socketConnection.unsubscribe();
     }
   }

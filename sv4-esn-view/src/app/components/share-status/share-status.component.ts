@@ -21,7 +21,7 @@ export class ShareStatusComponent implements OnInit {
 
   }
 
-  statusOkSelected = () => this.selectedStatus = UserStatus.OK;
+  statusOKSelected = () => this.selectedStatus = UserStatus.OK;
 
   statusHelpSelected = () => this.selectedStatus = UserStatus.Help;
 
