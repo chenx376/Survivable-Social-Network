@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { Subscription } from "rxjs";
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
-import { Message } from '../../models/message.model';
-import { STOP_WORDS } from '../../constants/stopWords';
+import { SearchMessagesService } from '../../services/search-messages/search-messages.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,18 +19,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('messageList') messageList: ElementRef;
 
-  private messages: Message[] = [];
-  private filteredMessages: Message[] = [];
-  displayedMessages: Message[] = [];
-
-  searchTerm = '';
   messageContent = '';
-  showMoreMessages = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
-              private chatService: ChatService) { }
+              private chatService: ChatService,
+              private searchMessagesService: SearchMessagesService) { }
 
   ngOnInit() {
     this.route.url
@@ -51,14 +45,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (this.publicChat) {
       this.chatService.getPublicMessages()
         .subscribe(messages => {
-          this.messages = messages;
-          this.updateSearch();
+          this.searchMessagesService.messages = messages;
+          this.searchMessagesService.updateSearch();
           setTimeout(() => {
             this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
           }, 0);
           this.socketConnection = this.chatService.receivePublicMessage()
             .subscribe(message => {
-              this.messages.push(message);
+              this.searchMessagesService.messages.push(message);
               setTimeout(() => {
                 this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
               }, 0);
@@ -67,14 +61,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     } else {
       this.chatService.getPrivateMessages(this.targetUserId)
         .subscribe(messages => {
-          this.messages = messages;
+          this.searchMessagesService.messages = messages;
           setTimeout(() => {
             this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
           }, 0);
           this.socketConnection = this.chatService.receivePrivateMessage()
             .filter(message => message.sender.userId === this.userService.userId || this.router.url === `/chat/${message.sender.userId}`)
             .subscribe(message => {
-              this.messages.push(message);
+              this.searchMessagesService.messages.push(message);
               setTimeout(() => {
                 this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
               }, 0);
@@ -82,35 +76,6 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
     }
   }
-
-  updateSearch = () => {
-    if (this.searchTerm.trim().length !== 0) {
-      if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
-        this.filteredMessages = this.messages
-          .filter(announcement => announcement.content.includes(this.searchTerm.trim()));
-        if (this.filteredMessages.length > 10) {
-          this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - 10);
-          this.showMoreMessages = true;
-        } else {
-          this.displayedMessages = this.filteredMessages;
-          this.showMoreMessages = false;
-        }
-      }
-    } else {
-      this.filteredMessages = this.messages;
-      this.displayedMessages = this.filteredMessages;
-      this.showMoreMessages = false;
-    }
-  };
-
-  loadMoreMessagesButtonClicked = () => {
-    if (this.displayedMessages.length + 10 < this.filteredMessages.length) {
-      this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - this.displayedMessages.length - 10)
-    } else {
-      this.displayedMessages = this.filteredMessages;
-      this.showMoreMessages = false;
-    }
-  };
 
   sendMessage() {
     if (this.publicChat) {

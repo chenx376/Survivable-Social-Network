@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
-import { User, UserStatus } from '../../models/user.model';
+import { UserStatus } from '../../models/user.model';
+import { SearchUsersService } from '../../services/search-users/search-users.service';
 
 @Component({
   selector: 'app-directory',
@@ -9,13 +10,8 @@ import { User, UserStatus } from '../../models/user.model';
 })
 export class DirectoryComponent implements OnInit {
 
-  private users: User[] = [];
-  filteredUsers: User[] = [];
-
-  searchTerm = '';
-  selectedStatus = UserStatus.Undefined;
-
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private searchUsersService: SearchUsersService) { }
 
   ngOnInit() {
     this.userService.getUserList()
@@ -35,35 +31,9 @@ export class DirectoryComponent implements OnInit {
         }
       }))
       .subscribe(users => {
-        this.users = users;
-        this.updateSearch();
+        this.searchUsersService.users = users;
+        this.searchUsersService.updateSearch();
       });
-  }
-
-  updateSearch = () => {
-    this.filteredUsers = this.users
-      .filter(user => this.selectedStatus === UserStatus.Undefined || user.status === this.selectedStatus)
-      .filter(user => this.searchTerm.trim().length === 0 || user.username.includes(this.searchTerm.trim()));
-  };
-
-  statusOKSelected = () => {
-    this.selectedStatus = UserStatus.OK;
-    this.updateSearch();
-  };
-
-  statusHelpSelected = () => {
-    this.selectedStatus = UserStatus.Help;
-    this.updateSearch();
-  };
-
-  statusEmergencySelected = () => {
-    this.selectedStatus = UserStatus.Emergency;
-    this.updateSearch();
-  };
-
-  clearStatusSelection = () => {
-    this.selectedStatus = UserStatus.Undefined;
-    this.updateSearch();
   }
 
 }
