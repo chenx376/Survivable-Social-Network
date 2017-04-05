@@ -9,8 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -30,7 +29,6 @@
     "normalize.css": "^6.0.0",
     "socket.io": "^1.7.3",
     "live-server": "^1.2.0",
-
     "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "^4.0.1",
     "@types/jasmine": "2.5.47",
@@ -49,7 +47,11 @@
     "tslint": "~5.0.0",
     "typescript": "~2.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "karma-coverage": "^1.1.1",
+    "karma-coverage-istanbul-reporter": "^1.0.0",
+    "remap-istanbul": "^0.9.5"
+  },
   "engines": {
     "node": "7.5.0"
   }
