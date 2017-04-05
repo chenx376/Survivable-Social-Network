@@ -107,7 +107,7 @@ suite('Announcements API Tests', function(){
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
             expect(res.body).to.be.an('object');
-            expect(res.statusCode).to.eql(201);
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -158,7 +158,7 @@ suite('Announcements API Tests', function(){
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
             expect(res.body).to.be.an('object');
-            expect(res.statusCode).to.eql(201);
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })

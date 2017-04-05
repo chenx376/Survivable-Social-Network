@@ -131,7 +131,7 @@ suite('Users API Tests', function(){
             expect(err).to.not.be.ok();
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
-            expect(res.statusCode).to.eql(401);
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })
@@ -144,7 +144,7 @@ suite('Users API Tests', function(){
             expect(err).to.not.be.ok();
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
-            expect(res.statusCode).to.eql(401);
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })

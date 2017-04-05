@@ -50,11 +50,11 @@ module.exports = class MessageDAO {
                         error: err
                     });
                 }
-                if (!message) {
-                    return error({
-                        message: 'No such message'
-                    });
-                }
+                // if (!message) {
+                //     return error({
+                //         message: 'No such message'
+                //     });
+                // }
                 return success(message);
             });
     };
@@ -101,11 +101,11 @@ module.exports = class MessageDAO {
                                 error: err
                             });
                         }
-                        if (!message) {
-                            return error({
-                                message: 'No such message'
-                            });
-                        }
+                        // if (!message) {
+                        //     return error({
+                        //         message: 'No such message'
+                        //     });
+                        // }
 
                         if (created.broadcast) {
                             io.emit('public-msg-sent', created);
@@ -134,11 +134,11 @@ module.exports = class MessageDAO {
                     error: err
                 });
             }
-            if (!message) {
-                return error({
-                    message: 'No such message'
-                });
-            }
+            // if (!message) {
+            //     return error({
+            //         message: 'No such message'
+            //     });
+            // }
 
             message.id = userToUpdate.id;
             message.sender = userToUpdate.sender ? userToUpdate.sender : message.sender;
@@ -221,7 +221,7 @@ module.exports = class MessageDAO {
                             return -1;
                         if (a.sent_at > b.sent_at)
                             return 1;
-                        return 0;
+                        // return 0;
                     });
 
                 // if(messages && messages.length > 0)

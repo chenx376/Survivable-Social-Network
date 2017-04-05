@@ -180,7 +180,7 @@ suite('Message API Tests', function(){
 
     test('Error Case - Messages PUT - Invalid ID', function(done){
         let updatedMessage = {
-            _id : 'invalidID',
+            id : 'invalidID',
             sender : newUserID_1,
             receiver : newUserID_2,
             message : "Test message new",
@@ -201,11 +201,12 @@ suite('Message API Tests', function(){
     test('Error Case - Messages DELETE - Invalid ID', function(done){
         request(app)
         .delete('/messages/invalidID')
+        .set('Authorization', 'JWT ' + tempJWT_1)
         .end(function(err, res){
             expect(err).to.not.be.ok();
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
-            expect(res.statusCode).to.eql(401);
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })

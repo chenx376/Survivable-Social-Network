@@ -73,13 +73,14 @@ module.exports = {
      */
     update: function (req,res) {
         let announce  = {
+            id : req.params.id,
             content : req.body.content,
             announcer: req.body.announcer,
             created_at : req.body.created_at,
             location : req.body.location
         };
-        announceDao.create(announce, function (announce) {
-            res.status(201).json(announce);
+        announceDao.update(announce, function (announce) {
+            res.json(announce);
         }, function (error) {
             res.status(404).json(error);
         });
