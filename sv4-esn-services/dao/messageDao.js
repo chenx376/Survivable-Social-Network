@@ -168,12 +168,12 @@ module.exports = class MessageDAO {
     remove(id, success, error) {
         messageModel.findByIdAndRemove(id, function (err, message) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when deleting the message.',
                     error: err
                 });
             }
-            success();
+            return success();
         });
     };
 
@@ -225,7 +225,7 @@ module.exports = class MessageDAO {
                     });
 
                 // if(messages && messages.length > 0)
-                    success(messages);
+                    return success(messages);
                 // else
                 //     error({message: 'Could not find messages for this combination of users'});
             });

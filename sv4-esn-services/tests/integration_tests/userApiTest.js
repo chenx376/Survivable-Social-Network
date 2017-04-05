@@ -89,19 +89,6 @@ suite('Users API Tests', function(){
         });
     })
 
-    test('Users DELETE', function(done){
-        request(app)
-        .delete('/users/' + newUserID)
-        .set('Authorization', 'JWT ' + tempJWT)
-        .end(function(err, res){
-            expect(err).to.not.be.ok();
-            expect(res).to.have.property('statusCode');
-            expect(res).to.have.property('body');
-            expect(res.statusCode).to.eql(204);
-            done();
-        });
-    })
-
     // Error Cases
 
     test('Error Case - Users GET by ID - Invalid Userid', function(done){
@@ -112,7 +99,7 @@ suite('Users API Tests', function(){
             expect(err).to.not.be.ok();
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
-            expect(res.statusCode).to.eql(401);
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })
@@ -145,6 +132,19 @@ suite('Users API Tests', function(){
             expect(res).to.have.property('statusCode');
             expect(res).to.have.property('body');
             expect(res.statusCode).to.eql(404);
+            done();
+        });
+    })
+
+    test('Users DELETE', function(done){
+        request(app)
+        .delete('/users/' + newUserID)
+        .set('Authorization', 'JWT ' + tempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(204);
             done();
         });
     })

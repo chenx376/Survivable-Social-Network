@@ -22,9 +22,9 @@ module.exports = {
     list: function (req,res) {
         announceDao.list(function (announces) {
             //announces = announces.slice(announces.length-3,announces.length);
-            res.json(announces);
+            return res.json(announces);
         }, function (error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
     /**
@@ -33,9 +33,9 @@ module.exports = {
     show: function (req, res) {
         let id = req.params.id;
         announceDao.findById(id, function (announce) {
-            res.json(announce);
+            return res.json(announce);
         }, function (error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -58,13 +58,13 @@ module.exports = {
                 //    found.announcer = found.announcer._doc; //Remove _doc of deep populated announcer
 
                 io.emit('public-announcement-sent',  found);
-                res.status(201).json(found);
+                return res.status(201).json(found);
             }, function (error) {
-                res.status(404).json(error);
+                return res.status(404).json(error);
             });
 
         }, function (error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -80,9 +80,9 @@ module.exports = {
             location : req.body.location
         };
         announceDao.update(announce, function (announce) {
-            res.json(announce);
+            return res.json(announce);
         }, function (error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 

@@ -14,9 +14,9 @@ module.exports = {
      */
     list: function (req, res) {
         messageDao.list(function (messages) {
-            res.json(messages);
+            return res.json(messages);
         }, function(error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -27,9 +27,9 @@ module.exports = {
     show: function (req, res) {
         let id = req.params.id;
         messageDao.findById(id, function (message) {
-            res.json(message);
+            return res.json(message);
         }, function (error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -67,9 +67,9 @@ module.exports = {
 
 
             messageDao.create(message, function (message) {
-                res.status(201).json(message);
+                return res.status(201).json(message);
             }, function(error) {
-                res.status(404).json(error);
+                return res.status(404).json(error);
             });
 
         });
@@ -91,9 +91,9 @@ module.exports = {
         };
 
         messageDao.update(message, function (message) {
-            res.json(message);
+            return res.json(message);
         }, function(error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -103,9 +103,9 @@ module.exports = {
     remove: function (req, res) {
         let id = req.params.id;
         messageDao.remove(id, function () {
-            res.status(204).json("Deleted");
+            return res.status(204).json("Deleted");
         }, function(error) {
-            res.status(404).json(error);
+            return res.status(404).json(error);
         })
     },
 
@@ -119,9 +119,9 @@ module.exports = {
         let uid2 = req.params.uid2;
 
         messageDao.privateMessages(uid1, uid2, /*succcess*/ function(messages){
-            res.json(messages);
+            return res.json(messages);
         } , /*error*/ function(error) {
-            res.json(404).json(error);
+            return res.json(404).json(error);
         })
 
     }

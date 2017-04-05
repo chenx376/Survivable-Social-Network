@@ -12,12 +12,12 @@ module.exports = class UserDAO {
     list(success, error) {
         userModel.find(function (err, users) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when getting user.',
                     error: err
                 });
             }
-            success(users);
+            return success(users);
         });
     };
 
@@ -27,17 +27,17 @@ module.exports = class UserDAO {
     findById(id, success, error) {
         userModel.findOne({_id: id}, function (err, user) {
             if (err) {
-                error({
+                return error({
                     message: 'Error when getting user.',
                     error: err
                 });
             }
             if (!user) {
-                error({
+                return error({
                     message: 'No such user.'
                 });
             }
-            success(user);
+            return success(user);
         });
     };
 
