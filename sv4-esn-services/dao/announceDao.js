@@ -2,9 +2,7 @@
  * Created by xiaochen on 3/19/17.
  */
 
-var mongoose = require('mongoose');
 var config = require('config');
-
 let announceModel = require('../models/announceModel.js')
 
 module.exports = class AnnounceDao {
@@ -24,14 +22,14 @@ module.exports = class AnnounceDao {
                 }
                 return success(announces)
             });
-    };
+    }
 
     /**
      * announceController.findById()
      */
     findById(id, success, error) {
         announceModel
-            .findOne({_id:id})
+            .findOne({_id: id})
             .populate('announcer')
             .exec(function (err, announce) {
                 if (err){
@@ -41,13 +39,11 @@ module.exports = class AnnounceDao {
                     });
                 }
                 if (!announce){
-                    return error({
-                        message: 'No such announce'
-                    });
+                    return error({message: 'No such announce'});
                 }
                 return success(announce._doc);
             });
-    };
+    }
 
     /**
      * announceController.create()
@@ -64,7 +60,7 @@ module.exports = class AnnounceDao {
             }
             return success(announce._doc);
         });
-    };
+    }
 
     /**
      * announceController.update()
@@ -100,7 +96,7 @@ module.exports = class AnnounceDao {
                 return success(announce);
             });
         });
-    };
+    }
 
     /**
      * announceController.remove()
@@ -116,7 +112,7 @@ module.exports = class AnnounceDao {
             }
             return success();
         });
-    };
+    }
 
 
 }

@@ -99,7 +99,7 @@ app.use('/announces', announces);
  * End of REST API Endpoints
  */
 app.get('/', function (req, res) {
-        res.json({"sv4-esn-status": "Running"});
+    res.json({"sv4-esn-status": "Running"});
 });
 
 var port = process.env.PORT || 3000;
