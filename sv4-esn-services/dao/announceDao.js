@@ -13,6 +13,7 @@ module.exports = class AnnounceDao {
         announceModel
             .find({})
             .populate('announcer')
+            .sort({created_at: -1})
             .exec(function (err, announces) {
                 if (err){
                     return error({
