@@ -6,7 +6,7 @@
 
 <md-card class="announcement" *ngFor="let announcement of searchAnnouncementsService.displayedAnnouncements">
   <div class="announcement-content">{{announcement.content}}</div>
-  <div class="announcement-publisher">Posted by {{announcement.publisher.username}}</div>
+  <div class="announcement-publisher">Posted by {{announcement.publisher.username}} at {{announcementsService.formatDate(announcement.date)}}</div>
 </md-card>
 
 <button md-raised-button class="load-more-button"

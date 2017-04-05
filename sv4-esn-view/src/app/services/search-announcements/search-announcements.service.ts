@@ -23,20 +23,19 @@ export class SearchAnnouncementsService {
   };
 
   updateSearch = () => {
-    if (this.searchTerm.trim().length !== 0) {
-      if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
-        this.filteredAnnouncements = this.announcements
-          .filter(announcement => announcement.content.includes(this.searchTerm.trim()));
-        if (this.filteredAnnouncements.length > 10) {
-          this.displayedAnnouncements = this.filteredAnnouncements.slice(0, 10);
-          this.showMoreAnnouncements = true;
-        } else {
-          this.displayedAnnouncements = this.filteredAnnouncements;
-          this.showMoreAnnouncements = false;
+    this.filteredAnnouncements = this.announcements
+      .filter(announcement => {
+        for (let word of this.searchTerm.trim().split(' ')) {
+          if (STOP_WORDS.indexOf(word) === -1) {
+            if (!announcement.content.includes(word)) { return false; }
+          }
         }
-      }
+        return true;
+      });
+    if (this.filteredAnnouncements.length > 10) {
+      this.displayedAnnouncements = this.filteredAnnouncements.slice(0, 10);
+      this.showMoreAnnouncements = true;
     } else {
-      this.filteredAnnouncements = this.announcements;
       this.displayedAnnouncements = this.filteredAnnouncements;
       this.showMoreAnnouncements = false;
     }

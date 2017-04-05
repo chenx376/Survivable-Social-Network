@@ -139,7 +139,7 @@ describe('SearchAnnouncementsServiceTest', () => {
     service.updateSearch();
     service.searchTerm = 'is';
     service.updateSearch();
-    expect(service.displayedAnnouncements.length).toBe(25);
+    expect(service.displayedAnnouncements.length).toBe(10);
   }));
 
   it('should handle EMPTY SEARCH', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
@@ -160,7 +160,7 @@ describe('SearchAnnouncementsServiceTest', () => {
     service.updateSearch();
     service.searchTerm = '';
     service.updateSearch();
-    expect(service.displayedAnnouncements.length).toBe(25);
+    expect(service.displayedAnnouncements.length).toBe(10);
   }));
 
 });

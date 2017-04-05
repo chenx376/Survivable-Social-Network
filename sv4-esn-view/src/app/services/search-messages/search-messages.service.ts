@@ -23,20 +23,19 @@ export class SearchMessagesService {
   };
 
   updateSearch = () => {
-    if (this.searchTerm.trim().length !== 0) {
-      if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
-        this.filteredMessages = this.messages
-          .filter(announcement => announcement.content.includes(this.searchTerm.trim()));
-        if (this.filteredMessages.length > 10) {
-          this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - 10);
-          this.showMoreMessages = true;
-        } else {
-          this.displayedMessages = this.filteredMessages;
-          this.showMoreMessages = false;
+    this.filteredMessages = this.messages
+      .filter(message => {
+        for (let word of this.searchTerm.trim().split(' ')) {
+          if (STOP_WORDS.indexOf(word) === -1) {
+            if (!message.content.includes(word)) { return false; }
+          }
         }
-      }
+        return true;
+      });
+    if (this.filteredMessages.length > 10) {
+      this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - 10);
+      this.showMoreMessages = true;
     } else {
-      this.filteredMessages = this.messages;
       this.displayedMessages = this.filteredMessages;
       this.showMoreMessages = false;
     }
