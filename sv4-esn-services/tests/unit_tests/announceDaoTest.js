@@ -84,17 +84,6 @@ suite('AnnounceDAO Tests', function(){
         });
     });
 
-    test('Finding an announcement by Invalid ID', function(done){
-        let id = 'invalid id';
-        announceDao.findById(id, function (announce) {
-            expect('Error Case').to.eql('Should not go to here');
-            done();
-        }, function (error) {
-            expect(error.message).to.eql('Error when getting announcements.');
-            done();
-        });
-    });
-
     test('Updating an announcement without change', function(done){
         new_time_stamp = new Date();
         let announce = {
@@ -132,7 +121,73 @@ suite('AnnounceDAO Tests', function(){
         });
     });
 
-    test('Updating an invalid announcement', function(done){
+    test('Removing an announcement', function(done){
+        announceDao.remove(tmp_id, function (announce) {
+            done();
+        }, function (error) {
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Sorting announcements', function(done){
+
+        let announce1 = {
+            announcer : tmp_user_id,
+            content : 'announcement1',
+        };
+
+        let announce2 = {
+            announcer : tmp_user_id,
+            content : 'announcement2',
+        };
+
+        let announce3 = {
+            announcer : tmp_user_id,
+            content : 'announcement3',
+        };
+
+        let announce4 = {
+            announcer : tmp_user_id,
+            content : 'announcement4',
+        };
+
+        announceDao.create(announce1, function (announceRes) {
+            announceDao.create(announce2, function (announceRes) {
+                announceDao.create(announce3, function (announceRes) {
+                    announceDao.create(announce4, function (announceRes) {
+                        announceDao.list(function (announces) {
+                            expect(announces).to.be.an('array');
+                            expect(announces[announces.length - 1].content).to.eql('announcement1');
+                            done();
+                        }, function (error) {
+                            expect(error).to.be(undefined);
+                            done();
+                        });
+                    }, function (error) {
+                    });
+                }, function (error) {
+                });
+            }, function (error) {
+            });
+        }, function (error) {
+        });
+
+
+    });
+
+    test('Error Case - Finding an announcement by Invalid ID', function(done){
+        let id = 'invalid id';
+        announceDao.findById(id, function (announce) {
+            expect('Error Case').to.eql('Should not go to here');
+            done();
+        }, function (error) {
+            expect(error.message).to.eql('Error when getting announcements.');
+            done();
+        });
+    });
+
+    test('Error Case - Updating an invalid announcement', function(done){
         new_time_stamp = new Date();
         let announce = {
             id : 'invalid id',
@@ -151,11 +206,11 @@ suite('AnnounceDAO Tests', function(){
         });
     });
 
-    test('Removing an announcement', function(done){
-        announceDao.remove(tmp_id, function (announce) {
+    test('Error Case - Removing an announcement of Invalid ID', function(done){
+        announceDao.remove('invalidID', function (announce) {
             done();
         }, function (error) {
-            expect(error).to.be(undefined);
+            expect(error.message).to.be('Error when deleting the announce.');
             done();
         });
     });

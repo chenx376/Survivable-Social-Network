@@ -39,7 +39,7 @@ suite('MessageDAO Tests', function(){
         tmp_sent_at = new Date();
 
         userDao.create(user1, function(created1){
-            console.log('Created User1 ' + JSON.stringify(created1) );
+            // console.log('Created User1 ' + JSON.stringify(created1) );
             sender = created1._id;
 
             let user2 = {
@@ -66,12 +66,12 @@ suite('MessageDAO Tests', function(){
 
     });
 
-    test('Creating a message', function(done){
+    test('Creating a message - Private', function(done){
 
         let message = {
-            sender : sender,
-            receivers : receiver,
-            message : "Test message",
+            sender : receiver,
+            receiver : sender,
+            message : "Test message 1",
             sent_at : tmp_sent_at,
             broadcast : false,
             user_status: 2,
@@ -80,7 +80,49 @@ suite('MessageDAO Tests', function(){
 
         messageDao.create(message, function (message) {
             created_id = message._id;
-            expect(message.message).to.eql('Test message');
+            expect(message.message).to.eql('Test message 1');
+
+            let message_2 = {
+                sender : sender,
+                receiver : receiver,
+                message : "Test message 2",
+                sent_at : tmp_sent_at,
+                broadcast : false,
+                user_status: 2,
+                user_status_information: 'IM AWESOME'
+            };
+
+            messageDao.create(message_2, function (message_2) {
+                created_id_2 = message_2._id;
+                expect(message_2.message).to.eql('Test message 2');
+                // console.log(created_id + ' ' + created_id_2);
+                done();
+            }, function(error) {
+                expect(error).to.be(undefined);
+                done();
+            });
+
+        }, function(error) {
+            expect(error).to.be(undefined);
+            done();
+        });
+
+    });
+
+    test('Creating a message - Public', function(done){
+
+        let message = {
+            sender : sender,
+            receiver : null,
+            message : "Test message public",
+            sent_at : tmp_sent_at,
+            broadcast : true,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+
+        messageDao.create(message, function (message) {
+            expect(message.message).to.eql('Test message public');
             done();
         }, function(error) {
             expect(error).to.be(undefined);
@@ -115,22 +157,11 @@ suite('MessageDAO Tests', function(){
 
         let id = created_id;
         messageDao.findById(id, function(message){
-            expect(message.message).to.eql('Test message');
+            expect(message.message).to.eql('Test message 1');
             expect(message.sender).not.to.be(null); //Sender should be deep populated by DAO
             done();
         }, function(error){
             expect(error).to.be(undefined);
-            done();
-        });
-    });
-
-    test('Finding message by Invalid ID', function(done){
-
-        let id = 'invalid id';
-        messageDao.findById(id, function(message){
-            done();
-        }, function(error){
-            expect(error.message).to.eql('Error when getting message.');
             done();
         });
     });
@@ -142,7 +173,7 @@ suite('MessageDAO Tests', function(){
         };
 
         messageDao.update(message, function(user){
-            expect(user.message).to.eql('Test message');
+            expect(user.message).to.eql('Test message 1');
             done();
         }, function(error) {
             expect(error.message).to.be(undefined);
@@ -158,7 +189,7 @@ suite('MessageDAO Tests', function(){
             id : created_id,
             message : 'New Message',
             sender : receiver,
-            receivers : sender,
+            receiver : sender,
             sent_at : new_time_stamp,
             broadcast : true,
             user_status : 1,
@@ -174,7 +205,108 @@ suite('MessageDAO Tests', function(){
         });
     });
 
-    test('Updating an Invalid message', function(done){
+    test('Removing a message', function(done){
+        let id = created_id;
+        messageDao.remove(id, function(){
+            messageDao.findById(id, function(data){
+                expect(data).to.be(null);
+                done();
+            }, function(error){
+                done();
+            });
+        }, function(error){
+            done();
+        });
+    });
+
+    test('Sorting of messages', function(done){
+        timestamp1 = new Date();
+        timestamp2 = new Date();
+
+        let msg1 = {
+            sender : receiver,
+            receiver : sender,
+            message : "msg1",
+            broadcast : false,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+        let msg2 = {
+            sender : receiver,
+            receiver : sender,
+            message : "msg2",
+            broadcast : false,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+        let msg3 = {
+            sender : sender,
+            receiver : receiver,
+            message : "msg3",
+            broadcast : false,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+        let msg4 = {
+            sender : sender,
+            receiver : receiver,
+            message : "msg4",
+            broadcast : false,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+        messageDao.create(msg1, function(){
+            messageDao.create(msg2, function(){
+                messageDao.create(msg3, function(){
+                    messageDao.create(msg4, function(){
+                        messageDao.privateMessages(sender, receiver, function (messages) {
+                            expect(messages).to.be.an('array');
+                            expect(messages[messages.length - 1].message).to.eql('msg4')
+                            done();
+                        }, function(error) {
+                            expect(error.message).to.eql('Could not find messages for this combination of users');
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    test('Error Case - Creating a message with Invalid Sender', function(done){
+
+        let message = {
+            sender : 'InvalidID',
+            receiver : null,
+            message : "Test message public",
+            sent_at : tmp_sent_at,
+            broadcast : true,
+            user_status: 2,
+            user_status_information: 'IM AWESOME'
+        };
+
+        messageDao.create(message, function (message) {
+            expect(message.message).to.eql('Not here');
+            done();
+        }, function(error) {
+            expect(error.message).to.be('Error when getting user');
+            done();
+        });
+
+    });
+
+    test('Error Case - Finding message by Invalid ID', function(done){
+
+        let id = 'invalid id';
+        messageDao.findById(id, function(message){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('Error when getting message.');
+            done();
+        });
+    });
+
+    test('Error Case - Updating an Invalid message', function(done){
 
         new_time_stamp = new Date();
 
@@ -182,7 +314,7 @@ suite('MessageDAO Tests', function(){
             id : 'invalid id',
             message : 'New Message',
             sender : receiver,
-            receivers : sender,
+            receiver : sender,
             sent_at : new_time_stamp,
             broadcast : true,
             user_status : 1,
@@ -197,16 +329,18 @@ suite('MessageDAO Tests', function(){
         });
     });
 
-    test('Removing a message', function(done){
-        let id = created_id;
+    test('Error Case - Removing a message of Invalid ID', function(done){
+        let id = 'invalidID';
         messageDao.remove(id, function(){
             messageDao.findById(id, function(data){
-                expect(data).to.be(null);
+                expect(error.message).to.eql('Not here');
                 done();
             }, function(error){
+                expect(error.message).to.eql('Not here');
                 done();
             });
         }, function(error){
+            expect(error.message).to.eql('Error when deleting the message.');
             done();
         });
     });

@@ -19,16 +19,41 @@ suite('Login API Tests', function(){
         request(app)
         .post('/users')
         .send(loginUser)
-        .expect(201)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
             loginUserID = res.body._id;
-            // Get the JWT of the Created User
+
             request(app)
             .post('/login')
             .send(loginUser)
-            .expect(200, done)
+            .end(function(err, res){
+                expect(err).to.not.be.ok();
+                expect(res).to.have.property('body');
+                expect(res).to.have.property('statusCode');
+                expect(res.statusCode).to.eql(200);
+                expect(res.body).to.be.an('object');
+                done();
+            })
+
         });
+    });
+
+    test('Error Case - Invalid Login POST', function(done){
+        loginUser = {
+            'username' : 'login_test',
+            'password' : 'WRONG_PASSWORD',
+        }
+        request(app)
+        .post('/login')
+        .send(loginUser)
+        .end(function(err, res){
+            // expect(err).to.be.ok();
+            expect(res).to.have.property('body');
+            expect(res).to.have.property('statusCode');
+            expect(res.statusCode).to.eql(404);
+            expect(res.body).to.be.an('object');
+            done();
+        })
     });
 
 });
