@@ -9,17 +9,11 @@ export class Announcement {
 
   constructor(json: any) {
 
-    if(!json)
-      throw 'You are trying to create Announcement Model with a null JSON';
-
     this.announcementId = json._id;
     this.content = json.content;
     this.date = new Date(json.created_at);
+    this.publisher = new User(json.announcer);
 
-    if(json.announcer)
-      this.publisher = new User(json.announcer);
-    else
-     this.publisher = null;
   }
 
 }

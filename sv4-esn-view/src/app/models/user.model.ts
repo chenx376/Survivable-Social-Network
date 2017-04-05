@@ -21,13 +21,4 @@ export class User {
     this.online = json.online;
   }
 
-  userStatusString = (): string => {
-    switch (this.status) {
-      case UserStatus.Undefined: return 'Undefined';
-      case UserStatus.OK: return 'OK';
-      case UserStatus.Help: return 'Help';
-      case UserStatus.Emergency: return 'Emergency';
-    }
-  }
-
 }
