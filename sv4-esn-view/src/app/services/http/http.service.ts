@@ -5,8 +5,8 @@ import { Observable } from "rxjs";
 @Injectable()
 export class HttpService {
 
-  // baseUri = "https://sv4-esn-services.herokuapp.com";
-  baseUri = "http://localhost:3000";
+  baseUri = "https://sv4-esn-services.herokuapp.com";
+  // baseUri = "http://localhost:3000";
 
   jwt = localStorage.getItem('jwt');
 
