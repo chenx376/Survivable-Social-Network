@@ -88,7 +88,7 @@ suite('UserDAO Tests', function(){
         });
     });
 
-    test('Finding a user by Invalid Username', function(done){
+    test('Error Case - Finding a user by Invalid Username', function(done){
         var sha256 = createHash('sha256');
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
@@ -121,19 +121,6 @@ suite('UserDAO Tests', function(){
             done();
         }, function(error){
             expect(error).to.be(undefined);
-            done();
-        });
-    });
-
-    test('Finding a user by Invalid ID', function(done){
-        var sha256 = createHash('sha256');
-        var shapassword = sha256.update('123456', 'utf8').digest('hex');
-
-        let id = 'Invalid id';
-        userDao.findById(id, function(user){
-            done();
-        }, function(error){
-            expect(error.message).to.eql('Error when getting user.');
             done();
         });
     });
@@ -200,7 +187,31 @@ suite('UserDAO Tests', function(){
         });
     });
 
-    test('Updating a user with invalid id', function(done){
+    test('Removing a user', function(done){
+        let id = tmp_id;
+        userDao.remove(id, function(){
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Error Case - Finding a user by Invalid ID', function(done){
+        var sha256 = createHash('sha256');
+        var shapassword = sha256.update('123456', 'utf8').digest('hex');
+
+        let id = 'Invalid id';
+        userDao.findById(id, function(user){
+            done();
+        }, function(error){
+            expect(error.message).to.eql('Error when getting user.');
+            done();
+        });
+    });
+
+
+    test('Error Case - Updating a user with invalid id', function(done){
         var sha256 = createHash('sha256');
         var shapassword = sha256.update('new123456', 'utf8').digest('hex');
 
@@ -226,12 +237,13 @@ suite('UserDAO Tests', function(){
         });
     });
 
-    test('Removing a user', function(done){
-        let id = tmp_id;
+
+    test('Error Case - Removing a user of Invalid ID', function(done){
+        let id = 'invalidID';
         userDao.remove(id, function(){
             done();
         }, function(error){
-            expect(error).to.be(undefined);
+            expect(error.message).to.be('Error when deleting the user.');
             done();
         });
     });

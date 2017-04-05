@@ -22,7 +22,11 @@ suite('Users API Tests', function(){
         .send(newUser)
         .expect(201)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(201);
             newUserID = res.body._id;
 
             // Get the JWT of the Created User
@@ -42,9 +46,12 @@ suite('Users API Tests', function(){
         request(app)
         .get('/users')
         .set('Authorization', 'JWT ' + tempJWT)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('array');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -58,9 +65,12 @@ suite('Users API Tests', function(){
         .put('/users/' + newUserID)
         .send(updateUser)
         .set('Authorization', 'JWT ' + tempJWT)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -69,24 +79,72 @@ suite('Users API Tests', function(){
         request(app)
         .get('/users/' + newUserID)
         .set('Authorization', 'JWT ' + tempJWT)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
 
     test('Users DELETE', function(done){
+        request(app)
+        .delete('/users/' + newUserID)
+        .set('Authorization', 'JWT ' + tempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(204);
+            done();
+        });
+    })
+
+    // Error Cases
+
+    test('Error Case - Users GET by ID - Invalid Userid', function(done){
+        request(app)
+        .get('/users/invalidID')
+        .set('Authorization', 'JWT ' + tempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(401);
+            done();
+        });
+    })
+
+    test('Error Case - Users PUT', function(done){
         var updateUser = {
+            _id : 'invalidID',
             'username' : 'api_test',
             'password' : 'updated_password',
         }
         request(app)
-        .delete('/users/' + newUserID)
+        .put('/users/invalidID')
+        .send(updateUser)
         .set('Authorization', 'JWT ' + tempJWT)
-        .expect(204)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(401);
+            done();
+        });
+    })
+
+    test('Error Case - Users DELETE - Invalid Userid', function(done){
+        request(app)
+        .delete('/users/invalidID')
+        .set('Authorization', 'JWT ' + tempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(401);
             done();
         });
     })

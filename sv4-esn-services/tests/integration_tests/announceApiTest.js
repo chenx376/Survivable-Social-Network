@@ -43,9 +43,12 @@ suite('Announcements API Tests', function(){
         request(app)
         .get('/announces')
         .set('Authorization', 'JWT ' + announceTempJWT)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('array');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -61,9 +64,12 @@ suite('Announcements API Tests', function(){
         .post('/announces')
         .set('Authorization', 'JWT ' + announceTempJWT)
         .send(announcement)
-        .expect(201)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(201);
             announceID = res.body._id;
             done();
         });
@@ -75,9 +81,12 @@ suite('Announcements API Tests', function(){
         request(app)
         .get('/announces/' + announceID)
         .set('Authorization', 'JWT ' + announceTempJWT)
-        .expect(200)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(200);
             done();
         });
     })
@@ -93,9 +102,12 @@ suite('Announcements API Tests', function(){
         .put('/announces/' + announceID)
         .set('Authorization', 'JWT ' + announceTempJWT)
         .send(announcement)
-        .expect(201)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(201);
             done();
         });
     })
@@ -104,9 +116,62 @@ suite('Announcements API Tests', function(){
         request(app)
         .delete('/announces/' + announceID)
         .set('Authorization', 'JWT ' + announceTempJWT)
-        .expect(204)
         .end(function(err, res){
-            if (err) throw err;
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(204);
+            done();
+        });
+    })
+
+    // Error Cases
+
+    test('Error Case - Announcements GET by Invalid ID', function(done){
+        request(app)
+        .get('/announces/invalidID')
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(404);
+            done();
+        });
+    })
+
+    test('Error Case - Announcements PUT - Invalid ID', function(done){
+        let announcement  = {
+            _id : 'invalidID',
+            content : 'announcement test new',
+            announcer : announceUserID,
+            created_at : new Date(),
+            location : 'Mountain View'
+        };
+        request(app)
+        .put('/announces/invalidID')
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .send(announcement)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.body).to.be.an('object');
+            expect(res.statusCode).to.eql(201);
+            done();
+        });
+    })
+
+    test('Error Case - Announcements DELETE - Invalid ID', function(done){
+        request(app)
+        .delete('/announces/invalidID')
+        .set('Authorization', 'JWT ' + announceTempJWT)
+        .end(function(err, res){
+            expect(err).to.not.be.ok();
+            expect(res).to.have.property('statusCode');
+            expect(res).to.have.property('body');
+            expect(res.statusCode).to.eql(404);
             done();
         });
     })

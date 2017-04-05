@@ -142,7 +142,7 @@ module.exports = class MessageDAO {
 
             message.id = userToUpdate.id;
             message.sender = userToUpdate.sender ? userToUpdate.sender : message.sender;
-            message.receivers = userToUpdate.receivers ? userToUpdate.receivers : message.receivers;
+            message.receiver = userToUpdate.receiver ? userToUpdate.receiver : message.receiver;
             message.broadcast = userToUpdate.broadcast ? userToUpdate.broadcast : message.broadcast;
             message.message = userToUpdate.message ? userToUpdate.message : message.message;
             message.sent_at = userToUpdate.sent_at ? userToUpdate.sent_at : message.sent_at;
