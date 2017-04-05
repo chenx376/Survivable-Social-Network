@@ -106,7 +106,7 @@ suite('Users API Tests', function(){
 
     test('Error Case - Users GET by ID - Invalid Userid', function(done){
         request(app)
-        .get('/users/dID')
+        .get('/users/invalidID')
         .set('Authorization', 'JWT ' + tempJWT)
         .end(function(err, res){
             expect(err).to.not.be.ok();
