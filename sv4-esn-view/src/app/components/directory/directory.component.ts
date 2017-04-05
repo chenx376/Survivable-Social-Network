@@ -9,8 +9,8 @@ import { User, UserStatus } from '../../models/user.model';
 })
 export class DirectoryComponent implements OnInit {
 
-  users: User[];
-  filteredUsers: User[];
+  private users: User[] = [];
+  filteredUsers: User[] = [];
 
   searchTerm = '';
   selectedStatus = UserStatus.Undefined;
@@ -42,17 +42,11 @@ export class DirectoryComponent implements OnInit {
 
   updateSearch = () => {
     this.filteredUsers = this.users
-      .filter(user => {
-        if (this.selectedStatus == UserStatus.Undefined) { return true; }
-        return user.status == this.selectedStatus;
-      })
-      .filter(user => {
-        if (this.searchTerm.trim().length == 0) { return true; }
-        return user.username.includes(this.searchTerm.trim());
-      });
+      .filter(user => this.selectedStatus === UserStatus.Undefined || user.status === this.selectedStatus)
+      .filter(user => this.searchTerm.trim().length === 0 || user.username.includes(this.searchTerm.trim()));
   };
 
-  statusOkSelected = () => {
+  statusOKSelected = () => {
     this.selectedStatus = UserStatus.OK;
     this.updateSearch();
   };

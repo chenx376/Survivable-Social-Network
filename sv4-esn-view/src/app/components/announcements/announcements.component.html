@@ -1,7 +1,17 @@
-<md-card class="announcement" *ngFor="let announcement of announcements">
-  {{announcement.content}}
-  {{announcement.publisher.username}}
+<md-input-container class="search-bar">
+  <input mdInput placeholder="Search"
+         [(ngModel)]="searchTerm"
+         (ngModelChange)="updateSearch()">
+</md-input-container>
+
+<md-card class="announcement" *ngFor="let announcement of displayedAnnouncements">
+  <div>{{announcement.content}}</div>
+  <div class="announcement-publisher">Posted by {{announcement.publisher.username}}</div>
 </md-card>
+
+<button md-raised-button id="load-more-announcements-button"
+        *ngIf="showMoreAnnouncements"
+        (click)="loadMoreAnnouncementsButtonClicked()">More</button>
 
 <md-input-container class="announcement-input">
     <textarea mdInput rows="1"
@@ -10,5 +20,5 @@
     </textarea>
 </md-input-container>
 
-<button md-raised-button id="publish-anncouncement-button"
+<button md-raised-button id="publish-announcement-button"
         (click)="publishAnnouncementButtonClicked()">Publish Announcement</button>
