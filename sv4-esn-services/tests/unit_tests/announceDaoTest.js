@@ -158,7 +158,7 @@ suite('AnnounceDAO Tests', function(){
                     announceDao.create(announce4, function (announceRes) {
                         announceDao.list(function (announces) {
                             expect(announces).to.be.an('array');
-                            expect(announces[announces.length - 1].content).to.eql('announcement1');
+                            expect(announces[0].content).to.eql('announcement4');
                             done();
                         }, function (error) {
                             expect(error).to.be(undefined);
