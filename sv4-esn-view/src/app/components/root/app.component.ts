@@ -39,8 +39,8 @@ export class AppComponent implements OnInit {
           .filter(announcement => this.router.url !== `/announcements`)
           .subscribe(  announcement => {
             this.dialogService.openDialogue(this.viewContainerRef,
-              'New Announcement',
-              `${announcement.publisher.username} sent you a message. Would you like to see it?`)
+              `${announcement.content}`,
+              `Would you like more details?`)
               .filter(result => result === true)
               .subscribe(() => this.router.navigateByUrl(`announcements`))
           }  );
