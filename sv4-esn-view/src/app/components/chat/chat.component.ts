@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import { UserService } from '../../services/user/user.service';
 import { ChatService } from '../../services/chat/chat.service';
 import { Message } from '../../models/message.model';
+import { STOP_WORDS } from '../../constants/stopWords';
 
 @Component({
   selector: 'app-chat',
@@ -19,14 +20,18 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   @ViewChild('messageList') messageList: ElementRef;
 
-  messages: Message[] = [];
+  private messages: Message[] = [];
+  private filteredMessages: Message[] = [];
+  displayedMessages: Message[] = [];
+
+  searchTerm = '';
   messageContent = '';
+  showMoreMessages = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
               private chatService: ChatService) { }
-
 
   ngOnInit() {
     this.route.url
@@ -47,6 +52,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.chatService.getPublicMessages()
         .subscribe(messages => {
           this.messages = messages;
+          this.updateSearch();
           setTimeout(() => {
             this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight;
           }, 0);
@@ -77,6 +83,35 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateSearch = () => {
+    if (this.searchTerm.trim().length !== 0) {
+      if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
+        this.filteredMessages = this.messages
+          .filter(announcement => announcement.content.includes(this.searchTerm.trim()));
+        if (this.filteredMessages.length > 10) {
+          this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - 10);
+          this.showMoreMessages = true;
+        } else {
+          this.displayedMessages = this.filteredMessages;
+          this.showMoreMessages = false;
+        }
+      }
+    } else {
+      this.filteredMessages = this.messages;
+      this.displayedMessages = this.filteredMessages;
+      this.showMoreMessages = false;
+    }
+  };
+
+  loadMoreMessagesButtonClicked = () => {
+    if (this.displayedMessages.length + 10 < this.filteredMessages.length) {
+      this.displayedMessages = this.filteredMessages.slice(this.filteredMessages.length - this.displayedMessages.length - 10)
+    } else {
+      this.displayedMessages = this.filteredMessages;
+      this.showMoreMessages = false;
+    }
+  };
+
   sendMessage() {
     if (this.publicChat) {
       this.chatService.sendPublicMessage(this.messageContent);
@@ -87,7 +122,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.socketConnection !== null) {
+    if (this.socketConnection) {
       this.socketConnection.unsubscribe();
     }
   }

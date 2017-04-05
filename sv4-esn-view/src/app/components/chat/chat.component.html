@@ -1,5 +1,15 @@
+<md-input-container class="search-bar">
+  <input mdInput placeholder="Search"
+         [(ngModel)]="searchTerm"
+         (ngModelChange)="updateSearch()">
+</md-input-container>
+
+<button md-raised-button class="load-more-button"
+        *ngIf="showMoreMessages"
+        (click)="loadMoreMessagesButtonClicked()">More</button>
+
 <div class="message-list" #messageList>
-  <md-card class="message" *ngFor="let message of messages">
+  <md-card class="message" *ngFor="let message of displayedMessages">
     <img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />
     <div class="message-body">
       <div class="user-header">
