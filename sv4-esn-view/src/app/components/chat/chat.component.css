@@ -12,7 +12,8 @@
 
 .message-list {
   overflow: scroll;
-  max-height: calc(100vh - 60px - 66px - 110px);
+  max-height: calc(100vh - 60px - 110px);
+  min-height: calc(100vh - 60px - 66px - 110px);
   padding: 0 1vw;
 }
 
@@ -95,6 +96,7 @@
 .load-more-button {
   align-self: center;
   margin-bottom: 10px;
+  min-height: 36px;
 }
 
 .message-controls {

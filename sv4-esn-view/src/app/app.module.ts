@@ -21,6 +21,8 @@ import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { AnnouncementsService } from './services/announcements/announcements.service';
+import { SearchUsersService } from './services/search-users/search-users.service';
+import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
 
 const appRoutes: Routes = [
@@ -65,6 +67,8 @@ const appRoutes: Routes = [
     ChatService,
     AnnouncementsService,
     DialogService,
+    SearchUsersService,
+    SearchMessagesService,
     SearchAnnouncementsService
   ],
   bootstrap: [AppComponent]

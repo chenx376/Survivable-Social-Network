@@ -6,7 +6,7 @@ import { STOP_WORDS } from '../../constants/stopWords';
 export class SearchAnnouncementsService {
 
   announcements: Announcement[] = [];
-  filteredAnnouncements: Announcement[] = [];
+  private filteredAnnouncements: Announcement[] = [];
   displayedAnnouncements: Announcement[] = [];
 
   searchTerm = '';
@@ -14,7 +14,7 @@ export class SearchAnnouncementsService {
 
   constructor() { }
 
-  public updateSearch = () => {
+  updateSearch = () => {
     if (this.searchTerm.trim().length !== 0) {
       if (STOP_WORDS.indexOf(this.searchTerm.trim()) === -1) {
         this.filteredAnnouncements = this.announcements
@@ -34,7 +34,7 @@ export class SearchAnnouncementsService {
     }
   };
 
-  public loadMoreAnnouncementsButtonClicked = () => {
+  loadMoreAnnouncementsButtonClicked = () => {
     if (this.displayedAnnouncements.length + 10 < this.filteredAnnouncements.length) {
       this.displayedAnnouncements = this.filteredAnnouncements.slice(0, this.displayedAnnouncements.length + 10)
     } else {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
 import { AnnouncementsService } from '../../services/announcements/announcements.service';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { SearchAnnouncementsService } from '../../services/search-announcements/search-announcements.service';
@@ -15,7 +15,8 @@ export class AnnouncementsComponent implements OnInit {
   constructor(private announcementsService: AnnouncementsService,
               private dialogService: DialogService,
               private viewContainerRef: ViewContainerRef,
-              private searchAnnouncementsService: SearchAnnouncementsService ) { }
+              private searchAnnouncementsService: SearchAnnouncementsService,
+              private elementRef: ElementRef) { }
 
   ngOnInit() {
     this.announcementsService.getAnnouncements()
@@ -26,7 +27,7 @@ export class AnnouncementsComponent implements OnInit {
 
     this.announcementsService.listenToAnnouncementEvent()
       .subscribe(announcement => {
-        this.searchAnnouncementsService.announcements.push(announcement);
+        this.searchAnnouncementsService.announcements.unshift(announcement);
       });
   }
 
@@ -35,7 +36,8 @@ export class AnnouncementsComponent implements OnInit {
       .subscribe(
         () => {
           this.announcementContent = '';
-          this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success');
+          this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+            .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
         },
         err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
       );
