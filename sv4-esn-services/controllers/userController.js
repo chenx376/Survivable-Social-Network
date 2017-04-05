@@ -15,9 +15,9 @@ module.exports = {
      */
     list: function (req, res) {
         userDao.list(function(users){
-            res.json(users);
+            return res.json(users);
         }, function(error){
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -27,9 +27,9 @@ module.exports = {
     show: function (req, res) {
         let id = req.params.id;
         userDao.findById(id, function(user){
-            res.json(user);
+            return res.json(user);
         }, function(error){
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
     },
 
@@ -51,9 +51,9 @@ module.exports = {
         };
 
         userDao.create(user, function(user){
-            res.status(201).json(user);
+            return res.status(201).json(user);
         }, function(error){
-            res.status(404).json(error);
+            return res.status(404).json(error);
         });
 
     },
