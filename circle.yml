@@ -26,11 +26,11 @@ test:
     - cp -rf coverage $CIRCLE_TEST_REPORTS/backend/:
         pwd: sv4-esn-services
     - rm -rf coverage/:
-	pwd: sv4-esn-view
+        pwd: sv4-esn-view
     - ng test --code-coverage --single-run:
-	pwd: sv4-esn-view
+        pwd: sv4-esn-view
     - cp -rf coverage $CIRCLE_TEST_REPORTS/frontend/:
-	pwd: sv4-esn-view
+        pwd: sv4-esn-view
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.announces.drop()"
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.messages.drop()"
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.users.drop()"
