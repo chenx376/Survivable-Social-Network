@@ -1,17 +1,17 @@
 <md-input-container class="search-bar">
   <input mdInput placeholder="Search"
-         [(ngModel)]="searchTerm"
-         (ngModelChange)="updateSearch()">
+         [(ngModel)]="searchAnnouncementsService.searchTerm"
+         (ngModelChange)="searchAnnouncementsService.updateSearch()">
 </md-input-container>
 
-<md-card class="announcement" *ngFor="let announcement of displayedAnnouncements">
+<md-card class="announcement" *ngFor="let announcement of searchAnnouncementsService.displayedAnnouncements">
   <div>{{announcement.content}}</div>
   <div class="announcement-publisher">Posted by {{announcement.publisher.username}}</div>
 </md-card>
 
 <button md-raised-button class="load-more-button"
-        *ngIf="showMoreAnnouncements"
-        (click)="loadMoreAnnouncementsButtonClicked()">More</button>
+        *ngIf="searchAnnouncementsService.showMoreAnnouncements"
+        (click)="searchAnnouncementsService.loadMoreAnnouncementsButtonClicked()">More</button>
 
 <md-input-container class="announcement-input">
     <textarea mdInput rows="1"
