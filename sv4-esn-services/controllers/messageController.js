@@ -43,15 +43,7 @@ module.exports = {
 
         userModel.findOne({_id: user_id}, function (err, user) {
             if (err) {
-                return error({
-                    message: 'Error when getting user',
-                    error: err
-                });
-            }
-            if (!user) {
-                return error({
-                    message: 'No such user'
-                });
+                return res.status(404).json(err);
             }
 
             let message = {
