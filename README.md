@@ -1,12 +1,9 @@
-# YOUR BCH BADGE IS MISSING, PLEASE ADD IT HERE ASAP AS REQUESTED
-
-
 FSE Team 4 SV
 =============================
 This repo contains the source code for the Emergency Social Network developed during the Foundations of Software Engineering class at Carnegie Mellon University in the Spring 2017.
 
-Current Build Status:
 [![CircleCI](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4.svg?style=shield&circle-token=95d4e777950680eb1787b7b3621f6a8fb13de311)](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4)
+[![BCH compliance](https://bettercodehub.com/edge/badge/cmusv-fse/s17-ESN-SV4?token=8cdd11198324ddb239a17de5c866bc54904e66cc)](https://bettercodehub.com/)
 
 Techonology Selection:
 ====
