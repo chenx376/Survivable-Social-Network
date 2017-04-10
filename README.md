@@ -7,6 +7,8 @@ This repo contains the source code for the Emergency Social Network developed du
 
 Current Build Status:
 [![CircleCI](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4.svg?style=shield&circle-token=95d4e777950680eb1787b7b3621f6a8fb13de311)](https://circleci.com/gh/cmusv-fse/s17-ESN-SV4)
+Current BetterCodeHub Score:
+[![BCH compliance](https://bettercodehub.com/edge/badge/cmusv-fse/s17-ESN-SV4?token=8cdd11198324ddb239a17de5c866bc54904e66cc)](https://bettercodehub.com/)
 
 Techonology Selection:
 ====
