@@ -1,6 +1,3 @@
-# YOUR BCH BADGE IS MISSING, PLEASE ADD IT HERE ASAP AS REQUESTED
-
-
 FSE Team 4 SV
 =============================
 This repo contains the source code for the Emergency Social Network developed during the Foundations of Software Engineering class at Carnegie Mellon University in the Spring 2017.
