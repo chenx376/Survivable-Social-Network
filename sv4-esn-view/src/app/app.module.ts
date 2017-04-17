@@ -16,7 +16,8 @@ import { ShareStatusComponent } from './components/share-status/share-status.com
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies';
+import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies.component';
+import { RequestSuppliesComponent} from './components/request-supplies/requestsupplies.component';
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
@@ -38,8 +39,8 @@ const appRoutes: Routes = [
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
-  { path: 'my-shared-supplies', component: MySharedSuppliesComponent }
-  // { path: 'request-supplies', component: RequestSuppliesComponent }
+  { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
+  { path: 'request-supplies', component: RequestSuppliesComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     AnnouncementsComponent,
     DialogComponent,
     AlertComponent,
-    MySharedSuppliesComponent
+    MySharedSuppliesComponent,
+    RequestSuppliesComponent
   ],
   entryComponents: [
     DialogComponent,
