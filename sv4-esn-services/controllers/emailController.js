@@ -1,6 +1,6 @@
-let emailDao = require('../dao/emailDao.js')
+let EmailDao = require('../dao/emailDao.js')
 
-let emailDao = new emailDao();
+let emailDao = new EmailDao();
 
 /**
  * emailController.js
