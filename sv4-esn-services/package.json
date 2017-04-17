@@ -7,6 +7,8 @@
     "config": "^1.25.1",
     "expect.js": "^0.3.1",
     "express": "^4.14.0",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0",
     "grunt": "^1.0.1",
     "grunt-mocha-istanbul": "^5.0.2",
     "grunt-mocha-test": "^0.13.2",
