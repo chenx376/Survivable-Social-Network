@@ -95,6 +95,9 @@ app.use('/messages', messages);
 var announces = require('./routes/announceRoutes.js');
 app.use('/announces', announces);
 
+var emails = require('./routes/emailRoutes.js');
+app.use('/emails', emails);
+
 /**
  * End of REST API Endpoints
  */

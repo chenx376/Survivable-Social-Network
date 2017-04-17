@@ -46,7 +46,6 @@ module.exports = {
         };
 
         emailDao.create(email, function (created) {
-
             emailDao.findById(created._id, function (found) {
                 return res.status(201).json(found);
             }, function (error) {
