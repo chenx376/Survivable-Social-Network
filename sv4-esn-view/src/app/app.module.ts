@@ -16,6 +16,7 @@ import { ShareStatusComponent } from './components/share-status/share-status.com
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies';
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
@@ -26,6 +27,7 @@ import { SearchUsersService } from './services/search-users/search-users.service
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
 
+
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -35,7 +37,9 @@ const appRoutes: Routes = [
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
-  { path: 'announcements', component: AnnouncementsComponent }
+  { path: 'announcements', component: AnnouncementsComponent },
+  { path: 'my-shared-supplies', component: MySharedSuppliesComponent }
+  // { path: 'request-supplies', component: RequestSuppliesComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -49,7 +53,8 @@ const appRoutes: Routes = [
     ShareStatusComponent,
     AnnouncementsComponent,
     DialogComponent,
-    AlertComponent
+    AlertComponent,
+    MySharedSuppliesComponent
   ],
   entryComponents: [
     DialogComponent,
