@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  width: 90vw;
+  width: 96vw;
   height: calc(100vh - 60px);
   overflow: scroll;
 }
@@ -11,6 +11,24 @@
 }
 
 #map {
-  width: 100vw;
+  width: 96vw;
   height:200px;
+}
+
+.checkout {
+  background-image: url('/assets/img/avatar/avatar_tile_c_56.png');
+  background-size: cover;
+}
+
+.confirm-request {
+  overflow: scroll;
+  max-height: calc(100vh - 200px - 60px);
+}
+
+.confirmbutton {
+  /*display: flex;*/
+  align-items: center;
+  height: 50px;
+  width: 88vw;
+  /*text-align: center;*/
 }
