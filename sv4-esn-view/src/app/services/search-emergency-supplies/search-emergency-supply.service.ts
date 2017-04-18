@@ -11,6 +11,8 @@ export class SearchEmergencySupplyService {
   searchTerm = '';
   showMoreEmergencySupplies = false;
 
+  currentLoggedInUser = '';
+
   constructor() { }
 
   reset = () => {
@@ -24,6 +26,7 @@ export class SearchEmergencySupplyService {
   updateSearch = () => {
     console.log(this.emergencySupplies);
     this.filteredEmergencySupplies = this.emergencySupplies
+      .filter(supply => supply.supplier.userId !== this.currentLoggedInUser)
       .filter(supply => this.searchTerm.trim().length === 0 || supply.supplyname.includes(this.searchTerm.trim()));
 
     this.displayedEmergencySupplies = this.filteredEmergencySupplies;

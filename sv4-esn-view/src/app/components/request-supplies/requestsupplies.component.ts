@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
 import { DialogService } from '../../services/dialog/dialog.service';
+import { UserService } from '../../services/user/user.service';
 
 import { EmergencySupplyService } from '../../services/emergency-supply/emergencySupply.service';
 import {EmergencySupply} from "../../models/emergencySupply.model";
@@ -22,7 +23,8 @@ export class RequestSuppliesComponent implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private elementRef: ElementRef,
               private searchEmergencySupplyService: SearchEmergencySupplyService,
-              private router: Router
+              private router: Router,
+              private userService: UserService
   ) {
 
   }
@@ -31,6 +33,7 @@ export class RequestSuppliesComponent implements OnInit {
     this.suppliesService.allEmergencySupplies()
       .subscribe(supplies => {
         this.searchEmergencySupplyService.reset();
+        this.searchEmergencySupplyService.currentLoggedInUser = this.userService.userId;
         this.searchEmergencySupplyService.emergencySupplies = supplies;
         this.searchEmergencySupplyService.updateSearch();
       });
