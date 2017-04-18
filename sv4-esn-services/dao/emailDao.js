@@ -1,5 +1,6 @@
 var config = require('config');
 let emailModel = require('../models/emailModel.js');
+var singleton = require('../singleton.js');
 var gmailService = singleton.getGmailService();
 let userModel = require('../models/userModel.js');
 
@@ -50,7 +51,6 @@ module.exports = class emailDao {
      * emailController.create()
      */
     create(emailObj, success, error) {
-
         let emailToCreate = emailModel(emailObj);
         emailToCreate.save(function (err, email) {
             if (err) {
@@ -59,9 +59,40 @@ module.exports = class emailDao {
                     error: err
                 });
             }
-
-
-
+            email.receivers_group.forEach(function(receiver){
+                let email = {
+                    title : email.title,
+                    content : email.content,
+                    sender_name : email.sender.username,
+                    receiver_email : receiver.email
+                }
+                gmailService.sendEMail(email);
+            });
+            // userModel.findOne({_id: emailObj.sender}, function (err, sender) {
+            //     if (err) {
+            //         return error({
+            //             message: 'Error when getting user',
+            //             error: err
+            //         });
+            //     }
+            //     emailObj.receivers_group.forEach(function(receiver_id){
+            //         userModel.findOne({_id: receiver_id}, function (err, receiver) {
+            //             if (err) {
+            //                 return error({
+            //                     message: 'Error when getting user',
+            //                     error: err
+            //                 });
+            //             }
+            //             let email = {
+            //                 title : emailObj.title,
+            //                 content : emailObj.content,
+            //                 sender_name : sender.username,
+            //                 receiver_email : receiver.email
+            //             }
+            //             gmailService.sendEMail(email);
+            //         });
+            //     });
+            // });
             return success(email._doc);
         });
     }
