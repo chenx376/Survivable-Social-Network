@@ -22,8 +22,9 @@ export class EmergencySupplyService {
       .map(json => json.map(supplyJson => new EmergencySupply(supplyJson)));
   };
 
-  registerEmergencySupply = (content: EmergencySupply): Observable<void> => {
-    return this.httpService.post('/supplies/', { content, supplier: this.userService.userId });
+  registerEmergencySupply = (content: any): Observable<void> => {
+    content.supplier = this.userService.userId;
+    return this.httpService.post('/supplies/', content);
   };
 
   formatDate = (date: Date): string => {

@@ -76,6 +76,17 @@ suite('EmergencySupply Tests', function(){
         });
     });
 
+    test('Finding an emergencySupply by USER ID', function(done){
+        let user_id = tmp_user_id;
+        emergencySupplyDao.suppliesByUser(user_id, function (found) {
+            expect(found).to.be.an('array');
+            done();
+        }, function (error) {
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
     test('Finding an emergencySupply by ID', function(done){
         let id = tmp_id;
         emergencySupplyDao.findById(id, function (found) {

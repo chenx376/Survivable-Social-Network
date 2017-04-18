@@ -9,15 +9,15 @@
     <md-card-content>
       <p></p>
       <md-input-container style="width: 100%;">
-        <input mdInput placeholder="Supply">
+        <input mdInput placeholder="Supply" [(ngModel)]="supplyContent.supplyname">
       </md-input-container>
       <br /><br />
       <md-input-container style="width: 100%;">
-        <input mdInput placeholder="Location" style="margin-left: 20px;">
+        <input mdInput placeholder="Location" style="margin-left: 20px;" [(ngModel)]="supplyContent.location_text">
       </md-input-container>
       <br /><br />
-      <md-select placeholder="Type" style="width: 100%">
-        <md-option *ngFor="let supplyType of types" [value]="supplyType.value">{{supplyType.viewValue}}</md-option>
+      <md-select placeholder="Type" style="width: 100%" [(ngModel)]="supplyContent.type">
+        <md-option *ngFor="let supplyType of types" [value]="supplyContent.type">{{supplyType.type}}</md-option>
       </md-select>
     </md-card-content>
     <md-card-actions>

@@ -5,14 +5,16 @@
 var config = require('config');
 let emergencySupplyModel = require('../models/emergencySupplyModel.js');
 
+var ObjectId = require('mongoose').Types.ObjectId;
+
 var NodeGeocoder = require('node-geocoder');
 
 var options = {
     provider: 'google',
 
     // Optional depending on the providers
-    httpAdapter: 'https', // Default
-    apiKey: 'AIzaSyAHkwtxgDpDMqFvDtTl4JXxt-ldAH08Kvs', // for Mapquest, OpenCage, Google Premier
+    httpAdapter: 'http', // Default
+    //apiKey: 'AIzaSyAHkwtxgDpDMqFvDtTl4JXxt-ldAH08Kvs', // for Mapquest, OpenCage, Google Premier
     formatter: null         // 'gpx', 'string', ...
 };
 
@@ -36,7 +38,7 @@ module.exports = class EmergencySupplyDao {
                 }
                 return success(emergencySupplies)
             });
-    }
+    };
 
     /**
      * emergencySupplyController.findById()
@@ -57,34 +59,36 @@ module.exports = class EmergencySupplyDao {
                 // }
                 return success(emergencySupply._doc);
             });
-    }
+    };
 
     /**
      * emergencySupplyController.create()
      */
     create(emergencySupplyObj, success, error) {
 
-        let emergencySupplyToCreate = emergencySupplyModel(emergencySupplyObj);
 
         /**
          * Implementing Geocoder API to convert address into lat / long
          */
         if(emergencySupplyObj.location_text) {
-            geocoder.geocode('29 champs elysée paris', function(err, res) {
-                console.log(res);
+            geocoder.geocode(emergencySupplyObj.location_text, function(err, res) {
+                //console.log(res);
+                if(res && res.length > 0) {
+                    emergencySupplyObj.location_lat = res[0].latitude.toString();
+                    emergencySupplyObj.location_lng = res[0].longitude.toString();
+                }
+                let emergencySupplyToCreate = emergencySupplyModel(emergencySupplyObj);
+                emergencySupplyToCreate.save(function (err, emergencySupply) {
+                    return success(emergencySupply._doc);
+                });
+            });
+        } else {
+            let emergencySupplyToCreate = emergencySupplyModel(emergencySupplyObj);
+            emergencySupplyToCreate.save(function (err, emergencySupply) {
+                return success(emergencySupply._doc);
             });
         }
-
-        emergencySupplyToCreate.save(function (err, emergencySupply) {
-            if (err) {
-                return error({
-                    message: 'Error when creating emergencySupply.',
-                    error: err
-                });
-            }
-            return success(emergencySupply._doc);
-        });
-    }
+    };
 
     /**
      * emergencySupplyController.update()
@@ -119,7 +123,7 @@ module.exports = class EmergencySupplyDao {
                 return success(updated);
             });
         });
-    }
+    };
 
     /**
      * emergencySupplyController.remove()
@@ -135,7 +139,38 @@ module.exports = class EmergencySupplyDao {
             }
             return success();
         });
-    }
+    };
 
+    /**
+     * emergencyDao.retrieveMySharedSupplies
+     */
+    suppliesByUser(uid1, success, error) {
+
+        /**
+         * Find all supplies where
+         * uid1 is supplier
+         */
+
+        emergencySupplyModel.find({supplier: new ObjectId(uid1)})
+            .populate('supplier')
+            .exec(/*success*/ function(err, data1){
+
+                if(err){
+                    return error({
+                        message: 'Error when finding the emergencySupply.',
+                        error: err
+                    });
+                }
+
+                if(data1)
+                    return success(data1);
+                else
+                    return error({
+                        message: 'Error when finding the emergencySupply.',
+                        error: err
+                    });
+            });
+
+    };
 
 }

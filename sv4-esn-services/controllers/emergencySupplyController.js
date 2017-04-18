@@ -36,6 +36,18 @@ module.exports = {
     },
 
     /**
+     * emergencySupplyController.suppliesByUser()
+     */
+    suppliesByUser: function (req, res) {
+        let uid = req.params.id;
+        emergencySupplyDao.suppliesByUser(uid, function (emergencySupply) {
+            return res.json(emergencySupply);
+        }, function (error) {
+            return res.status(404).json(error);
+        });
+    },
+
+    /**
      * emergencySupplyController.create()
      */
     create: function (req,res) {

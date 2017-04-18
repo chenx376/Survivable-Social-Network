@@ -11,22 +11,24 @@ import {EmergencySupply} from "../../models/emergencySupply.model";
 })
 export class MySharedSuppliesComponent implements OnInit {
 
-  supplyContent: EmergencySupply;
+  supplyContent: any;
 
   public types = [
-    {value: 'medicine', viewValue: 'Medicine'},
-    {value: 'food', viewValue: 'Food'},
-    {value: 'car', viewValue: 'Car'},
-    {value: 'utilities', viewValue: 'Utilities'},
-    {value: 'general', viewValue: 'General'}
+    {type: 'Medicine'},
+    {type: 'Food'},
+    {type: 'Car'},
+    {type: 'Utilities'},
+    {type: 'General'}
   ];
+
+  selectedType = '';
 
   constructor(private suppliesService: EmergencySupplyService,
               private dialogService: DialogService,
               private viewContainerRef: ViewContainerRef,
               private elementRef: ElementRef
   ) {
-
+    this.supplyContent = {};
   }
 
   ngOnInit() {
@@ -55,6 +57,7 @@ export class MySharedSuppliesComponent implements OnInit {
 
 
   registerSupplyButtonClicked = () => {
+    this.supplyContent.type = this.selectedType;
     this.suppliesService.registerEmergencySupply(this.supplyContent)
       .subscribe(
         () => {

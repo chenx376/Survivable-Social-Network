@@ -53,6 +53,20 @@ suite('Emergency Supply API Tests', function(){
         });
     })
 
+    test('Emergency Supplies GET By User ID', function(done){
+        request(app)
+            .get('/supplies/user/' + emergencySupplyUserID)
+            .set('Authorization', 'JWT ' + emergencySupplyTempJWT)
+            .end(function(err, res){
+                expect(err).to.not.be.ok();
+                expect(res).to.have.property('statusCode');
+                expect(res).to.have.property('body');
+                expect(res.body).to.be.an('array');
+                expect(res.statusCode).to.eql(200);
+                done();
+            });
+    })
+
     test('Emergency Supplies POST', function(done){
         let emergencySupply  = {
             supplier : emergencySupplyUserID,

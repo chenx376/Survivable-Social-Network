@@ -17,6 +17,11 @@ router.get('/', passport.authenticate('jwt', { session: false }), emergencySuppl
 router.get('/:id', passport.authenticate('jwt', { session: false }), emergencySupplyController.show);
 
 /*
+ * GET
+ */
+router.get('/user/:id', passport.authenticate('jwt', { session: false }), emergencySupplyController.suppliesByUser);
+
+/*
  * POST
  */
 router.post('/', emergencySupplyController.create);
