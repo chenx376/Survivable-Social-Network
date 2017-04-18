@@ -9,7 +9,7 @@ var noteController = require('../controllers/noteController.js');
 router.get('/', passport.authenticate('jwt', { session: false }), noteController.list);
 
 //
-router.get('/test/:id', passport.authenticate('jwt', { session: false }), noteController.list_sepcial);
+router.get('/user/:id', passport.authenticate('jwt', { session: false }), noteController.listspecial);
 
 /*
  * GET

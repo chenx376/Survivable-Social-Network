@@ -8,8 +8,8 @@ import { Message } from '../../models/message.model';
 @Injectable()
 export class ChatService {
 
-  private endpoint = "https://sv4-esn-services.herokuapp.com";
-  // private endpoint = "http://localhost:3000";
+  // private endpoint = "https://sv4-esn-services.herokuapp.com";
+  private endpoint = "http://localhost:3000";
 
   private socket = io(this.endpoint);
 

@@ -44,14 +44,14 @@ module.exports = class NoteDao {
      */
     create(noteObj, success, error) {
         let noteToCreate = notemodel(noteObj);
-        noteToCreate.save(function (err, notes) {
+        noteToCreate.save(function (err, note) {
             if (err) {
                 return error({
                     message: 'Error when creating announce.',
                     error: err
                 });
             }
-            return success(noteObj._doc);
+            return success(note._doc);
         });
     }
     /**
@@ -69,12 +69,9 @@ module.exports = class NoteDao {
 
             note.id = noteToUpdate.id;
             note.sender = noteToUpdate.sender ? noteToUpdate.sender : note.sender;
-
-            // if (noteToUpdate.online !== null && noteToUpdate.online !== undefined) {
-            //     note.content = noteToUpdate.content;
-            // }
             note.content = noteToUpdate.content ? noteToUpdate.content : note.content;
             note.created_at = noteToUpdate.created_at ? noteToUpdate.created_at : note.created_at;
+            note.e_type = noteToUpdate.e_type ? noteToUpdate.e_type : note.e_type;
 
 
             note.save(function (err, note) {
@@ -106,9 +103,12 @@ module.exports = class NoteDao {
         });
     }
 
-
-    list_special(id, success, error) {
+    listspecial(id, success, error) {
         let notes_present = [];
+        var person_ids = "";
+        var content_all = "";
+        var emergencies = ['fire', 'earthquake', 'flood'];
+        var emergencies_string = 'fire earthquake flood';
         announceModel
             .find({})
             .populate('announcer')
@@ -119,55 +119,54 @@ module.exports = class NoteDao {
                         error: err
                     });
                 }
-
                 //Find admin announcers' notes
                 if (announces) {
                    announces.forEach(function (item, index) {
                        var person_id = item.announcer._id;
                        var content = item.content;
 
-                       //Display the announcer's notes
-                       notemodel
-                           .find({sender: new ObjectId(person_id)})
-                           .populate('sender')
-                           .exec(function (err, notes) {
-                               if(notes){
-                                   notes.forEach(function (item, index) {
-                                       notes_present.push(item);
-                                   })
-                               }
-                       });
-
-                       //Display the defaults' note
-                       if (content.indexOf("fire") >=0 ){
-                           notemodel
-                               .find({system: "fire"})
-                               .populate('sender')
-                               .exec(function (err, notes) {
-                                   if(notes){
-                                       notes.forEach(function (item, index) {
-                                           notes_present.push(item);
-                                       })
-                                   }
-                               });
+                       if (person_ids.indexOf(person_id) < 0) {
+                           person_ids = person_ids + " " + person_id;
                        }
+                       content_all = content_all + content;
 
-                       //find notes that the user creates
-                       notemodel
-                           .find({_id:id})
-                           .populate('sender')
-                           .exec(function (err, notes) {
-                               if(notes){
-                                   notes.forEach(function (item, index) {
-                                       notes_present.push(item);
-                                   })
-                               }
-                           });
-                   })
+                   });
+                    notemodel
+                        .find({})
+                        .populate('sender')
+                        .exec(function (err, notes) {
+                            if(notes) {
+                                notes.forEach(function (item, index) {
+                                    var sender_id = item.sender._id;
+                                    var emergency_type = item.e_type;
+
+                                    var content = content_all.toLowerCase();
+
+                                    for (var i =0; i < emergencies.length; i++) {
+
+                                        var emergency = emergencies[i];
+                                        if (content.indexOf(emergency) >= 0 ){
+
+                                            if (emergency_type == emergency) {
+                                            }
+                                            if (emergencies_string.indexOf(emergency) >=0) {
+                                            }
+                                            if ((emergency_type == emergency) && (emergencies_string.indexOf(emergency) >=0)) {
+                                                emergencies_string = emergencies_string.replace(emergency, " ");
+                                                notes_present.push(item);
+                                            }
+                                        }
+                                    }
+                                    if(person_ids.indexOf(sender_id)>=0 || sender_id == id){
+                                        notes_present.push(item);
+                                    }
+
+                                })
+                            }
+                            return success(notes_present);
+                        });
                 }
-                return success(notes);
             });
-
     }
 
 };

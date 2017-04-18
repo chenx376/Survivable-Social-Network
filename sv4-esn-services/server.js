@@ -95,6 +95,9 @@ app.use('/messages', messages);
 var announces = require('./routes/announceRoutes.js');
 app.use('/announces', announces);
 
+var notes = require('./routes/noteRoutes');
+app.use('/notes', notes);
+
 /**
  * End of REST API Endpoints
  */

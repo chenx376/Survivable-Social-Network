@@ -8,8 +8,8 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class AnnouncementsService {
 
-  // private endpoint = "http://localhost:3000";
-  private endpoint = "https://sv4-esn-services.herokuapp.com";
+  private endpoint = "http://localhost:3000";
+  // private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   private socket = io(this.endpoint);
 
@@ -19,7 +19,11 @@ export class AnnouncementsService {
 
   getAnnouncements = (): Observable<[Announcement]> => {
     return this.httpService.get('/announces/')
-      .map(json => json.map(announcementsJson => new Announcement(announcementsJson)));
+      .map((json) => {
+          return json.map((announcementsJson) => {
+            return new Announcement(announcementsJson);
+          });
+      });
   };
 
   publishAnnouncement = (content: string): Observable<void> => {

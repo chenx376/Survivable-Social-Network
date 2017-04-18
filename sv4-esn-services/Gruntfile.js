@@ -14,13 +14,13 @@ module.exports = function(grunt) {
               ui: 'tdd',
               timeout: 30000
             },
-            src: ['tests/**/*.js']
+            src: ['tests/**/**.js'],
           },
 
         },
         mocha_istanbul: {
             coverage: {
-                src: ['tests/**/*.js'], // a folder works nicely
+                src: ['tests/unit_tests/**.js'], // a folder works nicely
                 options: {
                     excludes : ['*.js'],
                     mochaOptions: ['--reporter', 'mocha-junit-reporter', '--ui', 'tdd', '--timeout', '30000'] // any extra options for mocha

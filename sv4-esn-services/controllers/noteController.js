@@ -19,9 +19,9 @@ module.exports = {
         });
     },
 
-    list_sepcial: function (req, res) {
+    listspecial: function (req, res) {
         let id = req.params.id;
-        noteDao.list_special(id, function (notes) {
+        noteDao.listspecial(id, function (notes) {
             return res.json(notes);
         }, function(error) {
             return res.status(404).json(error);
@@ -44,11 +44,11 @@ module.exports = {
      */
     create: function (req,res) {
         let note  = {
+            e_type : req.body.e_type,
             content : req.body.content,
             sender: req.body.sender,
             created_at : req.body.created_at,
         };
-
         noteDao.create(note, function (created) {
             return res.status(201).json(note);
         }, function (error) {
