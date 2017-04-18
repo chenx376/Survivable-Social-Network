@@ -2,7 +2,7 @@ import { TestBed, inject, getTestBed } from '@angular/core/testing';
 import { SearchEmergencySupplyService } from './search-emergency-supply.service';
 import { EmergencySupply } from "../../models/emergencySupply.model";
 
-describe('SearchAnnouncementsServiceTest', () => {
+describe('SearchEmergencySupplyServiceTest', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -64,7 +64,7 @@ describe('SearchAnnouncementsServiceTest', () => {
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "NEW Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "NEW Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "NEW Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
-    service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "NEW Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
+    service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
     service.emergencySupplies.push(new EmergencySupply({"supplyId": "58e33a3478a1620011fd830d", "supplyname": "Emergency Supply Test", "location_text": "2326 California Street, Mountain View, California", "location_lat" : "1.316552", "location_lng" : "103.909327", "type" : "Medicine"}));
@@ -100,7 +100,7 @@ describe('SearchAnnouncementsServiceTest', () => {
     service.updateSearch();
     service.searchTerm = '';
     service.updateSearch();
-    expect(service.displayedEmergencySupplies.length).toBe(10);
+    expect(service.displayedEmergencySupplies.length).toBe(25);
   }));
 
 });
