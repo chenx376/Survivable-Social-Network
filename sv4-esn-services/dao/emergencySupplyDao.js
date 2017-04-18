@@ -20,7 +20,7 @@ var geocoder = NodeGeocoder(options);
 
 module.exports = class EmergencySupplyDao {
     /**
-     * annouceController.list()
+     * emergencySupplyController.list()
      */
     list(success, error){
         emergencySupplyModel
@@ -39,7 +39,7 @@ module.exports = class EmergencySupplyDao {
     }
 
     /**
-     * announceController.findById()
+     * emergencySupplyController.findById()
      */
     findById(id, success, error) {
         emergencySupplyModel
@@ -60,7 +60,7 @@ module.exports = class EmergencySupplyDao {
     }
 
     /**
-     * announceController.create()
+     * emergencySupplyController.create()
      */
     create(emergencySupplyObj, success, error) {
 
@@ -87,7 +87,7 @@ module.exports = class EmergencySupplyDao {
     }
 
     /**
-     * announceController.update()
+     * emergencySupplyController.update()
      */
     update(emergencySupplyToUpdate, success, error) {
 
@@ -122,7 +122,7 @@ module.exports = class EmergencySupplyDao {
     }
 
     /**
-     * announceController.remove()
+     * emergencySupplyController.remove()
      */
     remove(id, success, error) {
 

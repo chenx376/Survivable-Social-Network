@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user/user.service';
-import { UserStatus } from '../../models/user.model';
-import { SearchUsersService } from '../../services/search-users/search-users.service';
+import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
+import { DialogService } from '../../services/dialog/dialog.service';
+
+import { EmergencySupplyService } from '../../services/emergency-supply/emergencySupply.service';
+import {EmergencySupply} from "../../models/emergencySupply.model";
 
 @Component({
   selector: 'app-mysharedsupplies',
@@ -9,6 +10,8 @@ import { SearchUsersService } from '../../services/search-users/search-users.ser
   styleUrls: ['./mysharedsupplies.component.css']
 })
 export class MySharedSuppliesComponent implements OnInit {
+
+  supplyContent: EmergencySupply;
 
   public types = [
     {value: 'medicine', viewValue: 'Medicine'},
@@ -18,7 +21,11 @@ export class MySharedSuppliesComponent implements OnInit {
     {value: 'general', viewValue: 'General'}
   ];
 
-  constructor(/*private suppliesService: MySharedSuppliesService*/) {
+  constructor(private suppliesService: EmergencySupplyService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef,
+              private elementRef: ElementRef
+  ) {
 
   }
 
@@ -44,6 +51,19 @@ export class MySharedSuppliesComponent implements OnInit {
     //     this.searchUsersService.users = users;
     //     this.searchUsersService.updateSearch();
     //   });
+  }
+
+
+  registerSupplyButtonClicked = () => {
+    this.suppliesService.registerEmergencySupply(this.supplyContent)
+      .subscribe(
+        () => {
+          //this.supplyContent;
+          this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+            .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
+        },
+        err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
+      );
   }
 
 }

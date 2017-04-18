@@ -1,14 +1,14 @@
 /**
  * Created by arthurm.
  */
-let EmergencySupplyDao = require('../dao/announceDao.js')
+let EmergencySupplyDao = require('../dao/emergencySupplyDao.js')
 
 let emergencySupplyDao = new EmergencySupplyDao();
 
 /**
  * emergencySupplyController.js
  *
- * @description :: Server-side logic for managing announces.
+ * @description :: Server-side logic for managing emergency supplies.
  */
 
 module.exports = {

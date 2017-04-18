@@ -18,6 +18,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies.component';
 import { RequestSuppliesComponent} from './components/request-supplies/requestsupplies.component';
+import { ConfirmSupplyRequest } from "./components/confirm-supply-request/confirmsupplyrequest.component";
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
@@ -27,7 +28,7 @@ import { AnnouncementsService } from './services/announcements/announcements.ser
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
-import {ConfirmSupplyRequest} from "./components/confirm-supply-request/confirmsupplyrequest.component";
+import { EmergencySupplyService } from './services/emergency-supply/emergencySupply.service';
 
 
 const appRoutes: Routes = [
@@ -81,7 +82,8 @@ const appRoutes: Routes = [
     DialogService,
     SearchUsersService,
     SearchMessagesService,
-    SearchAnnouncementsService
+    SearchAnnouncementsService,
+    EmergencySupplyService
   ],
   bootstrap: [AppComponent]
 })
