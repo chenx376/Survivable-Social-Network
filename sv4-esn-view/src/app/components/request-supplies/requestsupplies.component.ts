@@ -63,7 +63,15 @@ export class RequestSuppliesComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['confirm-supplyreq/' + JSON.stringify(filtered)]);
+    //A6
+    if(Object.keys(filtered).length > 0) {
+      this.router.navigate(['confirm-supplyreq/' + JSON.stringify(filtered)]);
+    } else {
+      this.dialogService.openAlert(this.viewContainerRef, 'Error', 'Select one emergency supply to proceed.').subscribe();
+    }
+
+
+
   }
 
 }
