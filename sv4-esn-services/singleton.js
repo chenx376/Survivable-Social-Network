@@ -6,6 +6,8 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var GmailService = require('./gmailService.js');
+var gmailService = new GmailService();
 
 // Public
 var self = module.exports = {
@@ -20,6 +22,10 @@ var self = module.exports = {
 
     getIO: function () {
         return io;
+    },
+
+    getGmailService: function(){
+        return gmailService;
     },
 
     socketMap: {}

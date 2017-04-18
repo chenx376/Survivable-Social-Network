@@ -1,5 +1,7 @@
 var config = require('config');
-let emailModel = require('../models/emailModel.js')
+let emailModel = require('../models/emailModel.js');
+var gmailService = singleton.getGmailService();
+let userModel = require('../models/userModel.js');
 
 module.exports = class emailDao {
     /**
@@ -57,6 +59,9 @@ module.exports = class emailDao {
                     error: err
                 });
             }
+
+
+
             return success(email._doc);
         });
     }

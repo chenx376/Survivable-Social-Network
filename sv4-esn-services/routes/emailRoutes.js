@@ -16,7 +16,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), emailContro
 /*
  * POST
  */
-router.post('/', passport.authenticate('jwt', { session: false }), emailController.create);
+router.post('/', emailController.create);
 
 /*
  * PUT
