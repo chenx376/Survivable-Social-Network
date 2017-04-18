@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'
 import {UserService} from "../../services/user/user.service";
 import {ChatService} from "../../services/chat/chat.service";
-import {EmergencySupply} from "../../models/emergencySupply.model";
+import { DialogService } from '../../services/dialog/dialog.service';
 
 declare var google: any;
 
@@ -18,7 +18,10 @@ export class ConfirmSupplyRequest implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
-              private chatService: ChatService) {
+              private chatService: ChatService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef,
+  ) {
 
   }
 
@@ -83,6 +86,11 @@ export class ConfirmSupplyRequest implements OnInit {
            this.chatService.sendPrivateMessage(msg, targetUsr);
          }
        }
+    this.dialogService.openDialogue(this.viewContainerRef,
+      'Success',
+      `Howdy! All set, we contacted the suppliers, expect to hear from them soon.`)
+      .filter(result => result === true)
+      .subscribe(() => this.router.navigateByUrl(`request-supplies`))
 
   }
 
