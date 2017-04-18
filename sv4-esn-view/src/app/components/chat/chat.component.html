@@ -33,7 +33,7 @@
         {{ message.userStatusInformation }}
       </div>
       <div class="message-date">{{ chatService.formatDate(message.date) }}</div>
-      <div class="message-content">{{ message.content }}</div>
+      <div class="message-content" [innerHTML]="message.content"></div>
     </div>
   </md-card>
 </div>

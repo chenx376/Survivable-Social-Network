@@ -11,14 +11,15 @@
   <!--<img md-card-image src="assets/img/examples/shiba2.jpg">-->
   <md-card-content>
     <!--<br />-->
-    <button md-raised-button color="primary" class="confirmbutton">Confirm request</button>
+    <button md-raised-button color="primary" class="confirmbutton" (click)="confirmRequest()">Confirm request</button>
     <p>
-      You've selected the following items:
+      You've selected the following items, confirm your request so that we can reach out to those users:
     </p>
     <md-list>
-      <md-list-item *ngFor="let s of requestedSupplies">
-        <h4 md-line>{{s.supplier.username}}</h4>
-        <p md-line>{{s.supplyname}}</p>
+      <md-list-item *ngFor="let k of mapKeys()">
+        <md-icon class="status-icon status-ok">check_circle</md-icon>
+        <h4 md-line>{{requestedSuppliesMap[k][0].supplier.username}}</h4>
+        <p md-line style="padding-left: 2vw;" *ngFor="let i of requestedSuppliesMap[k]">{{i.supplyname}}</p>
       </md-list-item>
     </md-list>
 
