@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router'
 
 declare var google: any;
 
@@ -9,7 +10,11 @@ declare var google: any;
 })
 export class ConfirmSupplyRequest implements OnInit {
 
-  constructor(/*private suppliesService: MySharedSuppliesService*/) { }
+  requestedSupplies = {};
+
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              ) { }
 
   ngOnInit() {
 
@@ -23,6 +28,9 @@ export class ConfirmSupplyRequest implements OnInit {
       map: map
     });
 
+    this.route.params
+      .map(params => params.reqjson)
+      .subscribe(reqjson => this.requestedSupplies = JSON.parse(reqjson));
 
   }
 

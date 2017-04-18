@@ -5,6 +5,8 @@ import { EmergencySupplyService } from '../../services/emergency-supply/emergenc
 import {EmergencySupply} from "../../models/emergencySupply.model";
 import {SearchEmergencySupplyService} from "../../services/search-emergency-supplies/search-emergency-supply.service";
 
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-requestsupplies',
   templateUrl: './requestsupplies.component.html',
@@ -19,6 +21,7 @@ export class RequestSuppliesComponent implements OnInit {
               private viewContainerRef: ViewContainerRef,
               private elementRef: ElementRef,
               private searchEmergencySupplyService: SearchEmergencySupplyService,
+              private router: Router
   ) {
 
   }
@@ -41,6 +44,21 @@ export class RequestSuppliesComponent implements OnInit {
       this.selectedSuppliesDict[supply.supplyId] = supply;
     }*/
     console.log(this.selectedSuppliesDict);
+  }
+
+
+  doCheckout = () => {
+
+    let filtered = {};
+    for (var property in this.selectedSuppliesDict) {
+      if (this.selectedSuppliesDict.hasOwnProperty(property)) {
+        // do stuff
+        if(this.selectedSuppliesDict[property] === true)
+          filtered[property] = this.selectedSuppliesDict;
+      }
+    }
+
+    this.router.navigate(['confirm-supplyreq/' + JSON.stringify(filtered)]);
   }
 
 }
