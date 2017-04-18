@@ -15,11 +15,12 @@ export class MySharedSuppliesComponent implements OnInit {
   mySupplies: EmergencySupply[];
 
   public types = [
-    {type: 'Medicine'},
-    {type: 'Food'},
-    {type: 'Car'},
-    {type: 'Utilities'},
-    {type: 'General'}
+    {value: '', viewValue: 'Select one'},
+    {value: 'Medicine', viewValue: 'Medicine'},
+    {value: 'Food', viewValue: 'Food'},
+    {value: 'Car', viewValue: 'Car'},
+    {value: 'Utilities', viewValue: 'Utilities'},
+    {value: 'General', viewValue: 'General'}
   ];
 
   selectedType = '';
@@ -41,7 +42,38 @@ export class MySharedSuppliesComponent implements OnInit {
   }
 
   registerSupplyButtonClicked = () => {
-    this.supplyContent.type = this.selectedType;
+
+    /**
+     * VALIDATIONS
+     */
+
+    //A2
+    if(this.supplyContent.type === null || this.supplyContent.type === 0 || this.supplyContent.type === 'Select' || this.supplyContent.type === undefined || this.supplyContent.type === '') {
+      this.dialogService.openAlert(this.viewContainerRef, 'Error', 'Emergency supply must contain one category.').subscribe();
+      return;
+    }
+
+    //A3
+    for(let i in this.mySupplies) {
+      console.log(i);
+      if (this.supplyContent.supplyname === this.mySupplies[i].supplyname) {
+        this.dialogService.openAlert(this.viewContainerRef, 'Error', 'You already share this item, repeated items are not allowed.').subscribe();
+        return;
+      }
+    }
+
+    //A4
+    if(this.supplyContent.supplyname.length <= 3) {
+      this.dialogService.openAlert(this.viewContainerRef, 'Error', 'Every supply must have a name containing more than three characters.').subscribe();
+      return;
+    }
+
+    //EXTRA
+    if(this.supplyContent.location_text.length == 0) {
+      this.dialogService.openAlert(this.viewContainerRef, 'Error', 'Provide the location for your supply.').subscribe();
+      return;
+    }
+
     this.suppliesService.registerEmergencySupply(this.supplyContent)
       .subscribe(
         created => {

@@ -17,7 +17,7 @@
       </md-input-container>
       <br /><br />
       <md-select placeholder="Type" style="width: 100%" [(ngModel)]="supplyContent.type">
-        <md-option *ngFor="let supplyType of types" [value]="supplyContent.type">{{supplyType.type}}</md-option>
+        <md-option *ngFor="let supplyType of types" [value]="supplyType.value">{{supplyType.viewValue}}</md-option>
       </md-select>
     </md-card-content>
     <md-card-actions>
@@ -51,86 +51,3 @@
   </md-card-content>
 
   </md-card>
-
-<!--<div class="supply-list" #messageList>-->
-  <!--<md-card class="message" *ngFor="let message of searchMessagesService.displayedMessages">-->
-    <!--<img class="avatar" src="{{ userService.getAvatarUrl(message.sender.username) }}" />-->
-    <!--<div class="message-body">-->
-      <!--<div class="user-header">-->
-        <!--<div class="username">{{ message.sender.username }}</div>-->
-        <!--<div [ngSwitch]="message.userStatus">-->
-          <!--<template [ngSwitchCase]="1">-->
-            <!--<md-icon class="status-icon status-ok">check_circle</md-icon>-->
-          <!--</template>-->
-          <!--<template [ngSwitchCase]="2">-->
-            <!--<md-icon class="status-icon status-help">error</md-icon>-->
-          <!--</template>-->
-          <!--<template [ngSwitchCase]="3">-->
-            <!--<md-icon class="status-icon status-emergency">add_circle</md-icon>-->
-          <!--</template>-->
-        <!--</div>-->
-        <!--<md-icon class="online-icon"-->
-                 <!--*ngIf="message.sender.online">language</md-icon>-->
-      <!--</div>-->
-      <!--<div class="status-information"-->
-           <!--*ngIf="message.userStatusInformation !== null && message.userStatusInformation.length !== 0">-->
-        <!--{{ message.userStatusInformation }}-->
-      <!--</div>-->
-      <!--<div class="message-date">{{ chatService.formatDate(message.date) }}</div>-->
-      <!--<div class="message-content">{{ message.content }}</div>-->
-    <!--</div>-->
-  <!--</md-card>-->
-<!--</div>-->
-
-<!--<div class="status-filter">-->
-  <!--<md-card class="status-option status-ok"-->
-           <!--[class.selected] = "searchUsersService.selectedStatus === 1"-->
-           <!--(click)="searchUsersService.statusOKSelected()">-->
-    <!--<md-icon class="status-icon">check_circle</md-icon>-->
-  <!--</md-card>-->
-  <!--<md-card class="status-option status-help"-->
-           <!--[class.selected] = "searchUsersService.selectedStatus === 2"-->
-           <!--(click)="searchUsersService.statusHelpSelected()">-->
-    <!--<md-icon class="status-icon">error</md-icon>-->
-  <!--</md-card>-->
-  <!--<md-card class="status-option status-emergency"-->
-           <!--[class.selected] = "searchUsersService.selectedStatus === 3"-->
-           <!--(click)="searchUsersService.statusEmergencySelected()">-->
-    <!--<md-icon class="status-icon">add_circle</md-icon>-->
-  <!--</md-card>-->
-  <!--<md-card class="status-option clear-status"-->
-           <!--[class.selected] = "searchUsersService.selectedStatus === 0"-->
-           <!--(click)="searchUsersService.clearStatusSelection()">-->
-    <!--<md-icon class="status-icon">cancel</md-icon>-->
-  <!--</md-card>-->
-<!--</div>-->
-
-<!--<div class="user" *ngFor="let user of searchUsersService.filteredUsers" routerLink="/chat/{{ user.userId }}">-->
-  <!--<img class="avatar" src="{{ userService.getAvatarUrl(user.username) }}" />-->
-  <!--<div class="user-info">-->
-    <!--<div class="user-header">-->
-      <!--<div class="username">{{ user.username }}</div>-->
-      <!--<div [ngSwitch]="user.status">-->
-        <!--<template [ngSwitchCase]="1">-->
-          <!--<md-icon class="status-icon status-ok">check_circle</md-icon>-->
-        <!--</template>-->
-        <!--<template [ngSwitchCase]="2">-->
-          <!--<md-icon class="status-icon status-help">error</md-icon>-->
-        <!--</template>-->
-        <!--<template [ngSwitchCase]="3">-->
-          <!--<md-icon class="status-icon status-emergency">add_circle</md-icon>-->
-        <!--</template>-->
-      <!--</div>-->
-      <!--<md-icon class="online-icon"-->
-               <!--*ngIf="user.online">language</md-icon>-->
-    <!--</div>-->
-    <!--<div class="empty-status-information"-->
-         <!--*ngIf="user.statusInformation === null || user.statusInformation.length === 0">-->
-      <!--No status information-->
-    <!--</div>-->
-    <!--<div class="status-information"-->
-         <!--*ngIf="user.statusInformation !== null && user.statusInformation.length !== 0">-->
-      <!--{{ user.statusInformation }}-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
