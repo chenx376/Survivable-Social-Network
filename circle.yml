@@ -31,9 +31,9 @@ test:
         pwd: sv4-esn-view
     - cp -rf coverage $CIRCLE_TEST_REPORTS/frontend/:
         pwd: sv4-esn-view
-    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.announces.drop()"
-    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.messages.drop()"
-    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.users.drop()"
+    - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.announces.drop()"
+    - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.messages.drop()"
+    - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.users.drop()"
 
 deployment:
   prod:
