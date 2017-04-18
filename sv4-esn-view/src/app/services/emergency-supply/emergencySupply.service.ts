@@ -32,6 +32,10 @@ export class EmergencySupplyService {
     return this.httpService.post('/supplies/', content);
   };
 
+  deleteEmergencySupply = (idToDelete: any): Observable<void> => {
+    return this.httpService.delete('/supplies/' + idToDelete);
+  }
+
   formatDate = (date: Date): string => {
     let hour = ('0' + date.getHours()).slice(-2);
     let minute = ('0' + date.getMinutes()).slice(-2);

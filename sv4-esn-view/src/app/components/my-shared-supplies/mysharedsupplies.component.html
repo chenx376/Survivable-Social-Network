@@ -41,7 +41,7 @@
       <!-- Table starts here -->
       <table id="table" class="table table-striped table-mc-indigo">
         <tbody>
-        <tr *ngFor="let s of mySupplies"><td style="width: 5%"><a md-icon-button routerLink="."><md-icon>delete</md-icon> </a></td><td>{{s.supplyname}}</td></tr>
+        <tr *ngFor="let s of mySupplies"><td style="width: 5%"><a md-icon-button routerLink="." (click)="removeSupplyButtonClicked(s.supplyId)"><md-icon>delete</md-icon> </a></td><td>{{s.supplyname}}</td></tr>
         <!--<tr><td style="width: 5%"><a md-icon-button routerLink="."><md-icon>delete</md-icon> </a> </td><td> Chicken Marmelade</td></tr>-->
         <!--<tr><td style="width: 5%"><a md-icon-button routerLink="."><md-icon>delete</md-icon> </a> </td><td> Bandaid </td></tr>-->
          </tbody>

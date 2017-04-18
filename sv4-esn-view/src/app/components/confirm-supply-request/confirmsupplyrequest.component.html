@@ -16,7 +16,7 @@
       You've selected the following items, confirm your request so that we can reach out to the suppliers.
     </p>
     <p>
-      If something does not feel right and you wish to cancel use the trash button. <button md-mini-fab routerLink="/request-supplies" style="position: fixed; top: 90vh; left: 80vw;"><md-icon class="example-icon">delete</md-icon></button>
+      If something does not feel right and you wish to cancel use the <md-icon>delete</md-icon> button. <button md-mini-fab routerLink="/request-supplies" style="position: fixed; top: 90vh; left: 80vw;"><md-icon class="example-icon">delete</md-icon></button>
     </p>
     <md-list>
       <md-list-item *ngFor="let k of mapKeys()">
@@ -25,7 +25,6 @@
         <p md-line style="padding-left: 2vw;" *ngFor="let i of requestedSuppliesMap[k]">{{i.supplyname}}</p>
       </md-list-item>
     </md-list>
-
 
   </md-card-content>
 

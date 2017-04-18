@@ -86,4 +86,14 @@ export class MySharedSuppliesComponent implements OnInit {
       );
   }
 
+  removeSupplyButtonClicked= (id) => {
+    //console.log('SupplyId: ' + id)
+    this.suppliesService.deleteEmergencySupply(id).subscribe(() => {
+      for( let i = 0; i < this.mySupplies.length; i++) {
+        if(id === this.mySupplies[i].supplyId)
+          this.mySupplies.splice(i, 1);
+      }
+    });
+  }
+
 }
