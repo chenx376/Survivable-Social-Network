@@ -12,6 +12,7 @@ import {EmergencySupply} from "../../models/emergencySupply.model";
 export class MySharedSuppliesComponent implements OnInit {
 
   supplyContent: any;
+  mySupplies: EmergencySupply[];
 
   public types = [
     {type: 'Medicine'},
@@ -32,27 +33,15 @@ export class MySharedSuppliesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userService.getUserList()
-    //   .map(users => users.sort((user1, user2) => {
-    //     if (user1.online && !user2.online) {
-    //       return -1;
-    //     } else if (!user1.online && user2.online) {
-    //       return 1;
-    //     } else {
-    //       if (user1.username > user2.username) {
-    //         return 1;
-    //       } else if (user1.username < user2.username) {
-    //         return -1;
-    //       } else {
-    //         return 0;
-    //       }
-    //     }
-    //   }))
-    //   .subscribe(users => {
-    //     this.searchUsersService.reset();
-    //     this.searchUsersService.users = users;
-    //     this.searchUsersService.updateSearch();
-    //   });
+    this.suppliesService.mySharedSupplies()
+      .subscribe(supplies => {
+        // this.searchUsersService.reset();
+        // this.searchUsersService.users = users;
+        // this.searchUsersService.updateSearch();
+        this.mySupplies = supplies;
+      });
+
+
   }
 
 
@@ -60,8 +49,9 @@ export class MySharedSuppliesComponent implements OnInit {
     this.supplyContent.type = this.selectedType;
     this.suppliesService.registerEmergencySupply(this.supplyContent)
       .subscribe(
-        () => {
+        created => {
           //this.supplyContent;
+          this.mySupplies.unshift(new EmergencySupply(created));
           this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
             .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
         },

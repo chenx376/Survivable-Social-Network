@@ -17,8 +17,13 @@ export class EmergencySupplyService {
   constructor(private httpService: HttpService,
               private userService: UserService) { }
 
-  getEmergencySupplies = (): Observable<[EmergencySupply]> => {
+  allEmergencySupplies = (): Observable<[EmergencySupply]> => {
     return this.httpService.get('/supplies/')
+      .map(json => json.map(supplyJson => new EmergencySupply(supplyJson)));
+  };
+
+  mySharedSupplies = (): Observable<[EmergencySupply]> => {
+    return this.httpService.get('/supplies/user/' + this.userService.userId)
       .map(json => json.map(supplyJson => new EmergencySupply(supplyJson)));
   };
 
