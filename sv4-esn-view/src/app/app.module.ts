@@ -27,6 +27,7 @@ import { AnnouncementsService } from './services/announcements/announcements.ser
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
+import {ConfirmSupplyRequest} from "./components/confirm-supply-request/confirmsupplyrequest.component";
 
 
 const appRoutes: Routes = [
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
   { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
-  { path: 'request-supplies', component: RequestSuppliesComponent }
+  { path: 'request-supplies', component: RequestSuppliesComponent },
+  { path: 'confirm-supplyreq/:reqjson', component: ConfirmSupplyRequest }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     DialogComponent,
     AlertComponent,
     MySharedSuppliesComponent,
-    RequestSuppliesComponent
+    RequestSuppliesComponent,
+    ConfirmSupplyRequest
   ],
   entryComponents: [
     DialogComponent,

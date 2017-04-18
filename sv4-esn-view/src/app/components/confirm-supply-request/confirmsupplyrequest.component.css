@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
+}
+
+#map {
+  width: 100vw;
+  height:200px;
+}

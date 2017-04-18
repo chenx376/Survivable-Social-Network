@@ -8,7 +8,7 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class AnnouncementsService {
 
-  private endpoint = "http://localhost:3000";
+  private endpoint = "http://172.29.93.55:3000";
   // private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   private socket = io(this.endpoint);
