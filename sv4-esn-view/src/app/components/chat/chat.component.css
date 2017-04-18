@@ -6,6 +6,10 @@
   height: calc(100vh - 60px);
 }
 
+li {
+  list-style-type: none;
+}
+
 .search-bar {
   margin-top: 10px;
 }

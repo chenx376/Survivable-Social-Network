@@ -75,10 +75,10 @@ export class ConfirmSupplyRequest implements OnInit {
          console.log(this.requestedSuppliesMap);
          if (this.requestedSuppliesMap.hasOwnProperty(i)) {
             //console.log(this.requestedSuppliesMap[i]);
-           let msg = `Hi, I saw you have some emergency supplies available for sharing. <br /> I am interested in the following items: `;
+           let msg = `Hi, I saw you have some emergency supplies available for sharing. <br /> <br /> I am interested in the following items: <br /> <br />`;
            let targetUsr = this.requestedSuppliesMap[i][0].supplier.userId;
              for(let k in this.requestedSuppliesMap[i])
-               msg += this.requestedSuppliesMap[i][k].supplyname + `<br />`;
+               msg += `<md-list-item>- ` + this.requestedSuppliesMap[i][k].supplyname + `</md-list-item><br />`;
 
            this.chatService.sendPrivateMessage(msg, targetUsr);
          }
