@@ -38,9 +38,7 @@ export class MySharedSuppliesComponent implements OnInit {
         this.mySupplies = supplies;
       });
 
-
   }
-
 
   registerSupplyButtonClicked = () => {
     this.supplyContent.type = this.selectedType;

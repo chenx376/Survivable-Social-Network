@@ -10,7 +10,7 @@ declare var google: any;
 })
 export class ConfirmSupplyRequest implements OnInit {
 
-  requestedSupplies = {};
+  requestedSupplies = [];
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -19,19 +19,40 @@ export class ConfirmSupplyRequest implements OnInit {
   ngOnInit() {
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-      center: {lat: -25.363, lng: 131.044}
+      zoom: 15,
+      //center: {lat: -25.363, lng: 131.044}
     });
 
-    var marker = new google.maps.Marker({
+    /*var marker = new google.maps.Marker({
       position: {lat: -25.363, lng: 131.044},
       map: map
-    });
+    }); */
+
+    var bounds = new google.maps.LatLngBounds();
 
     this.route.params
       .map(params => params.reqjson)
-      .subscribe(reqjson => this.requestedSupplies = JSON.parse(reqjson));
-
+      .subscribe(reqjson => {
+        let input = JSON.parse(reqjson);
+        for (var property in input) {
+          if (input.hasOwnProperty(property)) {
+            // do stuff
+            this.requestedSupplies.push(input[property]);
+            if(input[property].location_lat && input[property].location_lng) {
+              let marker = new google.maps.Marker({
+                position: {
+                  lat: parseFloat(input[property].location_lat),
+                  lng: parseFloat(input[property].location_lng)
+                },
+                map: map
+              });
+              bounds.extend(marker.getPosition());
+            }
+          }
+        }
+        map.fitBounds(bounds);
+        map.setZoom(15);
+      });
   }
 
 }

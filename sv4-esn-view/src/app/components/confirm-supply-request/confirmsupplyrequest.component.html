@@ -13,18 +13,15 @@
     <!--<br />-->
     <button md-raised-button color="primary" class="confirmbutton">Confirm request</button>
     <p>
-      We'll contact the following users on your behalf, notifying your interest in their items:
+      You've selected the following items:
     </p>
-
     <md-list>
-      <h4 md-line>Arthur Sampaio</h4>
-      <p md-line>Bla, Bla, Bla...</p>
+      <md-list-item *ngFor="let s of requestedSupplies">
+        <h4 md-line>{{s.supplier.username}}</h4>
+        <p md-line>{{s.supplyname}}</p>
+      </md-list-item>
     </md-list>
 
-    <md-list>
-      <h4 md-line>Arthur Sampaio</h4>
-      <p md-line>Bla, Bla, Bla...</p>
-    </md-list>
 
   </md-card-content>
 

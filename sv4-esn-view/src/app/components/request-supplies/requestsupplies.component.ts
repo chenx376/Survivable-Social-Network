@@ -14,7 +14,8 @@ import {Router} from '@angular/router';
 })
 export class RequestSuppliesComponent implements OnInit {
 
-  selectedSuppliesDict = {};
+  selectedMap = {};
+  requestSupplies = {};
 
   constructor(private suppliesService: EmergencySupplyService,
               private dialogService: DialogService,
@@ -43,18 +44,22 @@ export class RequestSuppliesComponent implements OnInit {
       console.log('Selecting... ' + supply.supplyId);
       this.selectedSuppliesDict[supply.supplyId] = supply;
     }*/
-    console.log(this.selectedSuppliesDict);
+    console.log(this.selectedMap[supply.supplyId]);
+    if(this.selectedMap[supply.supplyId])
+      this.requestSupplies[supply.supplyId] = supply;
+    else
+      this.requestSupplies[supply.supplyId] = null;
   }
 
 
   doCheckout = () => {
 
     let filtered = {};
-    for (var property in this.selectedSuppliesDict) {
-      if (this.selectedSuppliesDict.hasOwnProperty(property)) {
+    for (var property in this.selectedMap) {
+      if (this.selectedMap.hasOwnProperty(property)) {
         // do stuff
-        if(this.selectedSuppliesDict[property] === true)
-          filtered[property] = this.selectedSuppliesDict;
+        if(this.selectedMap[property] === true)
+          filtered[property] = this.requestSupplies[property];
       }
     }
 
