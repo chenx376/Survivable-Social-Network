@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user/user.service';
-import { UserStatus } from '../../models/user.model';
-import { SearchUsersService } from '../../services/search-users/search-users.service';
+import { Component, OnInit, ViewContainerRef, ElementRef } from '@angular/core';
+import { DialogService } from '../../services/dialog/dialog.service';
+
+import { EmergencySupplyService } from '../../services/emergency-supply/emergencySupply.service';
+import {EmergencySupply} from "../../models/emergencySupply.model";
+import {SearchEmergencySupplyService} from "../../services/search-emergency-supplies/search-emergency-supply.service";
 
 @Component({
   selector: 'app-requestsupplies',
@@ -10,30 +12,35 @@ import { SearchUsersService } from '../../services/search-users/search-users.ser
 })
 export class RequestSuppliesComponent implements OnInit {
 
-  constructor(/*private suppliesService: MySharedSuppliesService*/) { }
+  selectedSuppliesDict = {};
+
+  constructor(private suppliesService: EmergencySupplyService,
+              private dialogService: DialogService,
+              private viewContainerRef: ViewContainerRef,
+              private elementRef: ElementRef,
+              private searchEmergencySupplyService: SearchEmergencySupplyService,
+  ) {
+
+  }
 
   ngOnInit() {
-    // this.userService.getUserList()
-    //   .map(users => users.sort((user1, user2) => {
-    //     if (user1.online && !user2.online) {
-    //       return -1;
-    //     } else if (!user1.online && user2.online) {
-    //       return 1;
-    //     } else {
-    //       if (user1.username > user2.username) {
-    //         return 1;
-    //       } else if (user1.username < user2.username) {
-    //         return -1;
-    //       } else {
-    //         return 0;
-    //       }
-    //     }
-    //   }))
-    //   .subscribe(users => {
-    //     this.searchUsersService.reset();
-    //     this.searchUsersService.users = users;
-    //     this.searchUsersService.updateSearch();
-    //   });
+    this.suppliesService.allEmergencySupplies()
+      .subscribe(supplies => {
+        this.searchEmergencySupplyService.reset();
+        this.searchEmergencySupplyService.emergencySupplies = supplies;
+        this.searchEmergencySupplyService.updateSearch();
+      });
+  }
+
+  toggleSelection(supply) {
+    /*if(this.selectedSuppliesDict[supply.supplyId]) {
+      console.log('Unselecting... ' + supply.supplyId);
+      delete this.selectedSuppliesDict[supply.supplyId];
+    } else {
+      console.log('Selecting... ' + supply.supplyId);
+      this.selectedSuppliesDict[supply.supplyId] = supply;
+    }*/
+    console.log(this.selectedSuppliesDict);
   }
 
 }

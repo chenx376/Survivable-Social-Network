@@ -29,7 +29,7 @@ import { SearchUsersService } from './services/search-users/search-users.service
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
 import { EmergencySupplyService } from './services/emergency-supply/emergencySupply.service';
-
+import { SearchEmergencySupplyService } from './services/search-emergency-supplies/search-emergency-supply.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
-  { path: 'announcements', component: AnnouncementsComponent },
+  { path: 'emergencySupplies', component: AnnouncementsComponent },
   { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
   { path: 'request-supplies', component: RequestSuppliesComponent },
   { path: 'confirm-supplyreq/:reqjson', component: ConfirmSupplyRequest }
@@ -83,7 +83,8 @@ const appRoutes: Routes = [
     SearchUsersService,
     SearchMessagesService,
     SearchAnnouncementsService,
-    EmergencySupplyService
+    EmergencySupplyService,
+    SearchEmergencySupplyService
   ],
   bootstrap: [AppComponent]
 })

@@ -45,18 +45,18 @@ describe('SearchAnnouncementsServiceTest', () => {
     expect(service).not.toBeNull();
   }));
 
-  it('should simulate retrieving announcements', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
+  it('should simulate retrieving emergencySupplies', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
     service = getTestBed().get(SearchAnnouncementsService);
     expect(service.announcements).not.toBeNull();
   }));
 
-  it('should clear announcements', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
+  it('should clear emergencySupplies', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
     service = getTestBed().get(SearchAnnouncementsService);
     service.reset();
     expect(service.displayedAnnouncements.length).toBe(0);
   }));
 
-  it('should simulate retrieving first 10 announcements', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
+  it('should simulate retrieving first 10 emergencySupplies', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
     service = getTestBed().get(SearchAnnouncementsService);
     service.updateSearch();
     service.searchTerm = 'announcement';
@@ -98,7 +98,7 @@ describe('SearchAnnouncementsServiceTest', () => {
     expect(service.displayedAnnouncements.length).toBe(5);
   }));
 
-  it('should paginate more than SECOND PAGE 20 announcements correctly', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
+  it('should paginate more than SECOND PAGE 20 emergencySupplies correctly', inject([SearchAnnouncementsService], (service: SearchAnnouncementsService) => {
     service = getTestBed().get(SearchAnnouncementsService);
 
     service.announcements.push(new Announcement({"_id": "58e33a3478a1620011fd830d", "announcer": {"_id": "58e31be4d7f7ba00119171d1", "__v": 0, "location": null, "online": true, "status_information": null, "status": 3, "role": "CITIZEN", "updated_at": "1491278820791", "created_at": "1491278820791", "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", "email": null, "username": "yan"}, "__v": 0, "location": null, "created_at": "2017-04-04T06:16:20.398Z", "content": "new announcement"}));

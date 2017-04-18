@@ -35,9 +35,6 @@ export class MySharedSuppliesComponent implements OnInit {
   ngOnInit() {
     this.suppliesService.mySharedSupplies()
       .subscribe(supplies => {
-        // this.searchUsersService.reset();
-        // this.searchUsersService.users = users;
-        // this.searchUsersService.updateSearch();
         this.mySupplies = supplies;
       });
 
