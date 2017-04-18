@@ -3,7 +3,20 @@
  */
 
 var config = require('config');
-let emergencySupplyModel = require('../models/emergencySupplyModel.js')
+let emergencySupplyModel = require('../models/emergencySupplyModel.js');
+
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+    provider: 'google',
+
+    // Optional depending on the providers
+    httpAdapter: 'https', // Default
+    apiKey: 'AIzaSyAHkwtxgDpDMqFvDtTl4JXxt-ldAH08Kvs', // for Mapquest, OpenCage, Google Premier
+    formatter: null         // 'gpx', 'string', ...
+};
+
+var geocoder = NodeGeocoder(options);
 
 module.exports = class EmergencySupplyDao {
     /**
@@ -52,6 +65,16 @@ module.exports = class EmergencySupplyDao {
     create(emergencySupplyObj, success, error) {
 
         let emergencySupplyToCreate = emergencySupplyModel(emergencySupplyObj);
+
+        /**
+         * Implementing Geocoder API to convert address into lat / long
+         */
+        if(emergencySupplyObj.location_text) {
+            geocoder.geocode('29 champs elysée paris', function(err, res) {
+                console.log(res);
+            });
+        }
+
         emergencySupplyToCreate.save(function (err, emergencySupply) {
             if (err) {
                 return error({
@@ -68,7 +91,8 @@ module.exports = class EmergencySupplyDao {
      */
     update(emergencySupplyToUpdate, success, error) {
 
-        emergencySupplyModel.findOne({_id: emergencySupplyToUpdate.id}, function (err, emergencySupply) {
+        console.log('Calling update emergency supply: ' + emergencySupplyToUpdate.id);
+        emergencySupplyModel.findOne({_id: emergencySupplyToUpdate.id}, function (err, found) {
             if (err) {
                 return error({
                     message: 'Error when getting emergencySupply.',
@@ -76,15 +100,16 @@ module.exports = class EmergencySupplyDao {
                 });
             }
 
-            emergencySupply.supplier = emergencySupplyToUpdate.supplier ? emergencySupplyToUpdate.supplier : emergencySupply.supplier;
-            emergencySupply.supplyname = emergencySupplyToUpdate.supplyname ? emergencySupplyToUpdate.supplyname : emergencySupply.supplyname;
-            emergencySupply.location_text = emergencySupplyToUpdate.location_text ? emergencySupplyToUpdate.location_text : emergencySupply.location_text;
-            emergencySupply.location_lat = emergencySupplyToUpdate.location_lat ? emergencySupplyToUpdate.location_lat : emergencySupply.location_lat;
-            emergencySupply.location_lng = emergencySupplyToUpdate.location_lng ? emergencySupplyToUpdate.location_lng : emergencySupply.location_lng;
-            emergencySupply.type = emergencySupplyToUpdate.type ? emergencySupplyToUpdate.type : emergencySupply.type;
-            emergencySupply.created_at = emergencySupplyToUpdate.created_at ? emergencySupplyToUpdate.created_at : emergencySupply.created_at;
+            found.id = emergencySupplyToUpdate.id;
+            found.supplier = (emergencySupplyToUpdate.supplier) ? emergencySupplyToUpdate.supplier : found.supplier;
+            found.supplyname = emergencySupplyToUpdate.supplyname ? emergencySupplyToUpdate.supplyname : found.supplyname;
+            found.location_text = emergencySupplyToUpdate.location_text ? emergencySupplyToUpdate.location_text : found.location_text;
+            found.location_lat = emergencySupplyToUpdate.location_lat ? emergencySupplyToUpdate.location_lat : found.location_lat;
+            found.location_lng = emergencySupplyToUpdate.location_lng ? emergencySupplyToUpdate.location_lng : found.location_lng;
+            found.type = emergencySupplyToUpdate.type ? emergencySupplyToUpdate.type : found.type;
+            found.created_at = emergencySupplyToUpdate.created_at ? emergencySupplyToUpdate.created_at : found.created_at;
 
-            emergencySupply.save(function (err, updated) {
+            found.save(function (err, updated) {
                 if (err) {
                     return error({
                         message: 'Error when updating emergencySupply.',

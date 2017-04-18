@@ -14,7 +14,7 @@ suite('EmergencySupply Tests', function(){
 
     suiteSetup('Setup DB Connection', function(done){
         conn = new ConnectionController();
-        announceDao = new EmergencySupplyDao();
+        emergencySupplyDao = new EmergencySupplyDao();
         tmp_time_stamp = new Date();
 
         userDao = new UserDAO();
@@ -47,25 +47,18 @@ suite('EmergencySupply Tests', function(){
             supplier : tmp_user_id,
             supplyname: 'Emergency Supply',
             created_at : tmp_time_stamp,
-            location : '2326 California Street, Mountain View',
+            location_text : '2326 California Street, Mountain View',
             location_lat: 999,
             location_lng: 999,
             type: 'Medicine'
         };
 
-        emergencySupply.supplier = emergencySupplyToUpdate.supplier ? emergencySupplyToUpdate.supplier : emergencySupply.supplier;
-        emergencySupply.supplyname = emergencySupplyToUpdate.supplyname ? emergencySupplyToUpdate.supplyname : emergencySupply.supplyname;
-        emergencySupply.location_text = emergencySupplyToUpdate.location_text ? emergencySupplyToUpdate.location_text : emergencySupply.location_text;
-        emergencySupply.location_lat = emergencySupplyToUpdate.location_lat ? emergencySupplyToUpdate.location_lat : emergencySupply.location_lat;
-        emergencySupply.location_lng = emergencySupplyToUpdate.location_lng ? emergencySupplyToUpdate.location_lng : emergencySupply.location_lng;
-        emergencySupply.type = emergencySupplyToUpdate.type ? emergencySupplyToUpdate.type : emergencySupply.type;
-
-        emergencySupply.create(emergencySupply, function (created) {
+        emergencySupplyDao.create(emergencySupply, function (created) {
             tmp_id = created._id;
             expect(created.supplyname).to.eql('Emergency Supply');
             expect(created.supplier).to.eql(tmp_user_id);
             expect(created.created_at).to.eql(tmp_time_stamp);
-            expect(created.location).to.eql('2326 California Street, Mountain View');
+            expect(created.location_text).to.eql('2326 California Street, Mountain View');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -101,7 +94,7 @@ suite('EmergencySupply Tests', function(){
         };
 
         emergencySupplyDao.update(emergencySupply, function (updated) {
-            expect(emergencySupply.supplyname).to.eql('Emergency Supply');
+            expect(updated.supplyname).to.eql('Emergency Supply');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -112,10 +105,11 @@ suite('EmergencySupply Tests', function(){
     test('Updating an emergencySupply', function(done){
         new_time_stamp = new Date();
         let emergencySupply  = {
+            id: tmp_id,
             supplier : tmp_user_id,
             supplyname: 'New Emergency Supply',
-            created_at : tmp_time_stamp,
-            location : '2326 California Street, Mountain View',
+            created_at : new_time_stamp,
+            location_text : '2326 California Street, Mountain View',
             location_lat: 999,
             location_lng: 999,
             type: 'New Type'
@@ -154,7 +148,6 @@ suite('EmergencySupply Tests', function(){
     });
 
     test('Error Case - Updating an invalid emergencySupply', function(done){
-        new_time_stamp = new Date();
         let emergencySupply = {
             id : 'invalid id',
             supplyname: 'Emergency Supply',
@@ -182,14 +175,6 @@ suite('EmergencySupply Tests', function(){
             done();
         });
     });
-
-    // test('Removing the user that was created', function(done){
-    //     userDao.remove(tmp_user_id, function(){
-    //         done();
-    //     }, function(error){
-    //         done();
-    //     });
-    // });
 
     suiteTeardown('Teardown DB Connection', function(done){
         conn.disconnect();
