@@ -12,11 +12,15 @@ import { Subscription } from "rxjs";
 export class EmailComponent implements OnInit {
 
     private targetUserId: string;
+    private title: string;
+    private content: string;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private emailService: EmailService,
-                private dialogService: DialogService,) { }
+                private dialogService: DialogService,
+                private viewContainerRef: ViewContainerRef,
+                private elementRef: ElementRef) { }
 
     ngOnInit() {
         this.route.params
@@ -24,7 +28,16 @@ export class EmailComponent implements OnInit {
           .subscribe(targetUserId => this.targetUserId = targetUserId);
     }
 
-    sendEmail() {
-        
+    sendEmailButtonClicked = () => {
+        this.emailService.sendEmail(this.title, this.content, this.targetUserId)
+          .subscribe(
+            () => {
+              this.title = '';
+              this.content = '';
+              this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+                .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
+            },
+            err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
+          );
     }
 }

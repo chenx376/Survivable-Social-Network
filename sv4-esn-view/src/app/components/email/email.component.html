@@ -1,9 +1,9 @@
 <md-input-container class="email-title">
-    <input mdInput placeholder="Email Title" value="">
+    <input mdInput placeholder="Email Title" value="" [(ngModel)]="title">
 </md-input-container>
 
 <md-input-container class="email-content">
-    <textarea mdInput placeholder="Email Content" rows="18"></textarea>
+    <textarea mdInput placeholder="Email Content" rows="18" [(ngModel)]="content"></textarea>
 </md-input-container>
 
 <button md-raised-button id="send-email-button"
