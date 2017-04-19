@@ -14,6 +14,9 @@ export class EmailComponent implements OnInit {
     private targetUserId: string;
     private title: string;
     private content: string;
+    private isGroup = false;
+    private statusId: number;
+    private receivers_group = [];
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -29,15 +32,29 @@ export class EmailComponent implements OnInit {
     }
 
     sendEmailButtonClicked = () => {
-        this.emailService.sendEmail(this.title, this.content, this.targetUserId)
-          .subscribe(
-            () => {
-              this.title = '';
-              this.content = '';
-              this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
-                .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
-            },
-            err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
-          );
+        if(this.isGroup) {
+            this.emailService.sendGroupEmail(this.title, this.content, this.receivers_group)
+              .subscribe(
+                () => {
+                  this.title = '';
+                  this.content = '';
+                  this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+                    .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
+                },
+                err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
+              );
+        }
+        else {
+            this.emailService.sendIndividualEmail(this.title, this.content, this.targetUserId)
+              .subscribe(
+                () => {
+                  this.title = '';
+                  this.content = '';
+                  this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+                    .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
+                },
+                err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
+              );
+        }
     }
 }

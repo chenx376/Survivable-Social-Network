@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  padding: 0 1vh;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
+}
+
+.example-radio-group {
+  margin-top: 15px;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.example-selected-value {
+  margin: 15px 0;
+}
+
+.selection-button {
+  margin-top: 15px;
+  height: 90px;
+}

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as io from 'socket.io-client';
 import { HttpService } from '../http/http.service';
 import { Email } from '../../models/email.model'
 import { UserService } from '../user/user.service';
@@ -14,7 +13,12 @@ export class EmailService {
   constructor(private httpService: HttpService,
               private userService: UserService) { }
 
-  sendEmail = (title: string, content: string, targetUserId: string): Observable<void> => {
+  sendIndividualEmail = (title: string, content: string, targetUserId: string): Observable<void> => {
     return this.httpService.post('/emails/', { title: title, content: content, sender: this.userService.userId, receivers_group: [targetUserId] });
   };
+
+  sendGroupEmail = (title: string, content: string, receivers_group): Observable<void> => {
+    return this.httpService.post('/emails/', { title: title, content: content, sender: this.userService.userId, receivers_group: receivers_group });
+  };
+
 }

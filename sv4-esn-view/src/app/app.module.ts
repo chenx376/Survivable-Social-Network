@@ -15,6 +15,7 @@ import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
 import { EmailComponent } from './components/email/email.component';
+import { EmailSelectionComponent } from './components/email-selection/email-selection.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
-  { path: 'email', component: EmailComponent },
+  { path: 'email', component: EmailSelectionComponent },
+  { path: 'email/status/:statusId', component: EmailComponent },
   { path: 'email/:userId', component: EmailComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     ShareStatusComponent,
     AnnouncementsComponent,
     EmailComponent,
+    EmailSelectionComponent,
     DialogComponent,
     AlertComponent
   ],
