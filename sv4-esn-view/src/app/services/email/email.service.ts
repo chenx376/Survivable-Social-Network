@@ -27,4 +27,9 @@ export class EmailService {
       .map(json => json.map(userJson => new User(userJson)));
   };
 
+  getReceiversGroupInSubscription = (): Observable<[User]> => {
+    return this.httpService.get('/users/subscription/true')
+      .map(json => json.map(userJson => new User(userJson)));
+  }
+
 }
