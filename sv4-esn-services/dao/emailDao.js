@@ -59,40 +59,40 @@ module.exports = class emailDao {
                     error: err
                 });
             }
-            email.receivers_group.forEach(function(receiver){
-                let email = {
-                    title : email.title,
-                    content : email.content,
-                    sender_name : email.sender.username,
-                    receiver_email : receiver.email
-                }
-                gmailService.sendEMail(email);
-            });
-            // userModel.findOne({_id: emailObj.sender}, function (err, sender) {
-            //     if (err) {
-            //         return error({
-            //             message: 'Error when getting user',
-            //             error: err
-            //         });
+            // email.receivers_group.forEach(function(receiver){
+            //     let email = {
+            //         title : email.title,
+            //         content : email.content,
+            //         sender_name : email.sender.username,
+            //         receiver_email : receiver.email
             //     }
-            //     emailObj.receivers_group.forEach(function(receiver_id){
-            //         userModel.findOne({_id: receiver_id}, function (err, receiver) {
-            //             if (err) {
-            //                 return error({
-            //                     message: 'Error when getting user',
-            //                     error: err
-            //                 });
-            //             }
-            //             let email = {
-            //                 title : emailObj.title,
-            //                 content : emailObj.content,
-            //                 sender_name : sender.username,
-            //                 receiver_email : receiver.email
-            //             }
-            //             gmailService.sendEMail(email);
-            //         });
-            //     });
+            //     gmailService.sendEMail(email);
             // });
+            userModel.findOne({_id: emailObj.sender}, function (err, sender) {
+                if (err) {
+                    return error({
+                        message: 'Error when getting user',
+                        error: err
+                    });
+                }
+                emailObj.receivers_group.forEach(function(receiver_id){
+                    userModel.findOne({_id: receiver_id}, function (err, receiver) {
+                        if (err) {
+                            return error({
+                                message: 'Error when getting user',
+                                error: err
+                            });
+                        }
+                        let email = {
+                            title : emailObj.title,
+                            content : emailObj.content,
+                            sender_name : sender.username,
+                            receiver_email : receiver.email
+                        }
+                        gmailService.sendEMail(email);
+                    });
+                });
+            });
             return success(email._doc);
         });
     }
