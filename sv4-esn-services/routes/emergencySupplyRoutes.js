@@ -26,6 +26,13 @@ router.get('/user/:id', passport.authenticate('jwt', { session: false }), emerge
  */
 router.post('/', emergencySupplyController.create);
 
+
+/*
+ * POST
+ */
+router.post('/confirm', emergencySupplyController.confirmSupplyRequest);
+
+
 /*
  * PUT
  */

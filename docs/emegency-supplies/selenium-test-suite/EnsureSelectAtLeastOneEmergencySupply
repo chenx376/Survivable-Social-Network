@@ -18,12 +18,12 @@
 </tr>
 <tr>
 	<td>sendKeys</td>
-	<td>id=md-input-1</td>
+	<td>id=username</td>
 	<td>arthurm</td>
 </tr>
 <tr>
 	<td>sendKeys</td>
-	<td>id=md-input-3</td>
+	<td>id=password</td>
 	<td>123456</td>
 </tr>
 <tr>

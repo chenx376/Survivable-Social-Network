@@ -17,18 +17,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=div.mat-input-wrapper</td>
-	<td></td>
-</tr>
-<tr>
 	<td>sendKeys</td>
-	<td>id=md-input-1</td>
+	<td>id=username</td>
 	<td>arthurm</td>
 </tr>
 <tr>
 	<td>sendKeys</td>
-	<td>id=md-input-3</td>
+	<td>id=password</td>
 	<td>123456</td>
 </tr>
 <tr>
@@ -76,7 +71,6 @@
 	<td>//md-sidenav[@id='sidenav']/div[9]/span</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

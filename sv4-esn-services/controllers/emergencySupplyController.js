@@ -2,8 +2,11 @@
  * Created by arthurm.
  */
 let EmergencySupplyDao = require('../dao/emergencySupplyDao.js')
+let MessageDao = require('../dao/messageDao.js')
 
 let emergencySupplyDao = new EmergencySupplyDao();
+
+let messageDao = new MessageDao();
 
 /**
  * emergencySupplyController.js
@@ -102,6 +105,37 @@ module.exports = {
         }, function (error) {
             return res.status(404).json(error);
         });
+    },
 
+    /**
+     * emergencySupplyController.confirmSupplyRequestViaHeadlessClient
+     */
+    confirmSupplyRequest(req, res) {
+
+        let supplyRequest = req.body.supplyRequest;
+        let keys = Object.keys(supplyRequest);
+
+        for(let i in keys) {
+            if (supplyRequest.hasOwnProperty(keys[i])) {
+                let msg = `Hi, I saw you have some emergency supplies available for sharing. <br /> <br /> I am interested in the following item: <br /> <br />`;
+                let targetUsr = supplyRequest[keys[i]].supplier.userId;
+                msg += `<md-list-item>- ` + supplyRequest[keys[i]].supplyname + `</md-list-item><br />`;
+
+                let message = {
+                    sender : req.body.sender,
+                    receiver : targetUsr,
+                    message : msg,
+                    sent_at : new Date(),
+                    broadcast : false,
+                    user_status: 0
+                };
+
+                messageDao.create(message, function (message) {
+                    return res.status(201).json(message);
+                }, function(error) {
+                    return res.status(404).json(error);
+                });
+            }
+        }
     }
 };

@@ -199,4 +199,40 @@ suite('Emergency Supply API Tests', function(){
         });
     })
 
+    test('Confirm Supply Request - Headless Client Support', function(done){
+
+        let payload = {
+            "sender": "58f5f40e4d56874e10d72d88",
+            "supplyRequest": {
+                "58f6c2ff6c405b71270ad820": {
+                    "supplyId": "58f6c2ff6c405b71270ad820",
+                    "supplyname": "👩🔧 Wife Fixer Kit",
+                    "location_text": "Golden Gate Bridge, San Francisco, CA",
+                    "location_lat": "37.8190478",
+                    "location_lng": "-122.4783932",
+                    "type": "General",
+                    "created_at": "2017-04-19T01:53:03.345Z",
+                    "supplier": {
+                        "status": 0,
+                        "online": false,
+                        "userId": "58f65f57ad2d4e584cf2c50e",
+                        "username": "John"
+                    }
+                }
+            }
+        }
+
+        request(app)
+            .post('/supplies/confirm')
+            .set('Authorization', 'JWT ' + emergencySupplyTempJWT)
+            .send(payload)
+            .end(function(err, res){
+                expect(err).to.not.be.ok();
+                expect(res).to.have.property('statusCode');
+                expect(res).to.have.property('body');
+                expect(res.statusCode).to.eql(201);
+                done();
+            });
+    })
+
 });

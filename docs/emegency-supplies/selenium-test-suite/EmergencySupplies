@@ -15,6 +15,7 @@
 <tr><td><a href="CancelRequestEmergencySupply">A5 - CancelRequestEmergencySupply</a></td></tr>
 <tr><td><a href="EnsureSelectAtLeastOneEmergencySupply">A6 - EnsureSelectAtLeastOneEmergencySupply</a></td></tr>
 <tr><td><a href="ShouldHandleEmptySearchGracefully">A1 - ShouldHandleEmptySearchGracefully</a></td></tr>
+<tr><td><a href="ClearWaterAndBuddweiser">ClearWaterAndBuddweiser</a></td></tr>
 </tbody></table>
 </body>
 </html>
