@@ -16,7 +16,7 @@ export class EmailComponent implements OnInit {
     private content: string;
     private isGroup = false;
     private statusId: number;
-    private receivers_group = [];
+    private receivers_group = ["58f552d0861f08cff81f057a"];
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -26,6 +26,10 @@ export class EmailComponent implements OnInit {
                 private elementRef: ElementRef) { }
 
     ngOnInit() {
+        this.route.url
+          .map(url => url[url.length - 2].path)
+          .filter(path => path === 'status')
+          .subscribe(() => this.isGroup = true);
         this.route.params
           .map(params => params.userId)
           .subscribe(targetUserId => this.targetUserId = targetUserId);
