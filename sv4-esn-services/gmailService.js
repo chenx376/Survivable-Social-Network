@@ -3,13 +3,6 @@ var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 
-// If modifying these scopes, delete your previously saved credentials
-// at ~/.credentials/gmail-nodejs-quickstart.json
-var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'gmail-nodejs-quickstart.json';
-
 module.exports = class GmailService {
 
     constructor() {
@@ -23,10 +16,10 @@ module.exports = class GmailService {
         var auth = new googleAuth();
         var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
-        var token = fs.readFileSync(TOKEN_PATH);
+        var token = fs.readFileSync('gmail-nodejs-quickstart.json');
         oauth2Client.credentials = JSON.parse(token);
         this.mAuth = oauth2Client;
-        console.log("Authentication success");
+        console.log("Gmail API Authentication Success");
     };
 
     sendEMail(email) {
