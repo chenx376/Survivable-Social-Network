@@ -72,7 +72,21 @@ module.exports = class UserDAO {
                     error: err
                 });
             }
-            console.log(users);
+            return success(users);
+        });
+    };
+
+    /**
+     * userDao.findBySubscription()
+     */
+    findBySubscription(uSubscription, success, error) {
+        userModel.find({subscription: uSubscription}, function (err, users) {
+            if (err) {
+                return error({
+                    message: 'Error when getting user.',
+                    error: err
+                });
+            }
             return success(users);
         });
     };
@@ -116,6 +130,7 @@ module.exports = class UserDAO {
             user.role = userToUpdate.role ? userToUpdate.role : user.role;
             user.status = userToUpdate.status ? userToUpdate.status: user.status;
             user.status_information = userToUpdate.status_information ? userToUpdate.status_information : user.status_information;
+            user.subscription = userToUpdate.subscription ? userToUpdate.subscription : user.subscription;
 
             if(userToUpdate.online !== null && userToUpdate.online !== undefined)
                 user.online = userToUpdate.online;

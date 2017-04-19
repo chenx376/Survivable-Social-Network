@@ -33,6 +33,17 @@ module.exports = {
     },
 
     /**
+     * userController.list()
+     */
+    listBySubscription: function (req, res) {
+        userDao.findBySubscription(req.params.isSubscribed, function(users){
+            return res.json(users);
+        }, function(error){
+            return res.status(404).json(error);
+        });
+    },
+
+    /**
      * userController.show()
      */
     show: function (req, res) {
@@ -58,7 +69,8 @@ module.exports = {
 			created_at : req.body.created_at,
 			updated_at : req.body.updated_at,
 			role : req.body.role,
-            location : req.body.location
+            location : req.body.location,
+            subscription : req.body.subscription
         };
 
         userDao.create(user, function(user){
@@ -90,7 +102,8 @@ module.exports = {
             status: req.body.status,
             status_information: req.body.status_information,
             online: req.body.online,
-            location : req.body.location
+            location : req.body.location,
+            subscription: req.body.subscription
         };
 
         userDao.update(user, function(user){
