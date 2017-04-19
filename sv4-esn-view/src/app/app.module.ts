@@ -14,6 +14,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
+import { EmailComponent } from './components/email/email.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 
@@ -22,6 +23,7 @@ import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { AnnouncementsService } from './services/announcements/announcements.service';
+import { EmailService } from './services/email/email.service';
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
-  { path: 'announcements', component: AnnouncementsComponent }
+  { path: 'announcements', component: AnnouncementsComponent },
+  { path: 'email', component: EmailComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -48,6 +51,7 @@ const appRoutes: Routes = [
     DirectoryComponent,
     ShareStatusComponent,
     AnnouncementsComponent,
+    EmailComponent,
     DialogComponent,
     AlertComponent
   ],
@@ -68,6 +72,7 @@ const appRoutes: Routes = [
     UserService,
     ChatService,
     AnnouncementsService,
+    EmailService,
     DialogService,
     SearchUsersService,
     SearchMessagesService,
