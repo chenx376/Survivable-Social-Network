@@ -36,7 +36,7 @@ module.exports = class emailDao {
             .exec(function (err, email) {
                 if (err){
                     return error({
-                        message: 'Error when getting emailments.',
+                        message: 'Error when getting emails.',
                         error: err
                     });
                 }
@@ -59,6 +59,19 @@ module.exports = class emailDao {
                     error: err
                 });
             }
+            if (email.title == null || email.title == '' || email.title == undefined) {
+                return error({
+                    message: 'Email must have a title.',
+                    error: err
+                });
+            }
+            if (email.receivers_group.length == 1 && email.receivers_group[0].email == null) {
+                return error({
+                    message: 'The user has no email address.',
+                    error: err
+                });
+            }
+
             // email.receivers_group.forEach(function(receiver){
             //     let email = {
             //         title : email.title,
@@ -68,6 +81,7 @@ module.exports = class emailDao {
             //     }
             //     gmailService.sendEMail(email);
             // });
+
             userModel.findOne({_id: emailObj.sender}, function (err, sender) {
                 if (err) {
                     return error({
@@ -75,11 +89,13 @@ module.exports = class emailDao {
                         error: err
                     });
                 }
+                var size = emailObj.receivers_group.length;
+                console.log(size);
                 emailObj.receivers_group.forEach(function(receiver_id){
                     userModel.findOne({_id: receiver_id}, function (err, receiver) {
                         if (err) {
                             return error({
-                                message: 'Error when getting user',
+                                message: 'User has no email address',
                                 error: err
                             });
                         }
