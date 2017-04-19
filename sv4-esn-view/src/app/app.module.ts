@@ -38,7 +38,8 @@ const appRoutes: Routes = [
   { path: 'directory', component: DirectoryComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
-  { path: 'email', component: EmailComponent }
+  { path: 'email', component: EmailComponent },
+  { path: 'email/:userId', component: EmailComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 

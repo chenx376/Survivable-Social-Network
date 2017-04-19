@@ -1,3 +1,10 @@
-<md-input-container>
-  <input mdInput placeholder="Favorite food" value="Sushi">
+<md-input-container class="email-title">
+    <input mdInput placeholder="Email Title" value="">
 </md-input-container>
+
+<md-input-container class="email-content">
+    <textarea mdInput placeholder="Email Content" rows="18"></textarea>
+</md-input-container>
+
+<button md-raised-button id="send-email-button"
+        (click)="sendEmailButtonClicked()">Send Email</button>
