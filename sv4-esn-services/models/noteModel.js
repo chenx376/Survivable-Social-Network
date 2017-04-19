@@ -12,7 +12,8 @@ var noteSchema = new Schema({
         default: Date.now
     },
     'content': {type: String, default: null},
-    'e_type' : {type: String, default: null}//fire, earthquake}
+    'e_type' : {type: String, default: null},//fire, earthquake}
+    'note_title': {type: String, default: null}
 });
 
 module.exports = mongoose.model('note', noteSchema);

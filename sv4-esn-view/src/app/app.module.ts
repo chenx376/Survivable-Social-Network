@@ -26,6 +26,7 @@ import { AnnouncementsService } from './services/announcements/announcements.ser
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
+import { NoteService} from './services/note/note.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     DialogService,
     SearchUsersService,
     SearchMessagesService,
-    SearchAnnouncementsService
+    SearchAnnouncementsService,
+    NoteService
   ],
   bootstrap: [AppComponent]
 })

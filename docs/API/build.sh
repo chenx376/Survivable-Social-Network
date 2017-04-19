@@ -8,6 +8,7 @@ cat \
   sharestatus.apib \
   message.apib \
   announcement.apib \
+  note.apib \
   data_structures.apib \
 > result.apib
 

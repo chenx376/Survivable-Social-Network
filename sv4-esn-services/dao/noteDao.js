@@ -72,6 +72,7 @@ module.exports = class NoteDao {
             note.content = noteToUpdate.content ? noteToUpdate.content : note.content;
             note.created_at = noteToUpdate.created_at ? noteToUpdate.created_at : note.created_at;
             note.e_type = noteToUpdate.e_type ? noteToUpdate.e_type : note.e_type;
+            note.note_title = noteToUpdate.note_title ? noteToUpdate.note_title : note.note_title;
 
 
             note.save(function (err, note) {
@@ -105,6 +106,7 @@ module.exports = class NoteDao {
 
     listspecial(id, success, error) {
         let notes_present = [];
+        let notes_output = [];
         var person_ids = "";
         var content_all = "";
         var emergencies = ['fire', 'earthquake', 'flood'];
@@ -129,7 +131,6 @@ module.exports = class NoteDao {
                            person_ids = person_ids + " " + person_id;
                        }
                        content_all = content_all + content;
-
                    });
                     notemodel
                         .find({})
@@ -141,29 +142,48 @@ module.exports = class NoteDao {
                                     var emergency_type = item.e_type;
 
                                     var content = content_all.toLowerCase();
-
                                     for (var i =0; i < emergencies.length; i++) {
-
                                         var emergency = emergencies[i];
                                         if (content.indexOf(emergency) >= 0 ){
-
-                                            if (emergency_type == emergency) {
-                                            }
-                                            if (emergencies_string.indexOf(emergency) >=0) {
-                                            }
                                             if ((emergency_type == emergency) && (emergencies_string.indexOf(emergency) >=0)) {
                                                 emergencies_string = emergencies_string.replace(emergency, " ");
+                                                item.note_title = "How to deal with " + emergency_type;
                                                 notes_present.push(item);
                                             }
                                         }
                                     }
+
                                     if(person_ids.indexOf(sender_id)>=0 || sender_id == id){
+                                        if (sender_id == id) {
+                                            item.note_title = "Mynote";
+                                        }
+                                        if (person_ids.indexOf(sender_id)>=0 && (sender_id != id)) {
+                                            item.note_title = "Note From Admin";
+                                        }
                                         notes_present.push(item);
                                     }
-
                                 })
                             }
-                            return success(notes_present);
+
+                            for (var i = 0; i < notes_present.length; i++){
+                                var title = notes_present[i].note_title;
+                                if (title.indexOf("How") >=0) {
+                                    notes_output.push(notes_present[i]);
+                                }
+                            }
+                            for (var i = 0; i < notes_present.length; i++){
+                                var title = notes_present[i].note_title;
+                                if (title.indexOf("Admin") >=0) {
+                                    notes_output.push(notes_present[i]);
+                                }
+                            }
+                            for (var i = 0; i < notes_present.length; i++){
+                                var title = notes_present[i].note_title;
+                                if (title.indexOf("Mynote") >=0) {
+                                    notes_output.push(notes_present[i]);
+                                }
+                            }
+                            return success(notes_output);
                         });
                 }
             });

@@ -34,6 +34,7 @@ test:
     - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.announces.drop()"
     - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.messages.drop()"
     - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.users.drop()"
+    - mongo ds163360.mlab.com:63360/heroku_7nj4m2gg -u xiao -p xiao --eval "db.notes.drop()"
 
 deployment:
   prod:

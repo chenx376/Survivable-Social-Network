@@ -52,8 +52,6 @@ suite('noteDao Tests', function () {
             done();
         });
 
-
-
     });
 
     test('Creating an note', function (done) {
@@ -62,10 +60,9 @@ suite('noteDao Tests', function () {
             content: 'note test',
             sender: tmp_user_id,
             created_at: tmp_time_stamp,
-            e_type: 'fire'
+            e_type: 'fire',
+            note_title: 'Mynote'
         };
-
-
 
         noteDao.create(note, function (noteRes) {
             tmp_id = noteRes._id;
@@ -73,6 +70,7 @@ suite('noteDao Tests', function () {
             expect(noteRes.sender).to.eql(tmp_user_id);
             expect(noteRes.created_at).to.eql(tmp_time_stamp);
             expect(noteRes.e_type).to.eql('fire');
+            expect(noteRes.note_title).to.eql('Mynote');
             done();
 
         }, function (error) {
@@ -124,13 +122,15 @@ suite('noteDao Tests', function () {
             sender : tmp_user_id,
             content : 'There is an earthquake',
             created_at : new_time_stamp,
-            e_type : 'earthquake'
+            e_type : 'earthquake',
+            note_title: 'Mynote'
         };
         noteDao.update(note, function (note) {
             expect(note.content).to.eql('There is an earthquake');
             expect(note.sender).to.eql(tmp_user_id);
             expect(note.created_at).to.eql(new_time_stamp);
             expect(note.e_type).to.eql('earthquake');
+            expect(note.note_title).to.eql('Mynote');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
