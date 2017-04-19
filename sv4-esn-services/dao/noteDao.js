@@ -145,7 +145,7 @@ module.exports = class NoteDao {
                                     for (var i =0; i < emergencies.length; i++) {
                                         var emergency = emergencies[i];
                                         if (content.indexOf(emergency) >= 0 ){
-                                            if ((emergency_type == emergency) && (emergencies_string.indexOf(emergency) >=0)) {
+                                            if ((emergency_type == emergency) && (emergencies_string.indexOf(emergency) >= 0)) {
                                                 emergencies_string = emergencies_string.replace(emergency, " ");
                                                 item.note_title = "How to deal with " + emergency_type;
                                                 notes_present.push(item);
@@ -153,11 +153,11 @@ module.exports = class NoteDao {
                                         }
                                     }
 
-                                    if(person_ids.indexOf(sender_id)>=0 || sender_id == id){
+                                    if(person_ids.indexOf(sender_id) >= 0 || sender_id == id){
                                         if (sender_id == id) {
                                             item.note_title = "Mynote";
                                         }
-                                        if (person_ids.indexOf(sender_id)>=0 && (sender_id != id)) {
+                                        if (person_ids.indexOf(sender_id) >= 0 && (sender_id != id)) {
                                             item.note_title = "Note From Admin";
                                         }
                                         notes_present.push(item);
@@ -167,19 +167,19 @@ module.exports = class NoteDao {
 
                             for (var i = 0; i < notes_present.length; i++){
                                 var title = notes_present[i].note_title;
-                                if (title.indexOf("How") >=0) {
+                                if (title.indexOf("How") >= 0) {
                                     notes_output.push(notes_present[i]);
                                 }
                             }
                             for (var i = 0; i < notes_present.length; i++){
                                 var title = notes_present[i].note_title;
-                                if (title.indexOf("Admin") >=0) {
+                                if (title.indexOf("Admin") >= 0) {
                                     notes_output.push(notes_present[i]);
                                 }
                             }
                             for (var i = 0; i < notes_present.length; i++){
                                 var title = notes_present[i].note_title;
-                                if (title.indexOf("Mynote") >=0) {
+                                if (title.indexOf("Mynote") >= 0) {
                                     notes_output.push(notes_present[i]);
                                 }
                             }

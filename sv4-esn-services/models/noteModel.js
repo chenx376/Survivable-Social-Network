@@ -1,9 +1,9 @@
 
 var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+var Schema = mongoose.Schema;
 
 var noteSchema = new Schema({
-    'sender' : {
+    'sender': {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
@@ -12,7 +12,7 @@ var noteSchema = new Schema({
         default: Date.now
     },
     'content': {type: String, default: null},
-    'e_type' : {type: String, default: null},//fire, earthquake}
+    'e_type': {type: String, default: null},//fire, earthquake}
     'note_title': {type: String, default: null}
 });
 

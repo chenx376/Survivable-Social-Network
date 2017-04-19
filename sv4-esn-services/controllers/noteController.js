@@ -43,12 +43,12 @@ module.exports = {
      * noteController.create()
      */
     create: function (req,res) {
-        let note  = {
-            e_type : req.body.e_type,
-            content : req.body.content,
+        let note = {
+            e_type: req.body.e_type,
+            content: req.body.content,
             sender: req.body.sender,
-            created_at : req.body.created_at,
-            note_title : req.note_title
+            created_at: req.body.created_at,
+            note_title: req.note_title
         };
         noteDao.create(note, function (created) {
             return res.status(201).json(note);
@@ -62,11 +62,11 @@ module.exports = {
      */
     update: function (req, res) {
         let note = {
-            id  : req.params.id,
-            sender  : req.body.sender,
-            content     : req.body.content,
-            created_at  : req.body.created_at,
-            note_title : req.body.note_title
+            id: req.params.id,
+            sender: req.body.sender,
+            content: req.body.content,
+            created_at: req.body.created_at,
+            note_title: req.body.note_title
         };
 
         noteDao.update(note, function (note) {
