@@ -16,7 +16,6 @@ export class EmailComponent implements OnInit {
     private content: string;
     private isGroup = false;
     private statusId: number;
-    private receivers_group = ["58f552d0861f08cff81f057a"];
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -33,20 +32,46 @@ export class EmailComponent implements OnInit {
         this.route.params
           .map(params => params.userId)
           .subscribe(targetUserId => this.targetUserId = targetUserId);
+        this.route.params
+          .map(params => params.statusId)
+          .subscribe(statusId => this.statusId = statusId);
     }
 
     sendEmailButtonClicked = () => {
         if(this.isGroup) {
-            this.emailService.sendGroupEmail(this.title, this.content, this.receivers_group)
-              .subscribe(
-                () => {
-                  this.title = '';
-                  this.content = '';
-                  this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
-                    .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
-                },
-                err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
-              );
+            this.emailService.getReceiversGroupInStatus(this.statusId)
+                .map(users => users.sort((user1, user2) => {
+                  if (user1.online && !user2.online) {
+                    return -1;
+                  } else if (!user1.online && user2.online) {
+                    return 1;
+                  } else {
+                    if (user1.username > user2.username) {
+                      return 1;
+                    } else if (user1.username < user2.username) {
+                      return -1;
+                    } else {
+                      return 0;
+                    }
+                  }
+                }))
+                .subscribe(users => {
+                  console.log(users);
+                  var m_receivers_group = [];
+                  users.forEach(function(user){
+                      m_receivers_group.push(user.userId);
+                  })
+                  this.emailService.sendGroupEmail(this.title, this.content, m_receivers_group)
+                    .subscribe(
+                      () => {
+                        this.title = '';
+                        this.content = '';
+                        this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
+                          .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
+                      },
+                      err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
+                    );
+                });
         }
         else {
             this.emailService.sendIndividualEmail(this.title, this.content, this.targetUserId)

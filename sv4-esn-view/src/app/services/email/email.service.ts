@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { Email } from '../../models/email.model'
 import { UserService } from '../user/user.service';
+import { User, UserStatus } from '../../models/user.model'
 
 @Injectable()
 export class EmailService {
@@ -19,6 +20,11 @@ export class EmailService {
 
   sendGroupEmail = (title: string, content: string, receivers_group): Observable<void> => {
     return this.httpService.post('/emails/', { title: title, content: content, sender: this.userService.userId, receivers_group: receivers_group });
+  };
+
+  getReceiversGroupInStatus = (statusId: number): Observable<[User]> => {
+    return this.httpService.get('/users/status/' + statusId)
+      .map(json => json.map(userJson => new User(userJson)));
   };
 
 }

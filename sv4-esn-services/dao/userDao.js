@@ -62,6 +62,22 @@ module.exports = class UserDAO {
     };
 
     /**
+     * userDao.findByStatus()
+     */
+    findByStatus(uStatus, success, error) {
+        userModel.find({status: uStatus}, function (err, users) {
+            if (err) {
+                return error({
+                    message: 'Error when getting user.',
+                    error: err
+                });
+            }
+            console.log(users);
+            return success(users);
+        });
+    };
+
+    /**
      * userController.create()
      */
     create(userObj, success, error) {
