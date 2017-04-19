@@ -28,6 +28,10 @@ td {
   width: 100%;
 }
 
+#register-supply-button {
+  width: 100%;
+}
+
 /* -- Material Design Table style -------------- */
 .table {
   width: 100%;
