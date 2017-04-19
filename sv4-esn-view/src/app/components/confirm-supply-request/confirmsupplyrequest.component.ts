@@ -86,7 +86,7 @@ export class ConfirmSupplyRequest implements OnInit {
            this.chatService.sendPrivateMessage(msg, targetUsr);
          }
        }
-    this.dialogService.openDialogue(this.viewContainerRef,
+    this.dialogService.openAlert(this.viewContainerRef,
       'Success',
       `Howdy! All set, we contacted the suppliers, expect to hear from them soon.`)
       .filter(result => result === true)

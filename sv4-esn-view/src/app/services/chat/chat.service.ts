@@ -9,7 +9,7 @@ import { Message } from '../../models/message.model';
 export class ChatService {
 
   // private endpoint = "https://sv4-esn-services.herokuapp.com";
-  private endpoint = "http://192.168.0.111:3000";
+  private endpoint = "http://localhost:3000";
 
   private socket = io(this.endpoint);
 
