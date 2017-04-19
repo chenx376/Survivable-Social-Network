@@ -58,7 +58,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//md-sidenav[@id='sidenav']/div[9]/span</td>
+	<td>//md-sidenav[@id='sidenav']/div[9]</td>
 	<td></td>
 </tr>
 </tbody></table>

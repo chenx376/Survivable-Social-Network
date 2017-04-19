@@ -66,6 +66,28 @@ suite('EmergencySupply Tests', function(){
         });
     });
 
+
+    test('Creating an emergency supply WITHOUT address', function(done){
+
+        let emergencySupply  = {
+            supplier : tmp_user_id,
+            supplyname: 'Emergency Supply',
+            created_at : tmp_time_stamp,
+            type: 'Medicine'
+        };
+
+        emergencySupplyDao.create(emergencySupply, function (created) {
+            tmp_id = created._id;
+            expect(created.supplyname).to.eql('Emergency Supply');
+            expect(created.supplier).to.eql(tmp_user_id);
+            expect(created.created_at).to.eql(tmp_time_stamp);
+            done();
+        }, function (error) {
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
     test('Listing emergency supplies', function(done){
         emergencySupplyDao.list(function (emergencySupplies) {
             expect(emergencySupplies).to.be.an('array');

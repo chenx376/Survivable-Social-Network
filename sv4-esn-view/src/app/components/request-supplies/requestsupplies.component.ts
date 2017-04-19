@@ -40,14 +40,6 @@ export class RequestSuppliesComponent implements OnInit {
   }
 
   toggleSelection(supply) {
-    /*if(this.selectedSuppliesDict[supply.supplyId]) {
-      console.log('Unselecting... ' + supply.supplyId);
-      delete this.selectedSuppliesDict[supply.supplyId];
-    } else {
-      console.log('Selecting... ' + supply.supplyId);
-      this.selectedSuppliesDict[supply.supplyId] = supply;
-    }*/
-    console.log(this.selectedMap[supply.supplyId]);
     if(this.selectedMap[supply.supplyId])
       this.requestSupplies[supply.supplyId] = supply;
     else
