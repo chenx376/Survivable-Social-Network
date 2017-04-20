@@ -1,0 +1,14 @@
+<md-input-container id="location-name-input">
+  <input mdInput placeholder="Location"
+         [(ngModel)]="locationName">
+</md-input-container>
+
+<md-input-container class="location-description-input">
+    <textarea mdInput rows="1" placeholder="Description"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="locationDescription">
+    </textarea>
+</md-input-container>
+
+<button md-raised-button id="update-location-button"
+        (click)="updateLocationButtonClicked()">Update Location</button>
