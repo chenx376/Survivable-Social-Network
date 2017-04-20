@@ -70,4 +70,8 @@ export class UserService {
     return this.httpService.put(`/users/${this.userId}`, { status, status_information: information });
   }
 
+  updateSettings = (email: string, subscription: boolean): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { email: email, subscription: subscription });
+  }
+
 }

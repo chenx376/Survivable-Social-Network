@@ -16,6 +16,7 @@ import { ShareStatusComponent } from './components/share-status/share-status.com
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
 import { EmailComponent } from './components/email/email.component';
 import { EmailSelectionComponent } from './components/email-selection/email-selection.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
   { path: 'announcements', component: AnnouncementsComponent },
   { path: 'email', component: EmailSelectionComponent },
   { path: 'email/status/:statusId', component: EmailComponent },
-  { path: 'email/:userId', component: EmailComponent }
+  { path: 'email/:userId', component: EmailComponent },
+  { path: 'settings', component: SettingsComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     EmailComponent,
     EmailSelectionComponent,
     DialogComponent,
-    AlertComponent
+    AlertComponent,
+    SettingsComponent
   ],
   entryComponents: [
     DialogComponent,

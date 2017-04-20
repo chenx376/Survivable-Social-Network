@@ -1,0 +1,23 @@
+<!-- <md-input-container class="information-input">
+    <textarea mdInput placeholder="Email Address" rows="1"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="emailAddress">
+    </textarea>
+</md-input-container> -->
+
+<md-input-container class="email-address">
+    <input mdInput placeholder="Email Address" value="" [(ngModel)]="emailAddress">
+</md-input-container>
+
+<p>Subscribe from Announcements?</p>
+<md-radio-group class="example-radio-group" [(ngModel)]="subscriptionChosen">
+  <md-radio-button class="example-radio-button" value="true">
+    Yes
+  </md-radio-button>
+  <md-radio-button class="example-radio-button" value="false">
+    No
+  </md-radio-button>
+</md-radio-group>
+
+<button md-raised-button class="update-settings-button" id="update-settings-button"
+        (click)="updateSettingsButtonClicked()">Update Settings</button>

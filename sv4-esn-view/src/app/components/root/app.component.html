@@ -41,6 +41,12 @@
       <span>Email</span>
     </div>
     <div class="sidenav-item"
+         routerLink="/settings" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">build</md-icon>
+      <span>Settings</span>
+    </div>
+    <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">
       <md-icon class="sidenav-item-icon">reply</md-icon>
       <span>Log Out</span>

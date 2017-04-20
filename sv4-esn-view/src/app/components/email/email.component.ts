@@ -69,7 +69,7 @@ export class EmailComponent implements OnInit {
                         this.dialogService.openAlert(this.viewContainerRef, 'Success', 'Success')
                           .subscribe(() => setTimeout(() => this.elementRef.nativeElement.scrollTop = 0, 0));
                       },
-                      err => this.dialogService.openAlert(this.viewContainerRef, 'Partial Success', err.message)
+                      err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
                     );
                 });
         }
