@@ -109,8 +109,8 @@ module.exports = class NoteDao {
         let notes_output = [];
         var person_ids = "";
         var content_all = "";
-        var emergencies = ['fire', 'earthquake', 'flood'];
-        var emergencies_string = 'fire earthquake flood';
+        var emergencies = ['fire', 'earthquake', 'flood','power outage'];
+        var emergencies_string = 'fire earthquake flood power outage';
         announceModel
             .find({})
             .populate('announcer')
@@ -152,13 +152,14 @@ module.exports = class NoteDao {
                                             }
                                         }
                                     }
-
+                                    sender_id = String(sender_id);
+                                    id = String(id);
                                     if(person_ids.indexOf(sender_id) >= 0 || sender_id == id){
                                         if (sender_id == id) {
                                             item.note_title = "Mynote";
                                         }
                                         if (person_ids.indexOf(sender_id) >= 0 && (sender_id != id)) {
-                                            item.note_title = "Note From Admin";
+                                            item.note_title = "Note From Administer";
                                         }
                                         notes_present.push(item);
                                     }
@@ -173,7 +174,7 @@ module.exports = class NoteDao {
                             }
                             for (var i = 0; i < notes_present.length; i++){
                                 var title = notes_present[i].note_title;
-                                if (title.indexOf("Admin") >= 0) {
+                                if (title.indexOf("Administer") >= 0) {
                                     notes_output.push(notes_present[i]);
                                 }
                             }

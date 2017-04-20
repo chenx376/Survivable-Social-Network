@@ -8,8 +8,12 @@ var ConnectionController = require('../../controllers/connection-controller.js')
 let userDao;
 var conn;
 var tmp_id;
+var tmp_id2;
+
 var tmp_time_stamp;
 var tmp_user_id;
+var tmp_user_id2;
+var tmp_user_id3;
 let noteDao;
 let announceDao;
 
@@ -37,21 +41,50 @@ suite('noteDao Tests', function () {
             location : 'Mountain View'
         };
 
+        let user2 = {
+            username : 'noteUser2',
+            email : 'note@website.com',
+            password : shapassword,
+            created_at : '1489962761679',
+            updated_at : '1489962761679',
+            role : 'CITIZEN',
+            location : 'Mountain View'
+        };
+
+        let user3 = {
+            username : 'noteUser3',
+            email : 'note@website.com',
+            password : shapassword,
+            created_at : '1489962761679',
+            updated_at : '1489962761679',
+            role : 'CITIZEN',
+            location : 'Mountain View'
+        };
 
         userDao.create(user, function(user){
             tmp_user_id = user._id;
             let announce = {
                 announcer : tmp_user_id,
-                content : 'There is a earthquake',
+                content : 'There is a fire',
             };
             announceDao.create(announce, function () {
+                userDao.create(user2, function (user2) {
+                    tmp_user_id2 = user2._id;
+                    userDao.create(user3, function (user3) {
+                        tmp_user_id3 = user3._id;
+                        done();
+                    }, function (error) {
+                        done();
+                    })
+                }, function (error) {
+                    done();
+                })
             }, function (error) {
+                done();
             });
-            done();
         }, function(error){
             done();
         });
-
     });
 
     test('Creating an note', function (done) {
@@ -60,19 +93,39 @@ suite('noteDao Tests', function () {
             content: 'note test',
             sender: tmp_user_id,
             created_at: tmp_time_stamp,
-            e_type: 'fire',
-            note_title: 'Mynote'
+            e_type: 'null',
+            note_title: 'null'
         };
+
+        let note2 = {
+            content: 'note test',
+            sender: tmp_user_id2,
+            created_at: tmp_time_stamp,
+            e_type: 'null',
+            note_title: 'null'
+        };
+
+        let note3 = {
+            content: 'what we are suppose to do during fire',
+            sender: tmp_user_id3,
+            created_at: tmp_time_stamp,
+            e_type: 'fire',
+            note_title: 'null'
+        }
 
         noteDao.create(note, function (noteRes) {
             tmp_id = noteRes._id;
-            expect(noteRes.content).to.eql('note test');
-            expect(noteRes.sender).to.eql(tmp_user_id);
-            expect(noteRes.created_at).to.eql(tmp_time_stamp);
-            expect(noteRes.e_type).to.eql('fire');
-            expect(noteRes.note_title).to.eql('Mynote');
-            done();
-
+            noteDao.create(note2, function (noteRes2) {
+                tmp_id2 = noteRes2._id;
+                noteDao.create(note3, function (noteRes3) {
+                    expect(noteRes3.content).to.eql('what we are suppose to do during fire');
+                    expect(noteRes3.sender).to.eql(tmp_user_id3);
+                    expect(noteRes3.created_at).to.eql(tmp_time_stamp);
+                    expect(noteRes3.e_type).to.eql('fire');
+                    expect(noteRes3.note_title).to.eql('null');
+                    done();
+                })
+            })
         }, function (error) {
             expect(error).to.be(undefined);
             done();
@@ -120,17 +173,17 @@ suite('noteDao Tests', function () {
         let note = {
             id : tmp_id,
             sender : tmp_user_id,
-            content : 'There is an earthquake',
+            content : 'There is a fire',
             created_at : new_time_stamp,
-            e_type : 'earthquake',
-            note_title: 'Mynote'
+            e_type : 'null',
+            note_title: 'null'
         };
         noteDao.update(note, function (note) {
-            expect(note.content).to.eql('There is an earthquake');
+            expect(note.content).to.eql('There is a fire');
             expect(note.sender).to.eql(tmp_user_id);
             expect(note.created_at).to.eql(new_time_stamp);
-            expect(note.e_type).to.eql('earthquake');
-            expect(note.note_title).to.eql('Mynote');
+            expect(note.e_type).to.eql('null');
+            expect(note.note_title).to.eql('null');
             done();
         }, function (error) {
             expect(error).to.be(undefined);
@@ -140,7 +193,7 @@ suite('noteDao Tests', function () {
 
     test('Finding by special', function (done) {
 
-        noteDao.listspecial(tmp_id, function (notes) {
+        noteDao.listspecial(tmp_user_id, function (notes) {
             expect(notes).to.be.an('array');
             done();
         }, function (error) {
@@ -149,8 +202,21 @@ suite('noteDao Tests', function () {
         })
         });
 
+    test('Finding by special2', function (done) {
+
+        noteDao.listspecial(tmp_user_id2, function (notes) {
+            expect(notes).to.be.an('array');
+            done();
+        }, function (error) {
+            expect(error.message).to.eql('Could not find messages for this combination of users');
+            done();
+        })
+    });
+
+
+
     test('Removing a note', function(done){
-        noteDao.remove(tmp_id, function (announce) {
+        noteDao.remove(tmp_id, function (note) {
             done();
         }, function (error) {
             expect(error).to.be(undefined);
