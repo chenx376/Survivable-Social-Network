@@ -201,7 +201,7 @@ suite('Emergency Supply API Tests', function(){
     test('Confirm Supply Request - Headless Client Support', function(done){
 
         let payload = {
-            "sender": "58f5f40e4d56874e10d72d88",
+            "sender": emergencySupplyUserID,
             "supplyRequest": {
                 "58f6c2ff6c405b71270ad820": {
                     "supplyId": "58f6c2ff6c405b71270ad820",
@@ -214,7 +214,7 @@ suite('Emergency Supply API Tests', function(){
                     "supplier": {
                         "status": 0,
                         "online": false,
-                        "userId": "58f65f57ad2d4e584cf2c50e",
+                        "userId": emergencySupplyUserID,
                         "username": "John"
                     }
                 }
