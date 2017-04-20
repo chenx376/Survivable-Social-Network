@@ -56,13 +56,13 @@ describe('SearchMessagesServiceTest', () => {
     expect(service.messages).not.toBeNull();
   }));
 
-  it('should clear announcements', inject([SearchMessagesService], (service: SearchMessagesService) => {
+  it('should clear emergencySupplies', inject([SearchMessagesService], (service: SearchMessagesService) => {
     service = getTestBed().get(SearchMessagesService);
     service.reset();
     expect(service.displayedMessages.length).toBe(0);
   }));
 
-  it('should simulate retrieving first 10 announcements', inject([SearchMessagesService], (service: SearchMessagesService) => {
+  it('should simulate retrieving first 10 emergencySupplies', inject([SearchMessagesService], (service: SearchMessagesService) => {
     service = getTestBed().get(SearchMessagesService);
     service.updateSearch();
     service.searchTerm = 'MESSAGE';

@@ -1,0 +1,1 @@
+var mongoose = require('mongoose');var Schema   = mongoose.Schema;var emergencySupply = new Schema({	'supplier' : {	 	type: Schema.Types.ObjectId,	 	ref: 'user'	},	'supplyname': String,	'location_text' : String,	'location_lat': String,	'location_lng': String,	'type': String,	'created_at': Date});module.exports = mongoose.model('emergencysupply', emergencySupply);

@@ -95,6 +95,10 @@ app.use('/messages', messages);
 var announces = require('./routes/announceRoutes.js');
 app.use('/announces', announces);
 
+
+var emergencySupplies = require('./routes/emergencySupplyRoutes.js');
+app.use('/supplies', emergencySupplies);
+
 /**
  * End of REST API Endpoints
  */

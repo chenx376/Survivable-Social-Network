@@ -1,0 +1,35 @@
+<div class="confirm-request">
+
+  <div id="map"></div>
+
+  <md-card class="example-card">
+  <!--<md-card-header>-->
+    <!--<div md-card-avatar class="checkout"></div>-->
+    <!--<md-card-title style="margin-top: 10px; color: #999;">Checkout Supplies</md-card-title>-->
+    <!--<md-card-subtitle>Input the information of the supply you want to share</md-card-subtitle>-->
+  <!--</md-card-header>-->
+  <!--<img md-card-image src="assets/img/examples/shiba2.jpg">-->
+  <md-card-content>
+    <!--<br />-->
+    <button md-raised-button color="primary" class="confirmbutton" (click)="confirmRequest()">Confirm request</button>
+    <p>
+      You've selected the following items, confirm your request so that we can reach out to the suppliers.
+    </p>
+    <p>
+      If something does not feel right and you wish to cancel use the <md-icon>delete</md-icon> button. <button md-mini-fab routerLink="/request-supplies" style="position: fixed; top: 90vh; left: 80vw;"><md-icon class="example-icon">delete</md-icon></button>
+    </p>
+    <md-list>
+      <md-list-item *ngFor="let k of mapKeys()">
+        <md-icon class="status-icon status-ok">check_circle</md-icon>
+        <h4 md-line>{{requestedSuppliesMap[k][0].supplier.username}}</h4>
+        <p md-line style="padding-left: 2vw;" *ngFor="let i of requestedSuppliesMap[k]">{{i.supplyname}}</p>
+      </md-list-item>
+    </md-list>
+
+  </md-card-content>
+
+</md-card>
+
+</div>
+
+

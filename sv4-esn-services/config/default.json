@@ -1,5 +1,8 @@
 {
-    "mongo_url": "mongodb://bingchen:bingchen@ds163020.mlab.com:63020/heroku_61nh4pph",
+    "mongo_url": "mongodb://test:123456@ds137230.mlab.com:37230/heroku_vkmn2h5g",
+//    "mongo_url": "mongodb://localhost:32768/heroku_vkmn2h5g",
+//    "mongo_url": "mongodb://arthur:arthur@ds163020.mlab.com:63020/heroku_qf821zft",
+//    "mongo_url": "mongodb://bingchen:bingchen@ds163020.mlab.com:63020/heroku_61nh4pph",
     "JwtSecretKey": "JWT_SV4_ESN_JWT_SECRET_KEY",
     "errors": {
         "userExists": "Username already exists, please choose another one.",
