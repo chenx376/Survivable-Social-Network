@@ -47,7 +47,17 @@
       <md-icon class="sidenav-item-icon">shopping_basket</md-icon>
       <span>Request Supplies</span>
     </div>
-
+         routerLink="/location" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">location_on</md-icon>
+      <span>Location</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/map" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">map</md-icon>
+      <span>Map</span>
+    </div>
     <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">
       <md-icon class="sidenav-item-icon">reply</md-icon>

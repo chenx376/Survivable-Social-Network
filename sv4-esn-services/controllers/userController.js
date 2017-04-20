@@ -47,7 +47,10 @@ module.exports = {
 			created_at : req.body.created_at,
 			updated_at : req.body.updated_at,
 			role : req.body.role,
-            location : req.body.location
+            locationName : req.body.locationName,
+            locationDescription : req.body.locationDescription,
+            latitude : req.body.latitude,
+            longitude : req.body.longitude,
         };
 
         userDao.create(user, function(user){
@@ -79,7 +82,10 @@ module.exports = {
             status: req.body.status,
             status_information: req.body.status_information,
             online: req.body.online,
-            location : req.body.location
+            locationName : req.body.locationName,
+            locationDescription : req.body.locationDescription,
+            latitude : req.body.latitude,
+            longitude : req.body.longitude,
         };
 
         userDao.update(user, function(user){
