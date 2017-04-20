@@ -60,6 +60,26 @@ suite('UserDAO Tests', function(){
         });
     });
 
+    test('Listing users by status', function(done){
+        userDao.findByStatus(0, function(users){
+            expect(users).to.be.an('array');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Listing users by subscription', function(done){
+        userDao.findBySubscription(true, function(users){
+            expect(users).to.be.an('array');
+            done();
+        }, function(error){
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
     // test('Finding a user by ID', function(done){
     //
     //     done();
