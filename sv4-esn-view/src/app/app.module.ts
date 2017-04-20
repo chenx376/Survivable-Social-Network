@@ -14,6 +14,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
+import { LocationComponent } from './components/location/location.component';
+import { MapComponent } from './components/map/map.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 
@@ -34,6 +36,8 @@ const appRoutes: Routes = [
   { path: 'chat/public', component: ChatComponent },
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
+  { path: 'location', component: LocationComponent },
+  { path: 'map', component: MapComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent }
   // { path: '**', component: PageNotFoundComponent }
@@ -48,6 +52,8 @@ const appRoutes: Routes = [
     DirectoryComponent,
     ShareStatusComponent,
     AnnouncementsComponent,
+    LocationComponent,
+    MapComponent,
     DialogComponent,
     AlertComponent
   ],

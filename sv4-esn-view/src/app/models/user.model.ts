@@ -12,6 +12,10 @@ export class User {
   status: UserStatus = UserStatus.Undefined;
   statusInformation: string;
   online: boolean = false;
+  locationName: string;
+  locationDescription: string;
+  latitude: number;
+  longitude: number;
 
   constructor(json: any) {
     this.userId = json._id;
@@ -19,6 +23,10 @@ export class User {
     this.status = json.status;
     this.statusInformation = json.status_information;
     this.online = json.online;
+    this.locationName = json.locationName;
+    this.locationDescription = json.locationDescription;
+    this.latitude = json.latitude;
+    this.longitude = json.longitude;
   }
 
 }
