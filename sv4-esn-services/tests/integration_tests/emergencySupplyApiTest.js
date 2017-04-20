@@ -33,7 +33,6 @@ suite('Emergency Supply API Tests', function(){
             .expect(200)
             .end(function(err, res){
                 emergencySupplyTempJWT = res.body.token;
-                // console.log(emergencySupplyTempJWT);
                 done();
             });
         });

@@ -11,7 +11,6 @@ export class AnnouncementsService {
   private endpoint = "https://sv4-esn-services.herokuapp.com";
   private socket = io(this.endpoint);
 
-
   constructor(private httpService: HttpService,
               private userService: UserService) { }
 
