@@ -9,6 +9,7 @@ cat \
   message.apib \
   announcement.apib \
   data_structures.apib \
+  email.apib \
 > result.apib
 
 aglio -i result.apib -o result.html
