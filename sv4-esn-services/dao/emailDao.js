@@ -66,12 +66,6 @@ module.exports = class emailDao {
                 });
             }
             userModel.findOne({_id: emailObj.receivers_group[0]}, function (err, valid_receiver) {
-                // if (err) {
-                //     return error({
-                //         message: 'Error when getting user.',
-                //         error: err
-                //     });
-                // }
                 if ((emailObj.receivers_group.length == 1) && (valid_receiver.email == null)) {
                     return error({
                         message: 'The user has no email address.',
@@ -79,20 +73,8 @@ module.exports = class emailDao {
                     });
                 }
                 userModel.findOne({_id: emailObj.sender}, function (err, sender) {
-                    // if (err) {
-                    //     return error({
-                    //         message: 'Error when getting user',
-                    //         error: err
-                    //     });
-                    // }
                     emailObj.receivers_group.forEach(function(receiver_id){
                         userModel.findOne({_id: receiver_id}, function (err, receiver) {
-                            if (err) {
-                                return error({
-                                    message: 'Error when getting user',
-                                    error: err
-                                });
-                            }
                             let m_email = {
                                 title : emailObj.title,
                                 content : emailObj.content,
