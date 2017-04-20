@@ -9,7 +9,7 @@ var emergencySupplyController = require('../controllers/emergencySupplyControlle
 /*
  * GET
  */
-router.get('/', passport.authenticate('jwt', { session: false }), emergencySupplyController.list);
+router.get('/', emergencySupplyController.list);
 
 /*
  * GET
