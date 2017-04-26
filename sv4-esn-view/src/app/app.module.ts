@@ -52,7 +52,7 @@ const appRoutes: Routes = [
   { path: 'email', component: EmailSelectionComponent },
   { path: 'email/status/:statusId', component: EmailComponent },
   { path: 'email/:userId', component: EmailComponent },
-  { path: 'settings', component: SettingsComponent }
+  { path: 'settings', component: SettingsComponent },
   { path: 'emergencySupplies', component: AnnouncementsComponent },
   { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
   { path: 'request-supplies', component: RequestSuppliesComponent },
@@ -71,7 +71,7 @@ const appRoutes: Routes = [
     AnnouncementsComponent,
     EmailComponent,
     EmailSelectionComponent,
-    SettingsComponent
+    SettingsComponent,
     LocationComponent,
     MapComponent,
     DialogComponent,
