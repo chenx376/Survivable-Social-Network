@@ -135,7 +135,10 @@ module.exports = class UserDAO {
             if(userToUpdate.online !== null && userToUpdate.online !== undefined)
                 user.online = userToUpdate.online;
 
-            user.location = userToUpdate.location? userToUpdate.location: user.location;
+            user.locationName = userToUpdate.locationName ? userToUpdate.locationName : user.locationName;
+            user.locationDescription = userToUpdate.locationDescription ? userToUpdate.locationDescription : user.locationDescription;
+            user.latitude = userToUpdate.latitude ? userToUpdate.latitude : user.latitude;
+            user.longitude = userToUpdate.longitude ? userToUpdate.longitude : user.longitude;
 
             user.save(function (err, user) {
                 if (err) {

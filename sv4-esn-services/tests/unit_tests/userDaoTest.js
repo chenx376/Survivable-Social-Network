@@ -28,7 +28,10 @@ suite('UserDAO Tests', function(){
             status: 0,
             status_information: 'status_info',
             online: false,
-            location : 'Mountain View'
+            locationName : 'Mountain View',
+            locationDescription : 'Home',
+            latitude: 0,
+            longitude: 0
         };
 
         userDao.create(user, function(user){
@@ -42,7 +45,10 @@ suite('UserDAO Tests', function(){
             expect(user.status).to.eql(0);
             expect(user.status_information).to.eql('status_info');
             expect(user.online).to.eql(false);
-            expect(user.location).to.eql('Mountain View');
+            expect(user.locationName).to.eql('Mountain View');
+            expect(user.locationDescription).to.eql('Home');
+            expect(user.latitude).to.eql(0);
+            expect(user.longitude).to.eql(0);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -100,7 +106,10 @@ suite('UserDAO Tests', function(){
             expect(user.status).to.eql(0);
             expect(user.status_information).to.eql('status_info');
             expect(user.online).to.eql(false);
-            expect(user.location).to.eql('Mountain View');
+            expect(user.locationName).to.eql('Mountain View');
+            expect(user.locationDescription).to.eql('Home');
+            expect(user.latitude).to.eql(0);
+            expect(user.longitude).to.eql(0);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -134,10 +143,13 @@ suite('UserDAO Tests', function(){
             expect(user.created_at).to.eql('1489962761679');
             expect(user.updated_at).to.eql('1489962761679');
             expect(user.role).to.eql('CITIZEN');
-            expect(user.location).to.eql('Mountain View');
             expect(user.status).to.eql(0);
             expect(user.status_information).to.eql('status_info');
             expect(user.online).to.eql(false);
+            expect(user.locationName).to.eql('Mountain View');
+            expect(user.locationDescription).to.eql('Home');
+            expect(user.latitude).to.eql(0);
+            expect(user.longitude).to.eql(0);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -160,10 +172,13 @@ suite('UserDAO Tests', function(){
             expect(user.created_at).to.eql('1489962761679');
             expect(user.updated_at).to.eql('1489962761679');
             expect(user.role).to.eql('CITIZEN');
-            expect(user.location).to.eql('Mountain View');
             expect(user.status).to.eql(0);
             expect(user.status_information).to.eql('status_info');
             expect(user.online).to.eql(false);
+            expect(user.locationName).to.eql('Mountain View');
+            expect(user.locationDescription).to.eql('Home');
+            expect(user.latitude).to.eql(0);
+            expect(user.longitude).to.eql(0);
             done();
         }, function(error) {
             expect(error).to.be(undefined);
@@ -186,7 +201,8 @@ suite('UserDAO Tests', function(){
             status : 1,
             status_information: 'new status_info',
             online: true,
-            location : 'new Mountain View'
+            locationName : 'San Francisco',
+            locationDescription: 'Work'
         };
 
         userDao.update(u, function(user){
@@ -199,7 +215,10 @@ suite('UserDAO Tests', function(){
             expect(user.status).to.eql(1);
             expect(user.status_information).to.eql('new status_info');
             expect(user.online).to.eql(true);
-            expect(user.location).to.eql('new Mountain View');
+            expect(user.locationName).to.eql('San Francisco');
+            expect(user.locationDescription).to.eql('Work');
+            expect(user.latitude).to.eql(0);
+            expect(user.longitude).to.eql(0);
             done();
         }, function(error) {
             expect(error).to.be(undefined);
@@ -246,7 +265,10 @@ suite('UserDAO Tests', function(){
             status : 1,
             status_information: 'new status_info',
             online: true,
-            location : 'new Mountain View'
+            locationName : 'San Francisco',
+            locationDescription: 'Work',
+            latitude: 0,
+            longitude: 0
         };
 
         userDao.update(u, function(user){

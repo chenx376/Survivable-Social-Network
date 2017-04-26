@@ -1,6 +1,6 @@
 // import { TestBed, inject } from '@angular/core/testing';
 //
-// import { AnnouncementsService } from './announcements.service';
+// import { AnnouncementsService } from './emergencySupplies.service';
 //
 // describe('AnnouncementsService', () => {
 //   beforeEach(() => {

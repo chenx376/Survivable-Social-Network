@@ -68,7 +68,11 @@ export class UserService {
 
   shareStatus = (status: UserStatus, information: string): Observable<void> => {
     return this.httpService.put(`/users/${this.userId}`, { status, status_information: information });
-  }
+  };
+
+  updateLocation = (name: string, description: string, latitude: number, longitude: number): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { locationName: name, locationDescription: description, latitude, longitude });
+  };
 
   updateSettings = (email: string, subscription: boolean): Observable<void> => {
     return this.httpService.put(`/users/${this.userId}`, { email: email, subscription: subscription });

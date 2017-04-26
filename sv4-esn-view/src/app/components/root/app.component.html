@@ -41,6 +41,31 @@
       <span>Email</span>
     </div>
     <div class="sidenav-item"
+         routerLink="/my-shared-supplies" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">screen_share</md-icon>
+      <span>My Shared Supplies</span>
+    </div>
+
+    <div class="sidenav-item"
+         routerLink="/request-supplies" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">shopping_basket</md-icon>
+      <span>Request Supplies</span>
+    </div>
+    <div  class="sidenav-item"
+         routerLink="/location" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">location_on</md-icon>
+      <span>Location</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/map" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">map</md-icon>
+      <span>Map</span>
+    </div>
+    <div class="sidenav-item"
          routerLink="/settings" routerLinkActive="active"
          (click)="sidenav.close()">
       <md-icon class="sidenav-item-icon">build</md-icon>

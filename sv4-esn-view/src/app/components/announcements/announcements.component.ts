@@ -4,6 +4,8 @@ import { DialogService } from '../../services/dialog/dialog.service';
 import { SearchAnnouncementsService } from '../../services/search-announcements/search-announcements.service';
 import { EmailService } from '../../services/email/email.service';
 
+
+
 @Component({
   selector: 'app-announcements',
   templateUrl: './announcements.component.html',
@@ -18,7 +20,8 @@ export class AnnouncementsComponent implements OnInit {
               private emailService: EmailService,
               private viewContainerRef: ViewContainerRef,
               private searchAnnouncementsService: SearchAnnouncementsService,
-              private elementRef: ElementRef) { }
+              private elementRef: ElementRef,
+              ) { }
 
   ngOnInit() {
     this.announcementsService.getAnnouncements()
@@ -76,5 +79,6 @@ export class AnnouncementsComponent implements OnInit {
         err => this.dialogService.openAlert(this.viewContainerRef, 'Error', err.message)
       );
   }
+
 
 }
