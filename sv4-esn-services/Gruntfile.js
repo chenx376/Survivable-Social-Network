@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             coverage: {
                 src: ['tests/**/*.js'], // a folder works nicely
                 options: {
-                    excludes : ['*.js'],
+                    excludes : ['*.js', 'controllers/*'],
                     mochaOptions: ['--reporter', 'mocha-junit-reporter', '--ui', 'tdd', '--timeout', '30000'] // any extra options for mocha
                 }
             }

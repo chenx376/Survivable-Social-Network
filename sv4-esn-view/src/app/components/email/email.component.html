@@ -1,0 +1,10 @@
+<md-input-container class="email-title">
+    <input mdInput id="email-title" placeholder="Email Title" value="" [(ngModel)]="title">
+</md-input-container>
+
+<md-input-container class="email-content">
+    <textarea mdInput id="email-content" placeholder="Email Content" rows="18" [(ngModel)]="content"></textarea>
+</md-input-container>
+
+<button md-raised-button id="send-email-button"
+        (click)="sendEmailButtonClicked()">Send Email</button>

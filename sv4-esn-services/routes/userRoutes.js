@@ -15,6 +15,16 @@ router.get('/', passport.authenticate('jwt', { session: false }), userController
 router.get('/:id', passport.authenticate('jwt', { session: false }), userController.show);
 
 /*
+ * GET
+ */
+router.get(('/status/:statusId'), userController.listByStatus);
+
+/*
+ * GET
+ */
+router.get(('/subscription/:isSubscribed'), userController.listBySubscription);
+
+/*
  * POST
  */
 router.post('/', userController.create);

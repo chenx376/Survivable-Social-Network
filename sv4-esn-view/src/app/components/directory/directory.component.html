@@ -45,6 +45,7 @@
       </div>
       <md-icon class="online-icon"
                *ngIf="user.online">language</md-icon>
+      <md-icon class="email-icon" routerLink="/email/{{ user.userId }}">email</md-icon>
     </div>
     <div class="empty-status-information"
          *ngIf="user.statusInformation === null || user.statusInformation.length === 0">
@@ -55,4 +56,5 @@
       {{ user.statusInformation }}
     </div>
   </div>
+  <!-- <button md-raised-button class="email-button"  id="directory-send-email-button"><md-icon>email</md-icon></button> -->
 </div>

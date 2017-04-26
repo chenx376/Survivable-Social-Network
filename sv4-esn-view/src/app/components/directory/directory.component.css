@@ -95,6 +95,13 @@
   color: #51b53f;
 }
 
+.email-icon {
+    margin-left: 5px;
+    width: 20px;
+    font-size: 1.2em;
+    color: #51b53f;
+}
+
 .empty-status-information {
   font-style: italic;
   color: #666;
@@ -117,4 +124,3 @@
   margin-left: 2px;
   font-size: 0.8em;
 }
-

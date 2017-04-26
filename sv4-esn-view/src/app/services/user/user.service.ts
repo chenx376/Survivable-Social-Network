@@ -74,4 +74,8 @@ export class UserService {
     return this.httpService.put(`/users/${this.userId}`, { locationName: name, locationDescription: description, latitude, longitude });
   };
 
+  updateSettings = (email: string, subscription: boolean): Observable<void> => {
+    return this.httpService.put(`/users/${this.userId}`, { email: email, subscription: subscription });
+  }
+
 }

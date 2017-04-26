@@ -35,6 +35,12 @@
       <span>Announcements</span>
     </div>
     <div class="sidenav-item"
+         routerLink="/email" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">email</md-icon>
+      <span>Email</span>
+    </div>
+    <div class="sidenav-item"
          routerLink="/my-shared-supplies" routerLinkActive="active"
          (click)="sidenav.close()">
       <md-icon class="sidenav-item-icon">screen_share</md-icon>
@@ -58,6 +64,12 @@
          (click)="sidenav.close()">
       <md-icon class="sidenav-item-icon">map</md-icon>
       <span>Map</span>
+    </div>
+    <div class="sidenav-item"
+         routerLink="/settings" routerLinkActive="active"
+         (click)="sidenav.close()">
+      <md-icon class="sidenav-item-icon">build</md-icon>
+      <span>Settings</span>
     </div>
     <div class="sidenav-item"
          (click)="logoutButtonClicked(sidenav)">

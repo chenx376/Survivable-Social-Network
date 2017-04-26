@@ -14,6 +14,9 @@ import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
+import { EmailComponent } from './components/email/email.component';
+import { EmailSelectionComponent } from './components/email-selection/email-selection.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { LocationComponent } from './components/location/location.component';
 import { MapComponent } from './components/map/map.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -27,6 +30,7 @@ import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { AnnouncementsService } from './services/announcements/announcements.service';
+import { EmailService } from './services/email/email.service';
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
@@ -44,6 +48,11 @@ const appRoutes: Routes = [
   { path: 'location', component: LocationComponent },
   { path: 'map', component: MapComponent },
   { path: 'share_status', component: ShareStatusComponent},
+  { path: 'announcements', component: AnnouncementsComponent },
+  { path: 'email', component: EmailSelectionComponent },
+  { path: 'email/status/:statusId', component: EmailComponent },
+  { path: 'email/:userId', component: EmailComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: 'emergencySupplies', component: AnnouncementsComponent },
   { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
   { path: 'request-supplies', component: RequestSuppliesComponent },
@@ -60,6 +69,9 @@ const appRoutes: Routes = [
     DirectoryComponent,
     ShareStatusComponent,
     AnnouncementsComponent,
+    EmailComponent,
+    EmailSelectionComponent,
+    SettingsComponent,
     LocationComponent,
     MapComponent,
     DialogComponent,
@@ -85,6 +97,7 @@ const appRoutes: Routes = [
     UserService,
     ChatService,
     AnnouncementsService,
+    EmailService,
     DialogService,
     SearchUsersService,
     SearchMessagesService,
