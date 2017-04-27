@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       .filter(message => this.router.url !== `/chat/${message.sender.userId}`)
       .subscribe(message => {
         this.dialogService.openDialogue(this.viewContainerRef,
-          'New Message Ritvik',
+          'New Message',
           `${message.sender.username} sent you a message. Would you like to see it?`)
           .filter(result => result === true)
           .subscribe(() => this.router.navigateByUrl(`chat/${message.sender.userId}`))

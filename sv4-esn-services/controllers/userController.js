@@ -22,6 +22,28 @@ module.exports = {
     },
 
     /**
+     * userController.list()
+     */
+    listByStatus: function (req, res) {
+        userDao.findByStatus(req.params.statusId, function(users){
+            return res.json(users);
+        }, function(error){
+            return res.status(404).json(error);
+        });
+    },
+
+    /**
+     * userController.list()
+     */
+    listBySubscription: function (req, res) {
+        userDao.findBySubscription(req.params.isSubscribed, function(users){
+            return res.json(users);
+        }, function(error){
+            return res.status(404).json(error);
+        });
+    },
+
+    /**
      * userController.show()
      */
     show: function (req, res) {
@@ -47,7 +69,11 @@ module.exports = {
 			created_at : req.body.created_at,
 			updated_at : req.body.updated_at,
 			role : req.body.role,
-            location : req.body.location
+            locationName : req.body.locationName,
+            locationDescription : req.body.locationDescription,
+            latitude : req.body.latitude,
+            longitude : req.body.longitude,
+            subscription : req.body.subscription
         };
 
         userDao.create(user, function(user){
@@ -79,7 +105,11 @@ module.exports = {
             status: req.body.status,
             status_information: req.body.status_information,
             online: req.body.online,
-            location : req.body.location
+            locationName : req.body.locationName,
+            locationDescription : req.body.locationDescription,
+            latitude : req.body.latitude,
+            longitude : req.body.longitude,
+            subscription: req.body.subscription
         };
 
         userDao.update(user, function(user){

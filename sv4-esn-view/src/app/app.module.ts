@@ -14,19 +14,34 @@ import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
+
 import { NoteComponent } from './components/note/note.component';
+import { EmailComponent } from './components/email/email.component';
+import { EmailSelectionComponent } from './components/email-selection/email-selection.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { LocationComponent } from './components/location/location.component';
+import { MapComponent } from './components/map/map.component';
+
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies.component';
+import { RequestSuppliesComponent} from './components/request-supplies/requestsupplies.component';
+import { ConfirmSupplyRequest } from "./components/confirm-supply-request/confirmsupplyrequest.component";
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
 import { ChatService } from './services/chat/chat.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { AnnouncementsService } from './services/announcements/announcements.service';
+import { EmailService } from './services/email/email.service';
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
+
 import { NoteService} from './services/note/note.service';
+import { EmergencySupplyService } from './services/emergency-supply/emergencySupply.service';
+import { SearchEmergencySupplyService } from './services/search-emergency-supplies/search-emergency-supply.service';
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -36,9 +51,20 @@ const appRoutes: Routes = [
   { path: 'chat/public', component: ChatComponent },
   { path: 'chat/:userId', component: ChatComponent },
   { path: 'directory', component: DirectoryComponent },
+  { path: 'location', component: LocationComponent },
+  { path: 'map', component: MapComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
+
   { path: 'notes', component: NoteComponent}
+  { path: 'email', component: EmailSelectionComponent },
+  { path: 'email/status/:statusId', component: EmailComponent },
+  { path: 'email/:userId', component: EmailComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'emergencySupplies', component: AnnouncementsComponent },
+  { path: 'my-shared-supplies', component: MySharedSuppliesComponent },
+  { path: 'request-supplies', component: RequestSuppliesComponent },
+  { path: 'confirm-supplyreq/:reqjson', component: ConfirmSupplyRequest }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -51,9 +77,19 @@ const appRoutes: Routes = [
     DirectoryComponent,
     ShareStatusComponent,
     AnnouncementsComponent,
+    EmailComponent,
+    EmailSelectionComponent,
+    SettingsComponent,
+    LocationComponent,
+    MapComponent,
     DialogComponent,
     AlertComponent,
+
     NoteComponent
+    MySharedSuppliesComponent,
+    RequestSuppliesComponent,
+    ConfirmSupplyRequest
+
   ],
   entryComponents: [
     DialogComponent,
@@ -72,11 +108,15 @@ const appRoutes: Routes = [
     UserService,
     ChatService,
     AnnouncementsService,
+    EmailService,
     DialogService,
     SearchUsersService,
     SearchMessagesService,
     SearchAnnouncementsService,
+
     NoteService
+    EmergencySupplyService,
+    SearchEmergencySupplyService
   ],
   bootstrap: [AppComponent]
 })

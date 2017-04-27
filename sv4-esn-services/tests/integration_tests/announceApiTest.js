@@ -33,7 +33,7 @@ suite('Announcements API Tests', function(){
             .expect(200)
             .end(function(err, res){
                 announceTempJWT = res.body.token;
-                // console.log(announceTempJWT);
+                // console.log(emergencySupplyTempJWT);
                 done();
             });
         });

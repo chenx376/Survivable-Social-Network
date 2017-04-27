@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  padding: 0 1vh;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
+}
+
+#location-name-input {
+  margin-top: 10px;
+}
+
+.announcement {
+  margin-top: 10px;
+  padding: 10px 15px;
+}

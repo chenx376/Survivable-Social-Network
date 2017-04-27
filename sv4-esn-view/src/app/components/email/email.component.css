@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
+  padding: 0 1vh;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+}
+
+:host>* {
+  min-height: min-content;
+}
+
+.email-title {
+  margin-top: 10px;
+}
+
+.email-content {
+  margin-top: 0px;
+}
