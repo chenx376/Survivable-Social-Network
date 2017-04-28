@@ -101,6 +101,9 @@ app.use('/emails', emails);
 var emergencySupplies = require('./routes/emergencySupplyRoutes.js');
 app.use('/supplies', emergencySupplies);
 
+var notes = require('./routes/noteRoutes');
+app.use('/notes', notes);
+
 /**
  * End of REST API Endpoints
  */

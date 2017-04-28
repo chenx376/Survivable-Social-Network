@@ -14,11 +14,14 @@ import { ChatComponent } from './components/chat/chat.component';
 import { DirectoryComponent } from './components/directory/directory.component';
 import { ShareStatusComponent } from './components/share-status/share-status.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
+
+import { NoteComponent } from './components/note/note.component';
 import { EmailComponent } from './components/email/email.component';
 import { EmailSelectionComponent } from './components/email-selection/email-selection.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LocationComponent } from './components/location/location.component';
 import { MapComponent } from './components/map/map.component';
+
 import { DialogComponent } from './components/dialog/dialog.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies.component';
@@ -34,8 +37,11 @@ import { EmailService } from './services/email/email.service';
 import { SearchUsersService } from './services/search-users/search-users.service';
 import { SearchMessagesService } from './services/search-messages/search-messages.service';
 import { SearchAnnouncementsService } from './services/search-announcements/search-announcements.service';
+
+import { NoteService} from './services/note/note.service';
 import { EmergencySupplyService } from './services/emergency-supply/emergencySupply.service';
 import { SearchEmergencySupplyService } from './services/search-emergency-supplies/search-emergency-supply.service';
+
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -49,6 +55,8 @@ const appRoutes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
+
+  { path: 'notes', component: NoteComponent},
   { path: 'email', component: EmailSelectionComponent },
   { path: 'email/status/:statusId', component: EmailComponent },
   { path: 'email/:userId', component: EmailComponent },
@@ -76,9 +84,12 @@ const appRoutes: Routes = [
     MapComponent,
     DialogComponent,
     AlertComponent,
+
+    NoteComponent,
     MySharedSuppliesComponent,
     RequestSuppliesComponent,
     ConfirmSupplyRequest
+
   ],
   entryComponents: [
     DialogComponent,
@@ -102,6 +113,8 @@ const appRoutes: Routes = [
     SearchUsersService,
     SearchMessagesService,
     SearchAnnouncementsService,
+
+    NoteService,
     EmergencySupplyService,
     SearchEmergencySupplyService
   ],

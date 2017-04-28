@@ -1,0 +1,26 @@
+<div class="message-list">
+  <md-card class="message" *ngFor="let note of notes">
+    <img class="avatar" src="{{ userService.getAvatarUrl(note.note_title) }}" />
+    <div class="message-body">
+      <div class="user-header">
+        <div class="username">{{ note.note_title }}</div>
+      </div>
+      <div class="message-date">{{ noteService.formatDate(note.date) }}</div>
+      <div class="message-content">{{ note.content }}</div>
+    </div>
+  </md-card>
+</div>
+
+
+<div class="message-controls">
+  <md-input-container class="message-input">
+    <textarea mdInput rows="1"
+              mdTextareaAutosize mdAutosizeMaxRows="3"
+              [(ngModel)]="noteContent">
+    </textarea>
+  </md-input-container>
+
+  <button md-mini-fab class="message-send-button" (click)="sendnote()">
+    <md-icon>send</md-icon>
+  </button>
+</div>
