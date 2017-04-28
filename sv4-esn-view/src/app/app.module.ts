@@ -56,7 +56,7 @@ const appRoutes: Routes = [
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
 
-  { path: 'notes', component: NoteComponent}
+  { path: 'notes', component: NoteComponent},
   { path: 'email', component: EmailSelectionComponent },
   { path: 'email/status/:statusId', component: EmailComponent },
   { path: 'email/:userId', component: EmailComponent },
@@ -85,7 +85,7 @@ const appRoutes: Routes = [
     DialogComponent,
     AlertComponent,
 
-    NoteComponent
+    NoteComponent,
     MySharedSuppliesComponent,
     RequestSuppliesComponent,
     ConfirmSupplyRequest
@@ -114,7 +114,7 @@ const appRoutes: Routes = [
     SearchMessagesService,
     SearchAnnouncementsService,
 
-    NoteService
+    NoteService,
     EmergencySupplyService,
     SearchEmergencySupplyService
   ],
