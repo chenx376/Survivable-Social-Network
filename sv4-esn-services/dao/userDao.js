@@ -134,7 +134,9 @@ module.exports = class UserDAO {
             user.role = userToUpdate.role ? userToUpdate.role : user.role;
             user.status = userToUpdate.status ? userToUpdate.status: user.status;
             user.status_information = userToUpdate.status_information ? userToUpdate.status_information : user.status_information;
-            user.subscription = userToUpdate.subscription ? userToUpdate.subscription : user.subscription;
+
+            if(userToUpdate.subscription !== null && userToUpdate.subscription !== undefined)
+                user.subscription = userToUpdate.subscription;
 
             if(userToUpdate.online !== null && userToUpdate.online !== undefined)
                 user.online = userToUpdate.online;
@@ -150,7 +152,7 @@ module.exports = class UserDAO {
             }
 
             if(userToUpdate.active !== null && userToUpdate.active !== undefined) {
-                user.active = userToUpdate.active ? userToUpdate.active : user.active;
+                user.active = userToUpdate.active;
             }
 
             user.save(function (err, user) {
