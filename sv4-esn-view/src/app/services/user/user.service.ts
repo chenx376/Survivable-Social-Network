@@ -8,6 +8,7 @@ import * as io from 'socket.io-client';
 export class UserService {
 
   userId: string = localStorage.getItem('user_id');
+  userRole: string = localStorage.getItem('user_role');
   user: User;
 
   isUserLoggedInSubject = new BehaviorSubject<boolean>(false);
@@ -29,6 +30,7 @@ export class UserService {
         this.httpService.jwt = json.token;
         localStorage.setItem('jwt', json.token);
         localStorage.setItem('user_id', json.id);
+        localStorage.setItem('user_role', json.role);
 
         this.isUserLoggedInSubject.next(true);
         this.getUserInfo(this.userId);
@@ -40,6 +42,7 @@ export class UserService {
       .do(() => {
         localStorage.removeItem('jwt');
         localStorage.removeItem('user_id');
+        localStorage.removeItem('user_role');
         this.userId = null;
         this.user = null;
         this.httpService.jwt = null;
