@@ -16,6 +16,9 @@ export class User {
   locationDescription: string;
   latitude: number;
   longitude: number;
+  active: boolean;
+  role: string;
+  password: string;
 
   constructor(json: any) {
     this.userId = json._id;
@@ -27,6 +30,9 @@ export class User {
     this.locationDescription = json.locationDescription;
     this.latitude = json.latitude;
     this.longitude = json.longitude;
+    this.active = json.active;
+    this.role = json.role;
+    this.password = json.password;
   }
 
 }

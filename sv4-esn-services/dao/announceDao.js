@@ -4,6 +4,7 @@
 
 var config = require('config');
 let announceModel = require('../models/announceModel.js')
+let userModel = require('../models/userModel.js');
 
 module.exports = class AnnounceDao {
     /**
@@ -52,15 +53,24 @@ module.exports = class AnnounceDao {
     create(announceObj, success, error) {
 
         let announceToCreate = announceModel(announceObj);
-        announceToCreate.save(function (err, announce) {
-            if (err) {
+        userModel.findOne({_id: announceObj.announcer}, function (err, announcer) {
+            if (announcer.role != 'COORDINATOR' && announcer.role != 'ADMIN') {
                 return error({
-                    message: 'Error when creating announce.',
+                    message: 'You do not have the permission to post an announcement.',
                     error: err
                 });
             }
-            return success(announce._doc);
+            announceToCreate.save(function (err, announce) {
+                if (err) {
+                    return error({
+                        message: 'Error when creating announce.',
+                        error: err
+                    });
+                }
+                return success(announce._doc);
+            });
         });
+
     }
 
     /**

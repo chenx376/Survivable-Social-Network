@@ -46,6 +46,7 @@
       <md-icon class="online-icon"
                *ngIf="user.online">language</md-icon>
       <md-icon class="email-icon" routerLink="/email/{{ user.userId }}">email</md-icon>
+      <md-icon class="admin-icon" routerLink="/admin/{{ user.userId }}">settings</md-icon>
     </div>
     <div class="empty-status-information"
          *ngIf="user.statusInformation === null || user.statusInformation.length === 0">

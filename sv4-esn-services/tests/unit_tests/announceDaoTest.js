@@ -6,6 +6,8 @@ var conn;
 var tmp_id;
 var tmp_time_stamp;
 var tmp_user_id;
+var tmp_admin_id;
+var tmp_coordinator_id;
 let UserDAO = require('../../dao/userDao.js');
 let userDao;
 var createHash = require('sha.js');
@@ -23,7 +25,7 @@ suite('AnnounceDAO Tests', function(){
         var shapassword = sha256.update('123456', 'utf8').digest('hex');
 
         let user = {
-            username : 'emergencySupplyUser',
+            username : 'announcementUser',
             email : 'annnounce@website.com',
             password : shapassword,
             created_at : '1489962761679',
@@ -32,20 +34,50 @@ suite('AnnounceDAO Tests', function(){
             location : 'Mountain View'
         };
 
+        let admin = {
+            username : 'admin',
+            email : 'admin@website.com',
+            password : shapassword,
+            created_at : '1489962761679',
+            updated_at : '1489962761679',
+            role : 'ADMIN',
+            location : 'Mountain View'
+        }
+
+        let coordinator = {
+            username : 'coordinator',
+            email : 'coordinator@website.com',
+            password : shapassword,
+            created_at : '1489962761679',
+            updated_at : '1489962761679',
+            role : 'COORDINATOR',
+            location : 'Mountain View'
+        }
+
         userDao.create(user, function(user){
             tmp_user_id = user._id;
-            done();
+            userDao.create(admin, function(admin){
+                tmp_admin_id = admin._id;
+                userDao.create(coordinator, function(coordinator){
+                    tmp_coordinator_id = coordinator._id;
+                    done();
+                }, function(error){
+                    done();
+                });
+            }, function(error){
+                done();
+            });
         }, function(error){
             done();
         });
 
     });
 
-    test('Creating an announcement', function(done){
+    test('Creating an announcement - Admin', function(done){
 
         let announce  = {
             content : 'announcement test',
-            announcer : tmp_user_id,
+            announcer : tmp_admin_id,
             created_at : tmp_time_stamp,
             location : 'Mountain View'
         };
@@ -53,7 +85,29 @@ suite('AnnounceDAO Tests', function(){
         announceDao.create(announce, function (announceRes) {
             tmp_id = announceRes._id;
             expect(announceRes.content).to.eql('announcement test');
-            expect(announceRes.announcer).to.eql(tmp_user_id);
+            expect(announceRes.announcer).to.eql(tmp_admin_id);
+            expect(announceRes.created_at).to.eql(tmp_time_stamp);
+            expect(announceRes.location).to.eql('Mountain View');
+            done();
+        }, function (error) {
+            expect(error).to.be(undefined);
+            done();
+        });
+    });
+
+    test('Creating an announcement - Coordinator', function(done){
+
+        let announce  = {
+            content : 'announcement test',
+            announcer : tmp_coordinator_id,
+            created_at : tmp_time_stamp,
+            location : 'Mountain View'
+        };
+
+        announceDao.create(announce, function (announceRes) {
+            tmp_id = announceRes._id;
+            expect(announceRes.content).to.eql('announcement test');
+            expect(announceRes.announcer).to.eql(tmp_coordinator_id);
             expect(announceRes.created_at).to.eql(tmp_time_stamp);
             expect(announceRes.location).to.eql('Mountain View');
             done();
@@ -133,22 +187,22 @@ suite('AnnounceDAO Tests', function(){
     test('Sorting announcements', function(done){
 
         let announce1 = {
-            announcer : tmp_user_id,
+            announcer : tmp_admin_id,
             content : 'announcement1',
         };
 
         let announce2 = {
-            announcer : tmp_user_id,
+            announcer : tmp_admin_id,
             content : 'announcement2',
         };
 
         let announce3 = {
-            announcer : tmp_user_id,
+            announcer : tmp_admin_id,
             content : 'announcement3',
         };
 
         let announce4 = {
-            announcer : tmp_user_id,
+            announcer : tmp_admin_id,
             content : 'announcement4',
         };
 
@@ -183,6 +237,24 @@ suite('AnnounceDAO Tests', function(){
             done();
         }, function (error) {
             expect(error.message).to.eql('Error when getting announcements.');
+            done();
+        });
+    });
+
+    test('Error Case - Creating an announcement - Citizen', function(done){
+
+        let announce  = {
+            content : 'announcement test',
+            announcer : tmp_user_id,
+            created_at : tmp_time_stamp,
+            location : 'Mountain View'
+        };
+
+        announceDao.create(announce, function (announceRes) {
+            expect(announceRes.content).to.eql('Not here');
+            done();
+        }, function (error) {
+            expect(error.message).to.eql('You do not have the permission to post an announcement.');
             done();
         });
     });

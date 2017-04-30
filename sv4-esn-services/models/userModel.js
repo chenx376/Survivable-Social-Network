@@ -15,8 +15,8 @@ var userSchema = new Schema({
     'locationDescription': {type: String, default: null},
     'latitude': {type: Number, default: 0},
     'longitude': {type: Number, default: 0},
-  'subscription': {type: Boolean, default: false},
+    'subscription': {type: Boolean, default: false},
+	'active': {type: Boolean, default: true},
 });
 
 module.exports = mongoose.model('user', userSchema);
-
