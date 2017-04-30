@@ -11,7 +11,7 @@ export class SearchUsersService {
   selectedStatus = UserStatus.Undefined;
 
   currentLoggedInUser = '';
-  currentLoggedInUserRole = 'CITIZEN';
+  currentLoggedInUserRole = '';
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class SearchUsersService {
 
   updateSearch = () => {
     this.filteredUsers = this.users
-      .filter(user => (this.currentLoggedInUserRole == 'CITIZEN' && user.active == true) || (this.currentLoggedInUserRole == 'ADMIN') )
+      .filter(user => (this.currentLoggedInUserRole == 'CITIZEN' && user.active === true) || (this.currentLoggedInUserRole == 'ADMIN') )
       .filter(user => this.selectedStatus === UserStatus.Undefined || user.status === this.selectedStatus)
       .filter(user => this.searchTerm.trim().length === 0 || user.username.includes(this.searchTerm.trim()));
   };
