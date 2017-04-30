@@ -6,8 +6,8 @@ import { Observable } from "rxjs";
 export class HttpService {
 
 
-  baseUri = "http://localhost:3000";
-  // baseUri = "https://sv4-esn-services.herokuapp.com";
+  // baseUri = "http://localhost:3000";
+  baseUri = "https://sv4-esn-services.herokuapp.com";
 
   jwt = localStorage.getItem('jwt');
 
