@@ -13,7 +13,12 @@ export class DirectoryComponent implements OnInit {
   constructor(private userService: UserService,
               private searchUsersService: SearchUsersService) { }
 
+  currentUserRole = '';
+
   ngOnInit() {
+
+    this.currentUserRole = this.userService.user.role;
+
     this.userService.getUserList()
       .map(users => users.sort((user1, user2) => {
         if (user1.online && !user2.online) {
@@ -33,6 +38,8 @@ export class DirectoryComponent implements OnInit {
       .subscribe(users => {
         this.searchUsersService.reset();
         this.searchUsersService.users = users;
+        this.searchUsersService.currentLoggedInUser = this.userService.userId;
+        this.searchUsersService.currentLoggedInUserRole = this.userService.user.role;
         this.searchUsersService.updateSearch();
       });
   }

@@ -4,13 +4,17 @@ var config = require('config');
 
 let userModel = require('../models/userModel.js');
 
+var singleton = require('../singleton.js');
+var io = singleton.getIO();
+let socket_map = singleton.socketMap;
+
 module.exports = class UserDAO {
 
     /**
      * userController.list()
      */
     list(success, error) {
-        userModel.find(function (err, users) {
+        userModel.find( function (err, users) {
             if (err) {
                 return error({
                     message: 'Error when getting user.',
@@ -139,6 +143,15 @@ module.exports = class UserDAO {
             user.locationDescription = userToUpdate.locationDescription ? userToUpdate.locationDescription : user.locationDescription;
             user.latitude = userToUpdate.latitude ? userToUpdate.latitude : user.latitude;
             user.longitude = userToUpdate.longitude ? userToUpdate.longitude : user.longitude;
+
+            //Are you trying to deactivate this user?
+            if( (userToUpdate.active == 'false' || userToUpdate.active == false )  && (user.active == 'true' || user.active == true) ) {
+                io.to(socket_map[userToUpdate.id]).emit('account-inactivated', 'inactive');
+            }
+
+            if(userToUpdate.active !== null && userToUpdate.active !== undefined) {
+                user.active = userToUpdate.active ? userToUpdate.active : user.active;
+            }
 
             user.save(function (err, user) {
                 if (err) {
