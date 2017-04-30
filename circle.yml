@@ -36,6 +36,7 @@ test:
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.messages.drop()"
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.users.drop()"
     - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.emails.drop()"
+    - mongo ds137230.mlab.com:37230/heroku_vkmn2h5g -u test -p 123456 --eval "db.notes.drop()"
 
 
 deployment:
