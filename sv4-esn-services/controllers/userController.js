@@ -109,7 +109,8 @@ module.exports = {
             locationDescription : req.body.locationDescription,
             latitude : req.body.latitude,
             longitude : req.body.longitude,
-            subscription: req.body.subscription
+            subscription: req.body.subscription,
+            active: req.body.active
         };
 
         userDao.update(user, function(user){

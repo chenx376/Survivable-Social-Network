@@ -44,6 +44,17 @@ export class AppComponent implements OnInit {
               .filter(result => result === true)
               .subscribe(() => this.router.navigateByUrl(`announcements`))
           }  );
+
+
+    this.chatService.listenToAccountInactiveEvent().filter( val => true ).subscribe(() => {
+      console.log("got notified by account inactivated event!");
+      this.userService.logout()
+        .subscribe(() => {
+          this.dialogService.openAlert(this.viewContainerRef, 'Account Deactivated', 'Your account has been deactivated by the administrator. You will be automatically signed out of the system.').subscribe();
+          this.router.navigateByUrl('login');
+        });
+    });
+
   }
 
   logoutButtonClicked = (sidenav: any) => {

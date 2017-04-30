@@ -8,8 +8,8 @@ import { User, UserStatus } from '../../models/user.model'
 @Injectable()
 export class EmailService {
 
-  // private endpoint = "http://localhost:3000";
-  private endpoint = "https://sv4-esn-services.herokuapp.com";
+  private endpoint = "http://localhost:3000";
+  // private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   constructor(private httpService: HttpService,
               private userService: UserService) { }

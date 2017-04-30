@@ -41,6 +41,11 @@ module.exports = class LoginService {
             if (user.password !== password) {
                 return errorCallback(404, {message: 'Incorrect password' } );
             }
+
+            if(user.active == false) {
+                return errorCallback(404, {message: 'This account has been deactivated. Please contact administrator.'})
+            }
+
             user.online = true;
             userDao.update(user, function(user){
                 return successCallback(user.id);

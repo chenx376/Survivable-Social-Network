@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { HttpService } from '../http/http.service';
 import { User, UserStatus } from '../../models/user.model'
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class UserService {
@@ -84,6 +85,6 @@ export class UserService {
 
   updateSettings = (email: string, subscription: boolean): Observable<void> => {
     return this.httpService.put(`/users/${this.userId}`, { email: email, subscription: subscription });
-  }
+  };
 
 }

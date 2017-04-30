@@ -10,8 +10,8 @@ export class ChatService {
 
 
   // private endpoint = "https://sv4-esn-services.herokuapp.com";
-  //private endpoint = "http://localhost:3000";
-  private endpoint = "https://sv4-esn-services.herokuapp.com";
+  private endpoint = "http://localhost:3000";
+  // private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   private socket = io(this.endpoint);
 
@@ -100,6 +100,15 @@ export class ChatService {
       });
     });
   };
+
+  listenToAccountInactiveEvent = (): Observable<string> => {
+    return new Observable(observer => {
+      this.socket.on('account-inactivated', json => {
+        observer.next(json);
+      });
+    });
+  };
+
 
   formatDate = (date: Date): string => {
     let hour = ('0' + date.getHours()).slice(-2);
