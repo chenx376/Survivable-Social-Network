@@ -27,6 +27,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { MySharedSuppliesComponent} from './components/my-shared-supplies/mysharedsupplies.component';
 import { RequestSuppliesComponent} from './components/request-supplies/requestsupplies.component';
 import { ConfirmSupplyRequest } from "./components/confirm-supply-request/confirmsupplyrequest.component";
+import { AdminComponent } from "./components/admin/admin.component";
 
 import { HttpService } from './services/http/http.service';
 import { UserService } from './services/user/user.service';
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'share_status', component: ShareStatusComponent},
   { path: 'announcements', component: AnnouncementsComponent },
-
+  { path: 'admin', component: AdminComponent },
+  { path: 'admin/:userId', component: AdminComponent },
   { path: 'notes', component: NoteComponent},
   { path: 'email', component: EmailSelectionComponent },
   { path: 'email/status/:statusId', component: EmailComponent },
@@ -84,7 +86,7 @@ const appRoutes: Routes = [
     MapComponent,
     DialogComponent,
     AlertComponent,
-
+    AdminComponent,
     NoteComponent,
     MySharedSuppliesComponent,
     RequestSuppliesComponent,

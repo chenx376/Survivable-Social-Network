@@ -17,6 +17,7 @@ suite('Announcements API Tests', function(){
         announceUser = {
             'username' : 'announce_api_test',
             'password' : 'BASE64_SHA_SUPER_SECURE_PASSWORD',
+            'role' : 'ADMIN',
         }
         request(app)
         .post('/users')

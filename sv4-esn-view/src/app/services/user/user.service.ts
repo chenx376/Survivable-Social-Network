@@ -56,6 +56,10 @@ export class UserService {
       .map(json => json.map(userJson => new User(userJson)));
   };
 
+  getOneUserInfo = (userId: string): Observable<User> => {
+    return this.httpService.get('/users/' + userId);
+  };
+
   getUserInfo = (userId: string) => {
     this.httpService.get(`/users/${userId}`)
       .subscribe(json => {
@@ -68,6 +72,10 @@ export class UserService {
 
   shareStatus = (status: UserStatus, information: string): Observable<void> => {
     return this.httpService.put(`/users/${this.userId}`, { status, status_information: information });
+  };
+
+  adminUserProfile = (targetUserId: string, username: string, password: string, active: boolean, role: string): Observable<void> => {
+    return this.httpService.put('/users/' + targetUserId, { username: username, password: password, active: active, role: role });
   };
 
   updateLocation = (name: string, description: string, latitude: number, longitude: number): Observable<void> => {

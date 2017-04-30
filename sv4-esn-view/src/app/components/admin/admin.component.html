@@ -1,0 +1,33 @@
+<md-input-container class="form-item">
+    <input mdInput id="username" placeholder="Username" value="" [(ngModel)]="username">
+</md-input-container>
+
+<md-input-container class="form-item">
+    <input mdInput id="username" placeholder="Password" value="" [(ngModel)]="password">
+</md-input-container>
+
+<md-radio-group class="example-radio-group" [(ngModel)]="userStatus">
+  <label>Status:</label>
+  <md-radio-button class="example-radio-button" value=1>
+    Active
+  </md-radio-button>
+  <md-radio-button class="example-radio-button" value=0>
+    Inactive
+  </md-radio-button>
+</md-radio-group>
+
+<md-radio-group class="example-radio-group" [(ngModel)]="userPrivilege">
+  <label>Privilege:</label>
+  <md-radio-button class="example-radio-button" value="CITIZEN">
+    Citizen
+  </md-radio-button>
+  <md-radio-button class="example-radio-button" value="COORDINATOR">
+    Coordinator
+  </md-radio-button>
+  <md-radio-button class="example-radio-button" value="ADMIN">
+    Administrator
+  </md-radio-button>
+</md-radio-group>
+
+<button md-raised-button id="update-user-button"
+        (click)="updateUserButtonClicked()">Update</button>
