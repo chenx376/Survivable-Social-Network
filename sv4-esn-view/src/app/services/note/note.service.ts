@@ -10,8 +10,9 @@ import { UserService } from '../user/user.service';
 @Injectable()
 export class NoteService {
 
-  private endpoint = "http://localhost:3000";
+  // private endpoint = "http://localhost:3000";
   // private endpoint = "http://172.29.95.49:3000";
+  private endpoint = "https://sv4-esn-services.herokuapp.com";
 
   constructor(private httpService: HttpService,
               private userService: UserService) { }
