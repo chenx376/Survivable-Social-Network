@@ -31,7 +31,9 @@ suite('UserDAO Tests', function(){
             locationName : 'Mountain View',
             locationDescription : 'Home',
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            subscription: true,
+            active: true
         };
 
         userDao.create(user, function(user){
@@ -49,6 +51,8 @@ suite('UserDAO Tests', function(){
             expect(user.locationDescription).to.eql('Home');
             expect(user.latitude).to.eql(0);
             expect(user.longitude).to.eql(0);
+            expect(user.active).to.eql(true);
+            expect(user.subscription).to.eql(true);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -110,6 +114,8 @@ suite('UserDAO Tests', function(){
             expect(user.locationDescription).to.eql('Home');
             expect(user.latitude).to.eql(0);
             expect(user.longitude).to.eql(0);
+            expect(user.active).to.eql(true);
+            expect(user.subscription).to.eql(true);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -150,6 +156,8 @@ suite('UserDAO Tests', function(){
             expect(user.locationDescription).to.eql('Home');
             expect(user.latitude).to.eql(0);
             expect(user.longitude).to.eql(0);
+            expect(user.active).to.eql(true);
+            expect(user.subscription).to.eql(true);
             done();
         }, function(error){
             expect(error).to.be(undefined);
@@ -179,6 +187,8 @@ suite('UserDAO Tests', function(){
             expect(user.locationDescription).to.eql('Home');
             expect(user.latitude).to.eql(0);
             expect(user.longitude).to.eql(0);
+            expect(user.active).to.eql(true);
+            expect(user.subscription).to.eql(true);
             done();
         }, function(error) {
             expect(error).to.be(undefined);
@@ -202,7 +212,11 @@ suite('UserDAO Tests', function(){
             status_information: 'new status_info',
             online: true,
             locationName : 'San Francisco',
-            locationDescription: 'Work'
+            locationDescription: 'Work',
+            latitude: 1,
+            longitude: 1,
+            active: false,
+            subscription: false
         };
 
         userDao.update(u, function(user){
@@ -217,8 +231,10 @@ suite('UserDAO Tests', function(){
             expect(user.online).to.eql(true);
             expect(user.locationName).to.eql('San Francisco');
             expect(user.locationDescription).to.eql('Work');
-            expect(user.latitude).to.eql(0);
-            expect(user.longitude).to.eql(0);
+            expect(user.latitude).to.eql(1);
+            expect(user.longitude).to.eql(1);
+            expect(user.subscription).to.eql(false);
+            expect(user.active).to.eql(false);
             done();
         }, function(error) {
             expect(error).to.be(undefined);
@@ -268,7 +284,9 @@ suite('UserDAO Tests', function(){
             locationName : 'San Francisco',
             locationDescription: 'Work',
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            active: true,
+            subscription: true
         };
 
         userDao.update(u, function(user){
